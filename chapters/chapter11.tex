@@ -1,0 +1,473 @@
+System Process
+
+   As each new sample (theta, delta, epsilon, jitter, t) is produced by
+   the clock filter algorithm, all peer processes are scanned by the
+   mitigation algorithms consisting of the selection, cluster, combine,
+   and clock discipline algorithms in the system process.  The selection
+   algorithm scans all associations and casts off the falsetickers,
+   which have demonstrably incorrect time, leaving the truechimers as
+   result.  In a series of rounds, the cluster algorithm discards the
+   association statistically furthest from the centroid until a
+   specified minimum number of survivors remain.  The combine algorithm
+   produces the best and final statistics on a weighted average basis.
+   The final offset is passed to the clock discipline algorithm to steer
+   the system clock to the correct time.
+
+   The cluster algorithm selects one of the survivors as the system
+   peer.  The associated statistics (theta, delta, epsilon, jitter, t)
+   are used to construct the system variables inherited by dependent
+   servers and clients and made available to other applications running
+   on the same machine.
+    System Process Variables
+
+   Figure 23 summarizes the common names, formula names, and a short
+   description of each system variable.  Unless noted otherwise, all
+   variables have assumed prefix s.
+
+                +-----------+------------+------------------------+
+                | Name      | Formula    | Description            |
+                +-----------+------------+------------------------+
+                | t         | t          | update time            |
+                | p         | p          | system peer identifier |
+                | leap      | leap       | leap indicator         |
+                | stratum   | stratum    | stratum                |
+                | precision | rho        | precision              |
+                | offset    | THETA      | combined offset        |
+                | jitter    | PSI        | combined jitter        |
+                | rootdelay | DELTA      | root delay             |
+                | rootdisp  | EPSILON    | root dispersion        |
+                | v         | v          | survivor list          |
+                | refid     | refid      | reference ID           |
+                | reftime   | reftime    | reference time         |
+                | NMIN      | 3          | minimum survivors      |
+                | CMIN      | 1          | minimum candidates     |
+                +-----------+------------+------------------------+
+
+                    Figure 23: System Process Variables
+
+   Except for the t, p, offset, and jitter variables and the NMIN and
+   CMIN constants, the variables have the same format and interpretation
+   as the peer variables of the same name.  The NMIN and CMIN parameters
+   are used by the selection and cluster algorithms described in the
+   next section.
+
+   The t variable is the seconds counter at the time of the last update.
+   An example is shown by the clock_update() routine in
+   Appendix A.5.5.4.  The p variable is the system peer identifier
+   determined by the cluster() routine in Section 11.2.2.  The precision
+   variable has the same format as the packet variable of the same name.
+   The precision is defined as the larger of the resolution and time to
+   read the clock, in log2 units.  For instance, the precision of a
+   mains-frequency clock incrementing at 60 Hz is 16 ms, even when the
+   system clock hardware representation is to the nanosecond.
+
+   The offset and jitter variables are determined by the combine
+   algorithm in Section 11.2.3.  These values represent the best and
+   final offset and jitter used to discipline the system clock.
+  Initially, all variables are cleared to zero, then the leap is set to
+   3 (unsynchronized) and stratum is set to MAXSTRAT (16).  Remember
+   that MAXSTRAT is mapped to zero in the transmitted packet.
+
+11.2.  System Process Operations
+
+   Figure 24 summarizes the system process operations performed by the
+   clock select routine.  The selection algorithm described in
+   Section 11.2.1 produces a majority clique of presumed correct
+   candidates (truechimers) based on agreement principles.  The cluster
+   algorithm described in Section 11.2.2 discards outliers to produce
+   the most accurate survivors.  The combine algorithm described in
+   Section 11.2.3 provides the best and final offset for the clock
+   discipline algorithm.  An example is described in Appendix A.5.5.6.
+   If the selection algorithm cannot produce a majority clique, or if it
+   cannot produce at least CMIN survivors, the system process exits
+   without disciplining the system clock.  If successful, the cluster
+   algorithm selects the statistically best candidate as the system peer
+   and its variables are inherited as the system variables.
+
+
+                          +-----------------+
+                          | clock_select()  |
+                          +-----------------+
+   ................................|...........
+   .                               V          .
+   .      yes +---------+ +-----------------+ .
+   .       +--| accept? | | scan candidates | .
+   .       |  +---------+ |                 | .
+   .       V        no |  |                 | .
+   .  +---------+      |  |                 | .
+   .  | add peer|      |  |                 | .
+   .  +----------      |  |                 | .
+   .       |           V  |                 | .
+   .       +---------->-->|                 | .
+   .                      |                 | .
+   . Selection Algorithm  +-----------------+ .
+   .................................|..........
+                                    V
+                       no +-------------------+
+            +-------------|     survivors?    |
+            |             +-------------------+
+            |                       | yes
+            |                       V
+            |             +-------------------+
+            |             | Cluster Algorithm |
+            |             +-------------------+
+            |                       |
+            |                       V
+            V         yes +-------------------+
+            |<------------|     n < CMIN?     |
+            |             +-------------------+
+            V                       |
+     +-----------------+            V no
+     |   s.p = NULL    |  +-------------------+
+     +-----------------+  |   s.p = v_0.p     |
+            |             +-------------------+
+            V                       |
+     +-----------------+            V
+     | return (UNSYNC) |  +-------------------+
+     +-----------------+  |   return (SYNC)   |
+                          +-------------------+
+
+                      Figure 24: Clock Select Routine
+11.2.1.  Selection Algorithm
+
+   Note that the selection and cluster algorithms are described
+   separately, but combined in the code skeleton.  The selection
+   algorithm operates to find an intersection interval containing a
+   majority clique of truechimers using Byzantine agreement principles
+   originally proposed by Marzullo [ref6], but modified to improve
+   accuracy.  An overview of the algorithm is given below and described
+   in the first half of the clock_select() routine in Appendix A.5.5.1.
+
+   First, those servers that are unusable according to the rules of the
+   protocol are detected and discarded as shown by the accept() routine
+   in Appendix A.5.5.3.  Next, a set of tuples (p, type, edge) is
+   generated for the remaining candidates.  Here, p is the association
+   identifier and type identifies the upper (+1), middle (0), and lower
+   (-1) endpoints of a correctness interval centered on theta for that
+   candidate.  This results in three tuples, lowpoint (p, -1, theta -
+   lambda), midpoint (p, 0, theta), and highpoint (p, +1, theta +
+   lambda), where lambda is the root synchronization distance.  An
+   example of this calculation is shown by the rootdist() routine in
+   Appendix A.5.1.1.  The steps of the algorithm are:
+
+   1.  For each of m associations, place three tuples as defined above
+   on the candidate list.
+
+   2.  Sort the tuples on the list by the edge component.  Order the
+   lowpoint, midpoint, and highpoint of these intervals from lowest to
+   highest.  Set the number of falsetickers f = 0.
+
+   3.  Set the number of midpoints d = 0.  Set c = 0.  Scan from lowest
+   endpoint to highest.  Add one to c for every lowpoint, subtract one
+   for every highpoint, add one to d for every midpoint.  If c >= m - f,
+   stop; set l = current lowpoint.
+
+   4.  Set c = 0.  Scan from highest endpoint to lowest.  Add one to c
+   for every highpoint, subtract one for every lowpoint, add one to d
+   for every midpoint.  If c >= m - f, stop; set u = current highpoint.
+
+   5.  Is d = f and l < u?  If yes, then follow step 5A; else, follow
+   step 5B.
+
+   5A. Success: the intersection interval is [l, u].
+
+   5B. Add one to f.  Is f < (m / 2)?  If yes, then go to step 3 again.
+   If no, then go to step 6.
+
+   6.  Failure; a majority clique could not be found.  There are no
+   suitable candidates to discipline the system clock.
+    The algorithm is described in detail in Appendix A.5.5.1.  Note that
+   it starts with the assumption that there are no falsetickers (f = 0)
+   and attempts to find a non-empty intersection interval containing the
+   midpoints of all correct servers, i.e., truechimers.  If a non-empty
+   interval cannot be found, it increases the number of assumed
+   falsetickers by one and tries again.  If a non-empty interval is
+   found and the number of falsetickers is less than the number of
+   truechimers, a majority clique has been found and the midpoint of
+   each truechimer (theta) represents the candidates available to the
+   cluster algorithm.
+
+   If a majority clique is not found, or if the number of truechimers is
+   less than CMIN, there are insufficient candidates to discipline the
+   system clock.  CMIN defines the minimum number of servers consistent
+   with the correctness requirements.  Suspicious operators would set
+   CMIN to ensure multiple redundant servers are available for the
+   algorithms to mitigate properly.  However, for historic reasons the
+   default value for CMIN is one.
+
+11.2.2.  Cluster Algorithm
+
+   The candidates of the majority clique are placed on the survivor list
+   v in the form of tuples (p, theta_p, psi_p, lambda_p), where p is an
+   association identifier, theta_p, psi_p, and stratum_p the current
+   offset, jitter and stratum of association p, respectively, and
+   lambda_p is a merit factor equal to stratum_p * MAXDIST + lambda,
+   where lambda is the root synchronization distance for association p.
+   The list is processed by the cluster algorithm below.  An example is
+   shown by the second half of the clock_select() algorithm in
+   Appendix A.5.5.1.
+
+   1.  Let (p, theta_p, psi_p, lambda_p) represent a survivor candidate.
+
+   2.  Sort the candidates by increasing lambda_p.  Let n be the number
+   of candidates and NMIN the minimum required number of survivors.
+
+   3.  For each candidate, compute the selection jitter psi_s:
+
+             +-----                       -----+^1/2
+             |        n-1                      |
+             |        ---                      |
+             |   1    \                     2  |
+     psi_s = | ---- * /  (theta_s - theta_j)   |
+             |  n-1   ---                      |
+             |        j=1                      |
+             +-----                       -----+
+
+   4.  Select psi_max as the candidate with maximum psi_s.
+    5.  Select psi_min as the candidate with minimum psi_p.
+
+   6.  Is psi_max < psi_min or n <= NMIN?  If yes, follow step 6A;
+   otherwise, follow step 6B.
+
+   6A. Done.  The remaining candidates on the survivor list are ranked
+   in the order of preference.  The first entry on the list represents
+   the system peer; its variables are used later to update the system
+   variables.
+
+   6B. Delete the outlier candidate with psi_max; reduce n by one and go
+   back to step 3.
+
+   The algorithm operates in a series of rounds where each round
+   discards the statistical outlier with maximum selection jitter psi_s.
+   However, if psi_s is less than the minimum peer jitter psi_p, no
+   improvement is possible by discarding outliers.  This and the minimum
+   number of survivors represent the terminating conditions of the
+   algorithm.  Upon termination, the final value of psi_max is saved as
+   the system selection jitter PSI_s for use later.
+
+11.2.3.  Combine Algorithm
+
+   The clock combine route processes the remaining survivors to produce
+   the best and final data for the clock discipline algorithm.  The
+   routine processes peer offset and jitter statistics to produce the
+   combined system offset THETA and system peer jitter PSI_p, where each
+   server statistic is weighted by the reciprocal of the root
+   synchronization distance and the result normalized.  An example is
+   shown by the clock_combine() routine in Appendix A.5.5.5
+
+   The combined THETA is passed to the clock update routine.  The first
+   candidate on the survivor list is nominated as the system peer with
+   identifier p.  The system peer jitter PSI_p is a component of the
+   system jitter PSI.  It is used along with the selection jitter PSI_s
+   to produce the system jitter:
+
+   PSI = [(PSI_s)^2 + (PSI_p)^2]^1/2
+
+   Each time an update is received from the system peer, the clock
+   update routine is called.  By rule, an update is discarded if its
+   time of arrival p.t is not strictly later than the last update used
+   s.t.  The labels IGNOR, PANIC, ADJ, and STEP refer to return codes
+   from the local clock routine described in the next section.
+
+   IGNORE means the update has been ignored as an outlier.  PANIC means
+   the offset is greater than the panic threshold PANICT (1000 s) and
+   SHOULD cause the program to exit with a diagnostic message to the
+    system log.  STEP means the offset is less than the panic threshold,
+   but greater than the step threshold STEPT (125 ms).  In this case,
+   the clock is stepped to the correct offset, but since this means all
+   peer data have been invalidated, all associations MUST be reset and
+   the client begins as at initial start.
+
+   ADJ means the offset is less than the step threshold and thus a valid
+   update.  In this case, the system variables are updated from the peer
+   variables as shown in Figure 25.
+
+                  +-------------------------------------------+
+                  | System Variable <-- System Peer Variable  |        |
+                  +-------------------------------------------+
+                  | s.leap      <-- p.leap                    |
+                  | s.stratum   <-- p.stratum + 1             |
+                  | s.offset    <-- THETA                     |
+                  | s.jitter    <-- PSI                       |
+                  | s.rootdelay <-- p.delta_r + delta         |
+                  | s.rootdisp  <-- p.epsilon_r + p.epsilon + |
+                  |                 p.psi + PHI * (s.t - p.t) |
+                  |                 + |THETA|                 |
+                  | s.refid     <-- p.refid                   |
+                  | s.reftime   <-- p.reftime                 |
+                  | s.t         <-- p.t                       |
+                  +-------------------------------------------+
+
+                    Figure 25: System Variables Update
+
+   There is an important detail not shown.  The dispersion increment
+   (p.epsilon + p.psi + PHI * (s.t - p.t) + |THETA|) is bounded from
+   below by MINDISP.  In subnets with very fast processors and networks
+   and very small delay and dispersion this forces a monotone-definite
+   increase in s.rootdisp (EPSILON), which avoids loops between peers
+   operating at the same stratum.
+
+   The system variables are available to dependent application programs
+   as nominal performance statistics.  The system offset THETA is the
+   clock offset relative to the available synchronization sources.  The
+   system jitter PSI is an estimate of the error in determining this
+   value, elsewhere called the expected error.  The root delay DELTA is
+   the total round-trip delay relative to the primary server.  The root
+   dispersion EPSILON is the dispersion accumulated over the network
+   from the primary server.  Finally, the root synchronization distance
+   is defined as:
+  LAMBDA = EPSILON + DELTA / 2,
+
+   which represents the maximum error due all causes and is designated
+   the root synchronization distance.
+
+   An example of the clock update routine is provided in
+   Appendix A.5.5.4.
+
+11.3.  Clock Discipline Algorithm
+
+   The NTPv4 clock discipline algorithm, shortened to discipline in the
+   following, functions as a combination of two quite philosophically
+   different feedback control systems.  In a phase-locked loop (PLL)
+   design, periodic phase updates at update intervals mu seconds are
+   used directly to minimize the time error and indirectly the frequency
+   error.  In a frequency-locked loop (FLL) design, periodic frequency
+   updates at intervals mu are used directly to minimize the frequency
+   error and indirectly the time error.  As shown in [ref7], a PLL
+   usually works better when network jitter dominates, while an FLL
+   works better when oscillator wander dominates.  This section contains
+   an outline of how the NTPv4 design works.  An in-depth discussion of
+   the design principles is provided in [ref7], which also includes a
+   performance analysis.
+
+   The discipline is implemented as the feedback control system shown in
+   Figure 26.  The variable theta_r represents the combine algorithm
+   offset (reference phase) and theta_c the VFO offset (control phase).
+   Each update produces a signal V_d representing the instantaneous
+   phase difference theta_r - theta_c.  The clock filter for each server
+   functions as a tapped delay line, with the output taken at the tap
+   selected by the clock filter algorithm.  The selection, cluster, and
+   combine algorithms combine the data from multiple filters to produce
+   the signal V_s.  The loop filter, with impulse response F(t),
+   produces the signal V_c, which controls the VFO frequency omega_c and
+   thus the integral of the phase theta_c which closes the loop.  The
+   V_c signal is generated by the clock-adjust process in Section 12.
+   The detailed equations that implement these functions are best
+   presented in the routines of Appendices A.5.5.6 and A.5.6.1.
+                 theta_r + +---------\        +----------------+
+            NTP --------->|  Phase   \  V_d  |                | V_s
+                theta_c - | Detector  ------>|  Clock Filter  |----+
+                +-------->|          /       |                |    |
+                |         +---------/        +----------------+    |
+                |                                                  |
+              -----                                                |
+             /     \                                               |
+             | VFO |                                               |
+             \     /                                               |
+              -----    .......................................     |
+                ^      .            Loop Filter              .     |
+                |      . +---------+   x  +-------------+    .     |
+                | V_c  . |         |<-----|             |    .     |
+                +------.-|  Clock  |   y  | Phase/Freq  |<---------+
+                       . | Adjust  |<-----| Prediction  |    .
+                       . |         |      |             |    .
+                       . +---------+      +-------------+    .
+                       .......................................
+
+                 Figure 26: Clock Discipline Feedback Loop
+
+   Ordinarily, the pseudo-linear feedback loop described above operates
+   to discipline the system clock.  However, there are cases where a
+   non-linear algorithm offers considerable improvement.  One case is
+   when the discipline starts without knowledge of the intrinsic clock
+   frequency.  The pseudo-linear loop takes several hours to develop an
+   accurate measurement and during most of that time the poll interval
+   cannot be increased.  The non-linear loop described below does this
+   in 15 minutes.  Another case is when occasional bursts of large
+   jitter are present due to congested network links.  The state machine
+   described below resists error bursts lasting less than 15 minutes.
+
+   Figure 27 contains a summary of the variables and parameters
+   including the variable (lowercase) or parameter (uppercase) name,
+   formula name, and short description.  Unless noted otherwise, all
+   variables have assumed prefix c.  The variables t, tc, state, hyster,
+   and count are integers; the remaining variables are floating doubles.
+   The function of each will be explained in the algorithm descriptions
+   below.
+                   +--------+------------+--------------------------+
+                | Name   | Formula    | Description              |
+                +--------+------------+--------------------------+
+                | t      | timer      | seconds counter          |
+                | offset | theta      | combined offset          |
+                | resid  | theta_r    | residual offset          |
+                | freq   | phi        | clock frequency          |
+                | jitter | psi        | clock offset jitter      |
+                | wander | omega      | clock frequency wander   |
+                | tc     | tau        | time constant (log2)     |
+                | state  | state      | state                    |
+                | adj    | adj        | frequency adjustment     |
+                | hyster | hyster     | hysteresis counter       |
+                | STEPT  | 125        | step threshold (.125 s)  |
+                | WATCH  | 900        | stepout thresh(s)        |
+                | PANICT | 1000       | panic threshold (1000 s) |
+                | LIMIT  | 30         | hysteresis limit         |
+                | PGATE  | 4          | hysteresis gate          |
+                | TC     | 16         | time constant scale      |
+                | AVG    | 8          | averaging constant       |
+                +--------+------------+--------------------------+
+
+           Figure 27: Clock Discipline Variables and Parameters
+
+   The process terminates immediately if the offset is greater than the
+   panic threshold PANICT (1000 s).  The state transition function is
+   described by the rstclock() function in Appendix A.5.5.7.  Figure 28
+   shows the state transition function used by this routine.  It has
+   four columns showing, respectively, the state name, predicate and
+   action if the offset theta is less than the step threshold, the
+   predicate and actions otherwise, and finally some comments.
+      +-------+---------------------+-------------------+--------------+
+      | State | theta < STEP        | theta > STEP      | Comments     |
+      +-------+---------------------+-------------------+--------------+
+      | NSET  | ->FREQ              | ->FREQ            | no frequency |
+      |       | adjust time         | step time         | file         |
+      +-------+---------------------+-------------------+--------------+
+      | FSET  | ->SYNC              | ->SYNC            | frequency    |
+      |       | adjust time         | step time         | file         |
+      +-------+---------------------+-------------------+--------------+
+      | SPIK  | ->SYNC              | if < 900 s ->SPIK | outlier      |
+      |       | adjust freq         | else ->SYNC       | detected     |
+      |       | adjust time         | step freq         |              |
+      |       |                     | step time         |              |
+      +-------+---------------------+-------------------+--------------+
+      | FREQ  | if < 900 s ->FREQ   | if < 900 s ->FREQ | initial      |
+      |       | else ->SYNC         | else ->SYNC       | frequency    |
+      |       | step freq           | step freq         |              |
+      |       | adjust time         | adjust time       |              |
+      +-------+---------------------+-------------------+--------------+
+      | SYNC  | ->SYNC              | if < 900 s ->SPIK | normal       |
+      |       | adjust freq         | else ->SYNC       | operation    |
+      |       | adjust time         | step freq         |              |
+      |       |                     | step time         |              |
+      +-------+---------------------+-------------------+--------------+
+
+                   Figure 28: State Transition Function
+
+   In the table entries, the next state is identified by the arrow ->
+   with the actions listed below.  Actions such as adjust time and
+   adjust frequency are implemented by the PLL/FLL feedback loop in the
+   local_clock() routine.  A step clock action is implemented by setting
+   the clock directly, but this is done only after the stepout threshold
+   WATCH (900 s) when the offset is more than the step threshold STEPT
+   (.125 s).  This resists clock steps under conditions of extreme
+   network congestion.
+
+   The jitter (psi) and wander (omega) statistics are computed using an
+   exponential average with weight factor AVG.  The time constant
+   exponent (tau) is determined by comparing psi with the magnitude of
+   the current offset theta.  If the offset is greater than PGATE (4)
+   times the clock jitter, the hysteresis counter hyster is reduced by
+   two; otherwise, it is increased by one.  If hyster increases to the
+   upper limit LIMIT (30), tau is increased by one; if it decreases to
+   the lower limit -LIMIT (-30), tau is decreased by one.  Normally, tau
+   hovers near MAXPOLL, but quickly decreases if a temperature spike
+   causes a frequency surge.
