@@ -53,7 +53,7 @@ are used by the selection and cluster algorithms described in the
 next section.
 
 The t variable is the seconds counter at the time of the last update.
-An example is shown by the clock_update() routine in
+An example is shown by the clock\_update() routine in
 Appendix A.5.5.4.  The p variable is the system peer identifier
 determined by the cluster() routine in Section 11.2.2.  The precision
 variable has the same format as the packet variable of the same name.
@@ -87,7 +87,7 @@ and its variables are inherited as the system variables.
 
 
                       +-----------------+
-                      | clock_select()  |
+                      | clock\_select()  |
                       +-----------------+
 ................................|...........
 .                               V          .
@@ -120,7 +120,7 @@ and its variables are inherited as the system variables.
         V                       |
   +-----------------+            V no
   |   s.p = NULL    |  +-------------------+
-  +-----------------+  |   s.p = v_0.p     |
+  +-----------------+  |   s.p = v\_0.p     |
         |             +-------------------+
         V                       |
   +-----------------+            V
@@ -138,7 +138,7 @@ algorithm operates to find an intersection interval containing a
 majority clique of truechimers using Byzantine agreement principles
 originally proposed by Marzullo [ref6], but modified to improve
 accuracy.  An overview of the algorithm is given below and described
-in the first half of the clock_select() routine in Appendix A.5.5.1.
+in the first half of the clock\_select() routine in Appendix A.5.5.1.
 
 First, those servers that are unusable according to the rules of the
 protocol are detected and discarded as shown by the accept() routine
@@ -200,35 +200,37 @@ default value for CMIN is one.
 \section{Cluster Algorithm}
 
 The candidates of the majority clique are placed on the survivor list
-v in the form of tuples (p, theta_p, psi_p, lambda_p), where p is an
-association identifier, theta_p, psi_p, and stratum_p the current
+v in the form of tuples (p, theta\_p, psi\_p, lambda\_p), where p is an
+association identifier, theta\_p, psi\_p, and stratum\_p the current
 offset, jitter and stratum of association p, respectively, and
-lambda_p is a merit factor equal to stratum_p * MAXDIST + lambda,
+lambda\_p is a merit factor equal to stratum\_p * MAXDIST + lambda,
 where lambda is the root synchronization distance for association p.
 The list is processed by the cluster algorithm below.  An example is
-shown by the second half of the clock_select() algorithm in
+shown by the second half of the clock\_select() algorithm in
 Appendix A.5.5.1.
 
-1.  Let (p, theta_p, psi_p, lambda_p) represent a survivor candidate.
+1.  Let (p, theta\_p, psi\_p, lambda\_p) represent a survivor candidate.
 
-2.  Sort the candidates by increasing lambda_p.  Let n be the number
+2.  Sort the candidates by increasing lambda\_p.  Let n be the number
 of candidates and NMIN the minimum required number of survivors.
 
-3.  For each candidate, compute the selection jitter psi_s:
+3.  For each candidate, compute the selection jitter psi\_s:
 
+$$
           +-----                       -----+^1/2
           |        n-1                      |
           |        ---                      |
           |   1    \                     2  |
-  psi_s = | ---- * /  (theta_s - theta_j)   |
+  psi\_s = | ---- * /  (theta\_s - theta\_j)   |
           |  n-1   ---                      |
           |        j=1                      |
           +-----                       -----+
+$$
 
-4.  Select psi_max as the candidate with maximum psi_s.
-5.  Select psi_min as the candidate with minimum psi_p.
+4.  Select psi\_max as the candidate with maximum psi\_s.
+5.  Select psi\_min as the candidate with minimum psi\_p.
 
-6.  Is psi_max < psi_min or n <= NMIN?  If yes, follow step 6A;
+6.  Is psi\_max < psi\_min or n <= NMIN?  If yes, follow step 6A;
 otherwise, follow step 6B.
 
 6A. Done.  The remaining candidates on the survivor list are ranked
@@ -236,34 +238,36 @@ in the order of preference.  The first entry on the list represents
 the system peer; its variables are used later to update the system
 variables.
 
-6B. Delete the outlier candidate with psi_max; reduce n by one and go
+6B. Delete the outlier candidate with psi\_max; reduce n by one and go
 back to step 3.
 
 The algorithm operates in a series of rounds where each round
-discards the statistical outlier with maximum selection jitter psi_s.
-However, if psi_s is less than the minimum peer jitter psi_p, no
+discards the statistical outlier with maximum selection jitter psi\_s.
+However, if psi\_s is less than the minimum peer jitter psi\_p, no
 improvement is possible by discarding outliers.  This and the minimum
 number of survivors represent the terminating conditions of the
-algorithm.  Upon termination, the final value of psi_max is saved as
-the system selection jitter PSI_s for use later.
+algorithm.  Upon termination, the final value of psi\_max is saved as
+the system selection jitter PSI\_s for use later.
 
 \section{Combine Algorithm}
 
 The clock combine route processes the remaining survivors to produce
 the best and final data for the clock discipline algorithm.  The
 routine processes peer offset and jitter statistics to produce the
-combined system offset THETA and system peer jitter PSI_p, where each
+combined system offset THETA and system peer jitter PSI\_p, where each
 server statistic is weighted by the reciprocal of the root
 synchronization distance and the result normalized.  An example is
-shown by the clock_combine() routine in Appendix A.5.5.5
+shown by the clock\_combine() routine in Appendix A.5.5.5
 
 The combined THETA is passed to the clock update routine.  The first
 candidate on the survivor list is nominated as the system peer with
-identifier p.  The system peer jitter PSI_p is a component of the
-system jitter PSI.  It is used along with the selection jitter PSI_s
+identifier p.  The system peer jitter PSI\_p is a component of the
+system jitter PSI.  It is used along with the selection jitter PSI\_s
 to produce the system jitter:
 
-PSI = [(PSI_s)^2 + (PSI_p)^2]^1/2
+$$
+PSI = [(PSI\_s)^2 + (PSI\_p)^2]^1/2
+$$
 
 Each time an update is received from the system peer, the clock
 update routine is called.  By rule, an update is discarded if its
@@ -291,8 +295,8 @@ variables as shown in Figure 25.
               | s.stratum   <-- p.stratum + 1             |
               | s.offset    <-- THETA                     |
               | s.jitter    <-- PSI                       |
-              | s.rootdelay <-- p.delta_r + delta         |
-              | s.rootdisp  <-- p.epsilon_r + p.epsilon + |
+              | s.rootdelay <-- p.delta\_r + delta         |
+              | s.rootdisp  <-- p.epsilon\_r + p.epsilon + |
               |                 p.psi + PHI * (s.t - p.t) |
               |                 + |THETA|                 |
               | s.refid     <-- p.refid                   |
@@ -343,39 +347,20 @@ the design principles is provided in [ref7], which also includes a
 performance analysis.
 
 The discipline is implemented as the feedback control system shown in
-Figure 26.  The variable theta_r represents the combine algorithm
-offset (reference phase) and theta_c the VFO offset (control phase).
-Each update produces a signal V_d representing the instantaneous
-phase difference theta_r - theta_c.  The clock filter for each server
+Figure 26.  The variable theta\_r represents the combine algorithm
+offset (reference phase) and theta\_c the VFO offset (control phase).
+Each update produces a signal V\_d representing the instantaneous
+phase difference theta\_r - theta\_c.  The clock filter for each server
 functions as a tapped delay line, with the output taken at the tap
 selected by the clock filter algorithm.  The selection, cluster, and
 combine algorithms combine the data from multiple filters to produce
-the signal V_s.  The loop filter, with impulse response F(t),
-produces the signal V_c, which controls the VFO frequency omega_c and
-thus the integral of the phase theta_c which closes the loop.  The
-V_c signal is generated by the clock-adjust process in Section 12.
+the signal V\_s.  The loop filter, with impulse response F(t),
+produces the signal V\_c, which controls the VFO frequency omega\_c and
+thus the integral of the phase theta\_c which closes the loop.  The
+V\_c signal is generated by the clock-adjust process in Section 12.
 The detailed equations that implement these functions are best
 presented in the routines of Appendices A.5.5.6 and A.5.6.1.
 
-              theta_r + +---------\        +----------------+
-        NTP --------->|  Phase   \  V_d  |                | V_s
-            theta_c - | Detector  ------>|  Clock Filter  |----+
-            +-------->|          /       |                |    |
-            |         +---------/        +----------------+    |
-            |                                                  |
-          -----                                                |
-          /     \                                               |
-          | VFO |                                               |
-          \     /                                               |
-          -----    .......................................     |
-            ^      .            Loop Filter              .     |
-            |      . +---------+   x  +-------------+    .     |
-            | V_c  . |         |<-----|             |    .     |
-            +------.-|  Clock  |   y  | Phase/Freq  |<---------+
-                    . | Adjust  |<-----| Prediction  |    .
-                    . |         |      |             |    .
-                    . +---------+      +-------------+    .
-                    .......................................
 
               Figure 26: Clock Discipline Feedback Loop
 
@@ -403,7 +388,7 @@ below.
             +--------+------------+--------------------------+
             | t      | timer      | seconds counter          |
             | offset | theta      | combined offset          |
-            | resid  | theta_r    | residual offset          |
+            | resid  | theta\_r    | residual offset          |
             | freq   | phi        | clock frequency          |
             | jitter | psi        | clock offset jitter      |
             | wander | omega      | clock frequency wander   |
@@ -460,7 +445,7 @@ predicate and actions otherwise, and finally some comments.
 In the table entries, the next state is identified by the arrow ->
 with the actions listed below.  Actions such as adjust time and
 adjust frequency are implemented by the PLL/FLL feedback loop in the
-local_clock() routine.  A step clock action is implemented by setting
+local\_clock() routine.  A step clock action is implemented by setting
 the clock directly, but this is done only after the stepout threshold
 WATCH (900 s) when the offset is more than the step threshold STEPT
 (.125 s).  This resists clock steps under conditions of extreme

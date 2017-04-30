@@ -5,7 +5,7 @@ is a frame of reference where time is expressed as the value of a
 monotonically increasing binary counter with an indefinite number of
 bits. It counts in seconds and fractions of a second, when a decimal
 point is employed. The Coordinated Universal Time (UTC) timescale is
-defined by ITU-R TF.460 [ITU-R_TF.460]. Under the auspices of the
+defined by ITU-R TF.460 [ITU-R\_TF.460]. Under the auspices of the
 Metre Convention of 1865, in 1975 the CGPM [CGPM] strongly endorsed
 the use of UTC as the basis for civil time.
 
@@ -26,10 +26,12 @@ A timestamp T(t) represents either the UTC date or time offset from
 UTC at running time t. Which meaning is intended should be clear
 from the context. Let T(t) be the time offset, R(t) the frequency
 offset, and D(t) the aging rate (first derivative of R(t) with
-respect to t). Then, if T(t_0) is the UTC time offset determined at
-t = t_0, the UTC time offset at time t is
+respect to t). Then, if T(t\_0) is the UTC time offset determined at
+t = t\_0, the UTC time offset at time t is
 
-T(t) = T(t_0) + R(t_0)(t-t_0) + 1/2 * D(t_0)(t-t_0)^2 + e,
+$$
+T(t) = T(t\_0) + R(t\_0)(t-t\_0) + 1/2 * D(t\_0)(t-t\_0)^2 + e,
+$$
 
 where e is a stochastic error term discussed later in this document.
 While the D(t) term is important when characterizing precision
@@ -37,7 +39,7 @@ oscillators, it is ordinarily neglected for computer oscillators. In
 this document, all time values are in seconds (s) and all frequency
 values are in seconds-per-second (s/s). It is sometimes convenient
 to express frequency offsets in parts-per-million (ppm), where 1 ppm
-is equal to 10^(-6) s/s.
+is equal to $10^(-6) s/s$.
 
 It is important in computer timekeeping applications to assess the
 performance of the timekeeping function. The NTP performance model

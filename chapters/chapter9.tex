@@ -44,8 +44,8 @@ Figure 16: Peer Process Configuration Variables
 | mode | mode | mode |
 | stratum | stratum | stratum |
 | ppoll | ppoll | peer poll exponent |
-| rootdelay | delta_r | root delay |
-| rootdisp | epsilon_r | root dispersion |
+| rootdelay | delta\_r | root delay |
+| rootdisp | epsilon\_r | root dispersion |
 | refid | refid | reference ID |
 | reftime | reftime | reference timestamp |
 +-----------+------------+---------------------+
@@ -69,7 +69,7 @@ Figure 18: Peer Process Timestamp Variables
 | disp | epsilon | dispersion |
 | jitter | psi | jitter |
 | filter | filter | clock filter |
-| tp | t_p | filter time |
+| tp | t\_p | filter time |
 +--------+---------+-----------------+
 Figure 19: Peer Process Statistics Variables
 
@@ -110,7 +110,7 @@ counter c.t associated with these values. The c.t variable is
 maintained by the clock-adjust process described in Section 12. It
 counts the seconds since the service was started. The variables
 defined in Figure 19 include the statistics computed by the
-clock_filter() routine described in Section 10. The tp variable is
+clock\_filter() routine described in Section 10. The tp variable is
 the seconds counter associated with these values.
 
 \section{Peer Process Operations}
@@ -130,7 +130,7 @@ authentication is implemented, then the MD5-keyed hash algorithm
 described in [RFC1321] must be supported.
 
 Next, the association table is searched for matching source address
-and source port, for example, using the find_assoc() routine in
+and source port, for example, using the find\_assoc() routine in
 Appendix A.5.1. Figure 20 is a dispatch table where the columns
 correspond to the packet mode and rows correspond to the association
 mode. The intersection of the association and packet modes
@@ -164,7 +164,7 @@ FXMIT. This indicates a client (mode 3) packet matching no
 association (mode 0). If the destination address is not a broadcast
 address, the server constructs a server (mode 4) packet and returns
 it to the client without retaining state. The server packet header
-is constructed. An example is described by the fast_xmit() routine
+is constructed. An example is described by the fast\_xmit() routine
 in Appendix A.5.3. The packet header is assembled from the receive
 packet and system variables as shown in Figure 21. If the
 s.rootdelay and s.rootdisp system variables are stored in floating
@@ -284,16 +284,16 @@ packets arrive, the rightmost bit is set to one. If the register
 contains any nonzero bits, the server is considered reachable;
 otherwise, it is unreachable. Since the peer poll interval might
 have changed since the last packet, the host poll interval is
-reviewed. An example is provided by the poll_update() routine in
+reviewed. An example is provided by the poll\_update() routine in
 Appendix A.5.7.2.
 
 The dispersion statistic epsilon(t) represents the maximum error due
 to the frequency tolerance and time since the last packet was sent.
 It is initialized
 
-epsilon(t_0) = r.rho + s.rho + PHI * (T4-T1)
+epsilon(t\_0) = r.rho + s.rho + PHI * (T4-T1)
 
-when the measurement is made at t_0 according to the seconds counter.
+when the measurement is made at t\_0 according to the seconds counter.
 Here, r.rho is the packet precision described in Section 7.3 and
 s.rho is the system precision described in Section 11.1, both
 expressed in seconds. These terms are necessary to account for the
@@ -301,7 +301,7 @@ uncertainty in reading the system clock in both the server and the
 client.
 
 The dispersion then grows at constant rate PHI; in other words, at
-time t, epsilon(t) = epsilon(t_0) + PHI * (t-t_0). With the default
+time t, epsilon(t) = epsilon(t\_0) + PHI * (t-t\_0). With the default
 value PHI = 15 ppm, this amounts to about 1.3 s per day. With this
 understanding, the argument t will be dropped and the dispersion
 represented simply as epsilon. The remaining statistics are computed

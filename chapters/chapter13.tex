@@ -76,7 +76,7 @@ unreachable, the client sends a burst.  This is useful to quickly
 reduce the synchronization distance below the distance threshold and
 synchronize the clock.
 
-If the P_MANY flag is lit in the p.flags word of the association,
+If the P\_MANY flag is lit in the p.flags word of the association,
 this is a manycast client association.  Manycast client associations
 send client mode packets to designated multicast group addresses at
 MINPOLL intervals.  The association starts out with a TTL of 1.  If
@@ -91,7 +91,7 @@ interval if the server becomes unreachable.  If reach is nonzero, the
 server is reachable and unreach is set to zero; otherwise, unreach is
 incremented by one for each poll to the maximum UNREACH.  Thereafter
 for each poll hpoll is increased by one, which doubles the poll
-interval up to the maximum MAXPOLL determined by the poll_update()
+interval up to the maximum MAXPOLL determined by the poll\_update()
 routine.  When the server again becomes reachable, unreach is set to
 zero, hpoll is reset to the tc system variable, and operation resumes
 normally.
@@ -125,7 +125,7 @@ the system clock.
                 | x.digest      <--     md5 digest  |
                 +-----------------------------------+
 
-                Figure 30: xmit_packet Packet Header
+                Figure 30: xmit\_packet Packet Header
 
 The poll update routine is called when a valid packet is received and
 immediately after a poll message has been sent.  If in a burst, the
