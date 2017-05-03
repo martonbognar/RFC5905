@@ -95,7 +95,7 @@ components: the header itself, one or more optional extension fields,
 and an optional message authentication code (MAC). The header
 component is identical to the NTPv3 header and previous versions.
 The optional extension fields are used by the Autokey public key
-cryptographic algorithms described in [RFC5906]. The optional MAC is
+cryptographic algorithms described in \cite{RFC5906}. The optional MAC is
 used by both Autokey and the symmetric key cryptographic algorithm
 described in this RFC.
 
@@ -253,7 +253,7 @@ in NTP short format.
 \item[Reference ID (refid)] 32-bit code identifying the particular server
 or reference clock. The interpretation depends on the value in the
 stratum field. For packet stratum 0 (unspecified or invalid), this
-is a four-character ASCII [RFC1345] string, called the "kiss code",
+is a four-character ASCII \ref{RFC1345} string, called the "kiss code",
 used for debugging and monitoring purposes. For stratum 1 (reference
 clock), this is a four-octet, left-justified, zero-padded ASCII
 string assigned to the reference clock. The authoritative list of
@@ -344,7 +344,7 @@ Key Identifier or Message Digest fields).
 \end{description}
 
 It should be noted that the MAC computation used here differs from
-those defined in [RFC1305] and [RFC4330] but is consistent with how
+those defined in \cite{RFC1305} and \cite{RFC4330} but is consistent with how
 existing implementations generate a MAC.
 
 \section{The Kiss-o’-Death Packet}

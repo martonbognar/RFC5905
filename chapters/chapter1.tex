@@ -5,9 +5,9 @@ which is widely used to synchronize system clocks among a set of
 distributed time servers and clients. It describes the core
 architecture, protocol, state machines, data structures, and
 algorithms. NTPv4 introduces new functionality to NTPv3, as
-described in [RFC1305], and functionality expanded from Simple NTP
-version 4 (SNTPv4) as described in [RFC4330] (SNTPv4 is a subset of
-NTPv4). This document obsoletes [RFC1305] and [RFC4330]. While
+described in \cite{RFC1305}, and functionality expanded from Simple NTP
+version 4 (SNTPv4) as described in \cite{RFC4330} (SNTPv4 is a subset of
+NTPv4). This document obsoletes \cite{RFC1305} and \cite{RFC4330}. While
 certain minor changes have been made in some protocol header fields,
 these do not affect the interoperability between NTPv4 and previous
 versions of NTP and SNTP.
@@ -50,7 +50,7 @@ examples designed to illustrate the protocol’s operation
 and are not a requirement for a conforming implementation. While the
 NTPv3 symmetric key authentication scheme described in this document
 has been carried over from NTPv3, the Autokey public key
-authentication scheme new to NTPv4 is described in [RFC5906].
+authentication scheme new to NTPv4 is described in \cite{RFC5906}.
 
 The NTP protocol includes modes of operation described in Section 2
 using data types described in Section 6 and data structures described
@@ -67,9 +67,9 @@ synchronization paths determined by a shortest-path spanning tree and
 defined metric. While multiple masters (primary servers) may exist,
 there is no requirement for an election protocol.
 
-This document includes material from [ref9], which contains flow
+This document includes material from \cite{ref9}, which contains flow
 charts and equations unsuited for RFC format. There is much
-additional information in [ref7], including an extensive technical
+additional information in \cite{ref7}, including an extensive technical
 analysis and performance assessment of the protocol and algorithms in
 this document. The reference implementation is available at
 www.ntp.org.

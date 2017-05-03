@@ -4,20 +4,30 @@
 
 % removing bibliography title: from https://tex.stackexchange.com/a/22654/67148
 \begingroup
-\renewcommand{\chapter}[2]{}
-\begin{thebibliography}{}
-
-\bibitem[RFC0768]{RFC0768} Postel, J., ``User Datagram Protocol'', STD 6, RFC 768, August 1980.
-\bibitem[RFC0791]{RFC0791} Postel, J., ``Internet Protocol'', STD 5, RFC 791, September 1981.
-\bibitem[RFC0793]{RFC0793} Postel, J., ``Transmission Control Protocol'', STD 7, RFC 793, September 1981.
-\bibitem[RFC1321]{RFC1321} Rivest, R., ``The MD5 Message-Digest Algorithm'', RFC 1321, April 1992.
-\bibitem[RFC2119]{RFC2119} Bradner, S., ``Key words for use in RFCs to Indicate Requirement Levels'', BCP 14, RFC 2119, March 1997.
-
-\end{thebibliography}
+  \renewcommand{\chapter}[2]{}
+  \begin{thebibliography}{}
+    \bibitem[RFC0768]{RFC0768} Postel, J., ``User Datagram Protocol'', STD 6, RFC 768, August 1980.
+    \bibitem[RFC0791]{RFC0791} Postel, J., ``Internet Protocol'', STD 5, RFC 791, September 1981.
+    \bibitem[RFC0793]{RFC0793} Postel, J., ``Transmission Control Protocol'', STD 7, RFC 793, September 1981.
+    \bibitem[RFC1321]{RFC1321} Rivest, R., ``The MD5 Message-Digest Algorithm'', RFC 1321, April 1992.
+    \bibitem[RFC2119]{RFC2119} Bradner, S., ``Key words for use in RFCs to Indicate Requirement Levels'', BCP 14, RFC 2119, March 1997.
+  \end{thebibliography}
 \endgroup
 
 \section{Informative References}
 
-\begin{thebibliography}{9}
-\bibitem[RFC7230]{RFC7230} R. Fielding, Ed., J. Reschke, Ed., ``Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing'', June 2014
-\end{thebibliography}
+\begingroup
+  \renewcommand{\chapter}[2]{}
+  \begin{thebibliography}{}
+    \bibitem[CGPM]{CGPM} Bureau International des Poids et Mesures, ``Comptes Rendus de la 15e CGPM'', 1976.
+    \bibitem[ITU-R TF.460]{ITU-R TF.460} International Telecommunications Union, ``ITU-R TF.460 Standard-frequency and time-signal emissions'', February 2002.
+    \bibitem[RFC1305]{RFC1305} Mills, D., ``Network Time Protocol (Version 3) Specification, Implementation and Analysis'', RFC 1305, March 1992.
+    \bibitem[RFC1345]{RFC1345} Simonsen, K., ``Character Mnemonics and Character Sets'', RFC 1345, June 1992.
+    \bibitem[RFC4330]{RFC4330} Mills, D., ``Simple Network Time Protocol (SNTP) Version 4 for IPv4, IPv6 and OSI'', RFC 4330, January 2006.
+    \bibitem[RFC5226]{RFC5226} Narten, T. and H. Alvestrand, ``Guidelines for Writing an IANA Considerations Section in RFCs'', BCP 26, RFC 5226, May 2008.
+    \bibitem[RFC5906]{RFC5906} Haberman, B., Ed. and D. Mills, ``Network Time Protocol Version 4: Autokey Specification'', RFC 5906, June 2010.
+    \bibitem[ref6]{ref6} Marzullo and S. Owicki, ``Maintaining the time in a distributed system'', ACM Operating Systems Review 19, July 1985.
+    \bibitem[ref7]{ref7} Mills, D.L., ``Computer Network Time Synchronization - the Network Time Protocol'', CRC Press, 304 pp, 2006.
+    \bibitem[ref9]{ref9} Mills, D.L., Electrical and Computer Engineering Technical Report 06-6-1, NDSS, June 2006, ``Network Time Protocol Version 4 Reference and Implementation Guide'', 2006.
+  \end{thebibliography}
+\endgroup

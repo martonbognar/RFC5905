@@ -103,7 +103,7 @@ Note that the selection and cluster algorithms are described
 separately, but combined in the code skeleton.  The selection
 algorithm operates to find an intersection interval containing a
 majority clique of truechimers using Byzantine agreement principles
-originally proposed by Marzullo [ref6], but modified to improve
+originally proposed by Marzullo \cite{ref6}, but modified to improve
 accuracy.  An overview of the algorithm is given below and described
 in the first half of the clock\_select() routine in Appendix A.5.5.1.
 
@@ -313,11 +313,11 @@ design, periodic phase updates at update intervals mu seconds are
 used directly to minimize the time error and indirectly the frequency
 error.  In a frequency-locked loop (FLL) design, periodic frequency
 updates at intervals mu are used directly to minimize the frequency
-error and indirectly the time error.  As shown in [ref7], a PLL
+error and indirectly the time error.  As shown in \cite{ref7}, a PLL
 usually works better when network jitter dominates, while an FLL
 works better when oscillator wander dominates.  This section contains
 an outline of how the NTPv4 design works.  An in-depth discussion of
-the design principles is provided in [ref7], which also includes a
+the design principles is provided in \cite{ref7}, which also includes a
 performance analysis.
 
 The discipline is implemented as the feedback control system shown in
