@@ -37,12 +37,7 @@ affecting the current peer variables.  Otherwise, let epsilon\_i be
 the dispersion of the ith entry, then
 
 $$
-                  i=n-1
-                  ---     epsilon\_i
-  epsilon =       \     ----------
-                  /        (i+1)
-                  ---     2
-                  i=0
+\epsilon = \sum^{i = n - 1}_{i = 0} \frac{\epsilon_i}{2^{(i + 1)}}
 $$
 
 is the peer dispersion p.disp.  Note the overload of epsilon, whether
@@ -62,14 +57,7 @@ Let the first stage offset in the sorted list be theta\_0; then, for
 the other stages in any order, the jitter is the RMS average
 
 $$
-                      +-----                 -----+^1/2
-                      |  n-1                      |
-                      |  ---                      |
-              1       |  \                     2  |
-  psi   =  -------- * |  /    (theta\_0-theta\_j)   |
-            (n-1)     |  ---                      |
-                      |  j=1                      |
-                      +-----                 -----+
+\psi = \frac{1}{n - 1} \cdot \left( \sum^{n - 1}_{j = 1} (\theta_0 - \theta_j)^2 \right)^{\frac{1}{2}}
 $$
 
 where n is the number of valid tuples in the filter (n > 1).  In
@@ -83,7 +71,7 @@ synchronization distance, which is computed from the delay and
 dispersion.
 
 $$
-lambda = (delta / 2) + epsilon.
+\lambda = \frac{\delta}{2} + \epsilon.
 $$
 
 Note that epsilon and therefore lambda increase at rate PHI.  The

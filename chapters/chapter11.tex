@@ -184,14 +184,7 @@ of candidates and NMIN the minimum required number of survivors.
 3.  For each candidate, compute the selection jitter psi\_s:
 
 $$
-          +-----                       -----+^1/2
-          |        n-1                      |
-          |        ---                      |
-          |   1    \                     2  |
-  psi\_s = | ---- * /  (theta\_s - theta\_j)   |
-          |  n-1   ---                      |
-          |        j=1                      |
-          +-----                       -----+
+\psi_s = \left( \frac{1}{n - 1} \cdot \sum^{n - 1}_{j = 1} (\theta_s - \theta_j)^2 \right)^{\frac{1}{2}}
 $$
 
 4.  Select psi\_max as the candidate with maximum psi\_s.
@@ -233,7 +226,7 @@ system jitter PSI.  It is used along with the selection jitter PSI\_s
 to produce the system jitter:
 
 $$
-PSI = [(PSI\_s)^2 + (PSI\_p)^2]^1/2
+\Psi = \left( \Psi_s^2 + \Psi_p^2 \right)^{\frac{1}{2}}
 $$
 
 Each time an update is received from the system peer, the clock
@@ -292,7 +285,10 @@ the total round-trip delay relative to the primary server.  The root
 dispersion EPSILON is the dispersion accumulated over the network
 from the primary server.  Finally, the root synchronization distance
 is defined as:
-LAMBDA = EPSILON + DELTA / 2,
+
+$$
+\Lambda = E + \frac{\Delta}{2},
+$$
 
 which represents the maximum error due all causes and is designated
 the root synchronization distance.
