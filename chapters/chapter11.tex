@@ -125,31 +125,31 @@ Appendix A.5.1.1. The steps of the algorithm are:
 
   \item Sort the tuples on the list by the edge component. Order the
     lowpoint, midpoint, and highpoint of these intervals from lowest to
-    highest. Set the number of falsetickers f = 0.
+    highest. Set the number of falsetickers $ f = 0 $.
 
-  \item \label{enum-11-1-3} Set the number of midpoints d = 0. Set c = 0. Scan from lowest
-    endpoint to highest. Add one to c for every lowpoint, subtract one
-    for every highpoint, add one to d for every midpoint. If c >= m - f,
-    stop; set l = current lowpoint.
+  \item \label{enum-11-1-3} Set the number of midpoints $ d = 0 $. Set $ c = 0 $. Scan from lowest
+    endpoint to highest. Add one to $c$ for every lowpoint, subtract one
+    for every highpoint, add one to $d$ for every midpoint. If $ c \geq m - f $,
+    stop; set $l = \text{current lowpoint}$.
 
-  \item Set c = 0. Scan from highest endpoint to lowest. Add one to c
-    for every highpoint, subtract one for every lowpoint, add one to d
-    for every midpoint. If c >= m - f, stop; set u = current highpoint.
+  \item Set $ c = 0 $. Scan from highest endpoint to lowest. Add one to $c$
+    for every highpoint, subtract one for every lowpoint, add one to $d$
+    for every midpoint. If $ c \geq m - f $, stop; set $u = \text{current highpoint}$.
 
-  \item \label{enum-11-1-5} Is d = f and l < u? If yes, then follow step~\ref{enum-11-1-5A}; else, follow
+  \item \label{enum-11-1-5} Is $ d = f $ and $ l < u $? If yes, then follow step~\ref{enum-11-1-5A}; else, follow
     step~\ref{enum-11-1-5B}.
 
     \begin{enumerate}[\ref{enum-11-1-5}A.]
-      \item \label{enum-11-1-5A} Success: the intersection interval is [l, u].
+      \item \label{enum-11-1-5A} Success: the intersection interval is $ [l, u] $.
 
-      \item \label{enum-11-1-5B} Add one to f. Is f < (m / 2)? If yes, then go to step~\ref{enum-11-1-3} again.
+      \item \label{enum-11-1-5B} Add one to $ f $. Is $ f < \frac{m}{2} $? If yes, then go to step~\ref{enum-11-1-3} again.
         If no, then go to step~\ref{enum-11-1-6}.
     \end{enumerate}
 
   \item \label{enum-11-1-6} Failure; a majority clique could not be found. There are no
     suitable candidates to discipline the system clock.
     The algorithm is described in detail in Appendix A.5.5.1. Note that
-    it starts with the assumption that there are no falsetickers (f = 0)
+    it starts with the assumption that there are no falsetickers ($ f = 0 $)
     and attempts to find a non-empty intersection interval containing the
     midpoints of all correct servers, i.e., truechimers. If a non-empty
     interval cannot be found, it increases the number of assumed
@@ -196,7 +196,7 @@ Appendix A.5.5.1.
   \item Select $ \psi_max $ as the candidate with maximum $ \psi_s $.
   \item Select $ \psi_min $ as the candidate with minimum $ \psi_p $.
 
-  \item \label{enum-11-2-6} Is $ \psi_max < \psi_min $ or n <= NMIN? If yes, follow step~\ref{enum-11-2-6A};
+  \item \label{enum-11-2-6} Is $ \psi_{max} < \psi_{min} $ or $ n \leq NMIN $? If yes, follow step~\ref{enum-11-2-6A};
     otherwise, follow step~\ref{enum-11-2-6B}.
 
     \begin{enumerate}[\ref{enum-11-2-6}A.]
@@ -205,7 +205,7 @@ Appendix A.5.5.1.
       the system peer; its variables are used later to update the system
       variables.
 
-      \item \label{enum-11-2-6B} Delete the outlier candidate with $ \psi_max $; reduce n by one and go
+      \item \label{enum-11-2-6B} Delete the outlier candidate with $ \psi_{max} $; reduce n by one and go
       back to step~\ref{enum-11-2-3}.
     \end{enumerate}
 \end{enumerate}
@@ -215,7 +215,7 @@ discards the statistical outlier with maximum selection jitter $ \psi_s $.
 However, if $ \psi_s $ is less than the minimum peer jitter $ \psi_p $, no
 improvement is possible by discarding outliers. This and the minimum
 number of survivors represent the terminating conditions of the
-algorithm. Upon termination, the final value of $ \psi_max $ is saved as
+algorithm. Upon termination, the final value of $ \psi_{max} $ is saved as
 the system selection jitter $ \Psi_s $ for use later.
 
 \subsection{Combine Algorithm}
