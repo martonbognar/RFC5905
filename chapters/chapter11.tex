@@ -265,20 +265,20 @@ variables as shown in Table~\ref{system_variables_update}.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{| l | c | l |}
+\begin{tabular}{| l c l |}
 \hline
-System Variable & <-- & System Peer Variable \\
+System Variable & $ \leftarrow $ & System Peer Variable \\
 \hline
 \hline
-s.leap      & <-- & p.leap                    \\
-s.stratum   & <-- & p.stratum + 1             \\
-s.offset    & <-- & $ \Theta $                     \\
-s.jitter    & <-- & $ \Psi $                       \\
-s.rootdelay & <-- & $ p.\delta_r + \delta $         \\
-s.rootdisp  & <-- & $ p.\epsilon_r + p.\epsilon + p.\psi + \Phi \cdot (s.t - p.t) + |\Theta| $ \\
-s.refid     & <-- & p.refid                   \\
-s.reftime   & <-- & p.reftime                 \\
-s.t         & <-- & p.t                       \\
+s.leap      & $ \leftarrow $ & p.leap                    \\
+s.stratum   & $ \leftarrow $ & p.stratum + 1             \\
+s.offset    & $ \leftarrow $ & $ \Theta $                     \\
+s.jitter    & $ \leftarrow $ & $ \Psi $                       \\
+s.rootdelay & $ \leftarrow $ & $ p.\delta_r + \delta $         \\
+s.rootdisp  & $ \leftarrow $ & $ p.\epsilon_r + p.\epsilon + p.\psi + \Phi \cdot (s.t - p.t) + |\Theta| $ \\
+s.refid     & $ \leftarrow $ & p.refid                   \\
+s.reftime   & $ \leftarrow $ & p.reftime                 \\
+s.t         & $ \leftarrow $ & p.t                       \\
 \hline
 \end{tabular}
 \caption{System Variables Update}
