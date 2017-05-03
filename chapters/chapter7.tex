@@ -159,7 +159,9 @@ the end of the Transmit Timestamp field.
 The fields and associated packet variables (in parentheses) are
 interpreted as follows:
 
-LI Leap Indicator (leap): 2-bit integer warning of an impending leap
+\begin{description}
+
+\item[LI Leap Indicator (leap)] 2-bit integer warning of an impending leap
 second to be inserted or deleted in the last minute of the current
 month with values defined in Figure 9.
 
@@ -179,10 +181,10 @@ Value & Meaning \\
 \caption{Leap Indicator}
 \end{table}
 
-VN Version Number (version): 3-bit integer representing the NTP
+\item[VN Version Number (version)] 3-bit integer representing the NTP
 version number, currently 4.
 
-Mode (mode): 3-bit integer representing the mode, with values defined
+\item[Mode (mode)] 3-bit integer representing the mode, with values defined
 in Figure 10.
 
 \begin{table}[htb]
@@ -205,7 +207,7 @@ Value & Meaning \\
 \caption{Association Modes}
 \end{table}
 
-Stratum (stratum): 8-bit integer representing the stratum, with
+\item[Stratum (stratum)] 8-bit integer representing the stratum, with
 values defined in Figure 11.
 
 \begin{table}[htb]
@@ -232,23 +234,23 @@ allows reference clocks, which normally appear at stratum 0, to be
 conveniently mitigated using the same clock selection algorithms used
 for external sources (see Appendix A.5.5.1 for an example).
 
-Poll: 8-bit signed integer representing the maximum interval between
+\item[Poll] 8-bit signed integer representing the maximum interval between
 successive messages, in log2 seconds. Suggested default limits for
 minimum and maximum poll intervals are 6 and 10, respectively.
 
-Precision: 8-bit signed integer representing the precision of the
+\item[Precision] 8-bit signed integer representing the precision of the
 system clock, in log2 seconds. For instance, a value of -18
 corresponds to a precision of about one microsecond. The precision
 can be determined when the service first starts up as the minimum
 time of several iterations to read the system clock.
 
-Root Delay (rootdelay): Total round-trip delay to the reference
+\item[Root Delay (rootdelay)] Total round-trip delay to the reference
 clock, in NTP short format.
 
-Root Dispersion (rootdisp): Total dispersion to the reference clock,
+\item[Root Dispersion (rootdisp)] Total dispersion to the reference clock,
 in NTP short format.
 
-Reference ID (refid): 32-bit code identifying the particular server
+\item[Reference ID (refid)] 32-bit code identifying the particular server
 or reference clock. The interpretation depends on the value in the
 stratum field. For packet stratum 0 (unspecified or invalid), this
 is a four-character ASCII [RFC1345] string, called the "kiss code",
@@ -291,7 +293,7 @@ PTB & European telephone modem \\
 \caption{Reference Identifiers}
 \end{table}
 
-Above stratum 1 (secondary servers and clients): this is the
+\item[Above stratum 1 (secondary servers and clients)] this is the
 reference identifier of the server and can be used to detect timing
 loops. If using the IPv4 address family, the identifier is the four-
 octet IPv4 address. If using the IPv6 address family, it is the
@@ -300,19 +302,19 @@ when using the IPv6 address family on an NTPv4 server with a NTPv3
 client, the Reference Identifier field appears to be a random value
 and a timing loop might not be detected.
 
-Reference Timestamp: Time when the system clock was last set or
+\item[Reference Timestamp] Time when the system clock was last set or
 corrected, in NTP timestamp format.
 
-Origin Timestamp (org): Time at the client when the request departed
+\item[Origin Timestamp (org)] Time at the client when the request departed
 for the server, in NTP timestamp format.
 
-Receive Timestamp (rec): Time at the server when the request arrived
+\item[Receive Timestamp (rec)] Time at the server when the request arrived
 from the client, in NTP timestamp format.
 
-Transmit Timestamp (xmt): Time at the server when the response left
+\item[Transmit Timestamp (xmt)] Time at the server when the response left
 for the client, in NTP timestamp format.
 
-Destination Timestamp (dst): Time at the client when the reply
+\item[Destination Timestamp (dst)] Time at the client when the reply
 arrived from the server, in NTP timestamp format.
 
 Note: The Destination Timestamp field is not included as a header
@@ -329,15 +331,17 @@ Digest. The message digest, or cryptosum, is calculated as in
 [RFC1321] over all NTP-header and optional extension fields, but not
 the MAC itself.
 
-Extension Field n: See Section 7.5 for a description of the format of
+\item[Extension Field n] See Section 7.5 for a description of the format of
 this field.
 
-Key Identifier (keyid): 32-bit unsigned integer used by the client
+\item[Key Identifier (keyid)] 32-bit unsigned integer used by the client
 and server to designate a secret 128-bit MD5 key.
 
-Message Digest (digest): 128-bit MD5 hash computed over the key
+\item[Message Digest (digest)] 128-bit MD5 hash computed over the key
 followed by the NTP packet header and extensions fields (but not the
 Key Identifier or Message Digest fields).
+
+\end{description}
 
 It should be noted that the MAC computation used here differs from
 those defined in [RFC1305] and [RFC4330] but is consistent with how
@@ -359,20 +363,19 @@ files. A list of the currently defined kiss codes is given in
 Figure 13. Recipients of kiss codes MUST inspect them and, in the
 following cases, take these actions:
 
-a. For kiss codes DENY and RSTR, the client MUST demobilize any
+\begin{enumerate}[a.]
+  \item For kiss codes DENY and RSTR, the client MUST demobilize any
 associations to that server and stop sending packets to that
 server;
-
-b. For kiss code RATE, the client MUST immediately reduce its
+  \item For kiss code RATE, the client MUST immediately reduce its
 polling interval to that server and continue to reduce it each
 time it receives a RATE kiss code.
-
-c. Kiss codes beginning with the ASCII character "X" are for
+  \item Kiss codes beginning with the ASCII character "X" are for
 unregistered experimentation and development and MUST be ignored
 if not recognized.
-
-d. Other than the above conditions, KoD packets have no protocol
+  \item Other than the above conditions, KoD packets have no protocol
 significance and are discarded after inspection.
+\end{enumerate}
 
 \begin{table}[htb]
 \center

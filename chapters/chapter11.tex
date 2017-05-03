@@ -119,50 +119,54 @@ lambda), where lambda is the root synchronization distance.  An
 example of this calculation is shown by the rootdist() routine in
 Appendix A.5.1.1.  The steps of the algorithm are:
 
-1.  For each of m associations, place three tuples as defined above
-on the candidate list.
+\begin{enumerate}
+  \item For each of m associations, place three tuples as defined above
+    on the candidate list.
 
-2.  Sort the tuples on the list by the edge component.  Order the
-lowpoint, midpoint, and highpoint of these intervals from lowest to
-highest.  Set the number of falsetickers f = 0.
+  \item Sort the tuples on the list by the edge component.  Order the
+    lowpoint, midpoint, and highpoint of these intervals from lowest to
+    highest.  Set the number of falsetickers f = 0.
 
-3.  Set the number of midpoints d = 0.  Set c = 0.  Scan from lowest
-endpoint to highest.  Add one to c for every lowpoint, subtract one
-for every highpoint, add one to d for every midpoint.  If c >= m - f,
-stop; set l = current lowpoint.
+  \item Set the number of midpoints d = 0.  Set c = 0.  Scan from lowest
+    endpoint to highest.  Add one to c for every lowpoint, subtract one
+    for every highpoint, add one to d for every midpoint.  If c >= m - f,
+    stop; set l = current lowpoint.
 
-4.  Set c = 0.  Scan from highest endpoint to lowest.  Add one to c
-for every highpoint, subtract one for every lowpoint, add one to d
-for every midpoint.  If c >= m - f, stop; set u = current highpoint.
+  \item Set c = 0.  Scan from highest endpoint to lowest.  Add one to c
+    for every highpoint, subtract one for every lowpoint, add one to d
+    for every midpoint.  If c >= m - f, stop; set u = current highpoint.
 
-5.  Is d = f and l < u?  If yes, then follow step 5A; else, follow
-step 5B.
+  \item Is d = f and l < u?  If yes, then follow step 5A; else, follow
+    step 5B.
 
-5A. Success: the intersection interval is [l, u].
+    \begin{enumerate}[5A.]
+      \item Success: the intersection interval is [l, u].
 
-5B. Add one to f.  Is f < (m / 2)?  If yes, then go to step 3 again.
-If no, then go to step 6.
+      \item Add one to f.  Is f < (m / 2)?  If yes, then go to step 3 again.
+        If no, then go to step 6.
+    \end{enumerate}
 
-6.  Failure; a majority clique could not be found.  There are no
-suitable candidates to discipline the system clock.
-The algorithm is described in detail in Appendix A.5.5.1.  Note that
-it starts with the assumption that there are no falsetickers (f = 0)
-and attempts to find a non-empty intersection interval containing the
-midpoints of all correct servers, i.e., truechimers.  If a non-empty
-interval cannot be found, it increases the number of assumed
-falsetickers by one and tries again.  If a non-empty interval is
-found and the number of falsetickers is less than the number of
-truechimers, a majority clique has been found and the midpoint of
-each truechimer (theta) represents the candidates available to the
-cluster algorithm.
+  \item Failure; a majority clique could not be found.  There are no
+    suitable candidates to discipline the system clock.
+    The algorithm is described in detail in Appendix A.5.5.1.  Note that
+    it starts with the assumption that there are no falsetickers (f = 0)
+    and attempts to find a non-empty intersection interval containing the
+    midpoints of all correct servers, i.e., truechimers.  If a non-empty
+    interval cannot be found, it increases the number of assumed
+    falsetickers by one and tries again.  If a non-empty interval is
+    found and the number of falsetickers is less than the number of
+    truechimers, a majority clique has been found and the midpoint of
+    each truechimer (theta) represents the candidates available to the
+    cluster algorithm.
 
-If a majority clique is not found, or if the number of truechimers is
-less than CMIN, there are insufficient candidates to discipline the
-system clock.  CMIN defines the minimum number of servers consistent
-with the correctness requirements.  Suspicious operators would set
-CMIN to ensure multiple redundant servers are available for the
-algorithms to mitigate properly.  However, for historic reasons the
-default value for CMIN is one.
+    If a majority clique is not found, or if the number of truechimers is
+    less than CMIN, there are insufficient candidates to discipline the
+    system clock.  CMIN defines the minimum number of servers consistent
+    with the correctness requirements.  Suspicious operators would set
+    CMIN to ensure multiple redundant servers are available for the
+    algorithms to mitigate properly.  However, for historic reasons the
+    default value for CMIN is one.
+\end{enumerate}
 
 \section{Cluster Algorithm}
 
@@ -176,30 +180,34 @@ The list is processed by the cluster algorithm below.  An example is
 shown by the second half of the clock\_select() algorithm in
 Appendix A.5.5.1.
 
-1.  Let (p, theta\_p, psi\_p, lambda\_p) represent a survivor candidate.
+\begin{enumerate}
+  \item Let (p, theta\_p, psi\_p, lambda\_p) represent a survivor candidate.
 
-2.  Sort the candidates by increasing lambda\_p.  Let n be the number
-of candidates and NMIN the minimum required number of survivors.
+  \item Sort the candidates by increasing lambda\_p.  Let n be the number
+    of candidates and NMIN the minimum required number of survivors.
 
-3.  For each candidate, compute the selection jitter psi\_s:
+  \item For each candidate, compute the selection jitter psi\_s:
 
-$$
-\psi_s = \left( \frac{1}{n - 1} \cdot \sum^{n - 1}_{j = 1} (\theta_s - \theta_j)^2 \right)^{\frac{1}{2}}
-$$
+    $$
+    \psi_s = \left( \frac{1}{n - 1} \cdot \sum^{n - 1}_{j = 1} (\theta_s - \theta_j)^2 \right)^{\frac{1}{2}}
+    $$
 
-4.  Select psi\_max as the candidate with maximum psi\_s.
-5.  Select psi\_min as the candidate with minimum psi\_p.
+  \item Select psi\_max as the candidate with maximum psi\_s.
+  \item Select psi\_min as the candidate with minimum psi\_p.
 
-6.  Is psi\_max < psi\_min or n <= NMIN?  If yes, follow step 6A;
-otherwise, follow step 6B.
+  \item Is psi\_max < psi\_min or n <= NMIN?  If yes, follow step 6A;
+    otherwise, follow step 6B.
 
-6A. Done.  The remaining candidates on the survivor list are ranked
-in the order of preference.  The first entry on the list represents
-the system peer; its variables are used later to update the system
-variables.
+    \begin{enumerate}[6A.]
+      \item Done. The remaining candidates on the survivor list are ranked
+      in the order of preference.  The first entry on the list represents
+      the system peer; its variables are used later to update the system
+      variables.
 
-6B. Delete the outlier candidate with psi\_max; reduce n by one and go
-back to step 3.
+      \item Delete the outlier candidate with psi\_max; reduce n by one and go
+      back to step 3.
+    \end{enumerate}
+\end{enumerate}
 
 The algorithm operates in a series of rounds where each round
 discards the statistical outlier with maximum selection jitter psi\_s.
@@ -380,7 +388,7 @@ AVG    & 8          & averaging constant       \\
 \end{tabular}
 \label{clock_discipline_variables_and_parameters}
 \caption{Clock Discipline Variables and Parameters}
-\end{table} 
+\end{table}
 
 The process terminates immediately if the offset is greater than the
 panic threshold PANICT (1000 s).  The state transition function is
@@ -400,7 +408,7 @@ NSET & \makecell{->FREQ \\ adjust time} & \makecell{->FREQ \\ step time} & no fr
 FSET & \makecell{->SYNC \\ adjust time} & \makecell{->SYNC \\ step time} & frequency file \\
 SPIK & \makecell{->SYNC \\ adjust freq \\ adjust time} & \makecell{if < 900 s ->SPIK \\ else ->SYNC \\ step freq \\ step time} & outlier detected \\
 FREQ & \makecell{if < 900 s ->FREQ \\ else ->SYNC \\ step freq \\ adjust time} & \makecell{if < 900 s ->FREQ \\ else ->SYNC \\ step freq \\ adjust time} & initial frequency \\
-SYNC & \makecell{->SYNC \\ adjust freq \\ adjust time} & \makecell{if < 900 s ->SPIK \\ else ->SYNC \\ step freq \\ step time} & normal operation \\       
+SYNC & \makecell{->SYNC \\ adjust freq \\ adjust time} & \makecell{if < 900 s ->SPIK \\ else ->SYNC \\ step freq \\ step time} & normal operation \\
 \hline
 \end{tabular}
 \label{state_transition_function}

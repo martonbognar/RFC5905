@@ -101,26 +101,28 @@ The following configuration variables are normally initialized when
 the association is mobilized, either from a configuration file or
 upon the arrival of the first packet for an unknown association.
 
-srcaddr: IP address of the remote server or reference clock. This
+\begin{description}
+  \item[srcaddr] IP address of the remote server or reference clock. This
 becomes the destination IP address in packets sent from this
 association.
 
-srcport: UDP port number of the server or reference clock. This
+  \item[srcport] UDP port number of the server or reference clock. This
 becomes the destination port number in packets sent from this
 association. When operating in symmetric modes (1 and 2), this field
 must contain the NTP port number PORT (123) assigned by the IANA. In
 other modes, it can contain any number consistent with local policy.
 
-dstaddr: IP address of the client. This becomes the source IP
+  \item[dstaddr] IP address of the client. This becomes the source IP
 address in packets sent from this association.
 
-dstport: UDP port number of the client, ordinarily the NTP port
+  \item[dstport] UDP port number of the client, ordinarily the NTP port
 number PORT (123) assigned by the IANA. This becomes the source port
 number in packets sent from this association.
 
-keyid: Symmetric key ID for the 128-bit MD5 key used to generate and
+  \item[keyid] Symmetric key ID for the 128-bit MD5 key used to generate and
 verify the MAC. The client and server or peer can use different
 values, but they must map to the same key.
+\end{description}
 
 The variables defined in Figure 17 are updated from the packet header
 as each packet arrives. They are interpreted in the same way as the
@@ -180,115 +182,119 @@ Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
 \caption{Peer Dispatch Table}
 \end{table}
 
-DSCRD. This indicates a non-fatal violation of protocol as the
-result of a programming error, long-delayed packet, or replayed
-packet. The peer process discards the packet and exits.
+\begin{description}
 
-ERR. This indicates a fatal violation of protocol as the result of a
-programming error, long-delayed packet, or replayed packet. The peer
-process discards the packet, demobilizes the symmetric passive
-association, and exits.
+  \item[DSCRD] This indicates a non-fatal violation of protocol as the
+    result of a programming error, long-delayed packet, or replayed
+    packet. The peer process discards the packet and exits.
 
-FXMIT. This indicates a client (mode 3) packet matching no
-association (mode 0). If the destination address is not a broadcast
-address, the server constructs a server (mode 4) packet and returns
-it to the client without retaining state. The server packet header
-is constructed. An example is described by the fast\_xmit() routine
-in Appendix A.5.3. The packet header is assembled from the receive
-packet and system variables as shown in Figure 21. If the
-s.rootdelay and s.rootdisp system variables are stored in floating
-double, they must be converted to NTP short format first.
+  \item[ERR] This indicates a fatal violation of protocol as the result of a
+    programming error, long-delayed packet, or replayed packet. The peer
+    process discards the packet, demobilizes the symmetric passive
+    association, and exits.
 
-\begin{table}[htb]
-\center
-\begin{tabular}{c | c | c}
-Packet Variable & --> & Variable \\
-\hline
-\hline
-r.leap & --> & p.leap \\
-r.mode & --> & p.mode \\
-r.stratum & --> & p.stratum \\
-r.poll & --> & p.ppoll \\
-r.rootdelay & --> & p.rootdelay \\
-r.rootdisp & --> & p.rootdisp \\
-r.refid & --> & p.refid \\
-r.reftime & --> & p.reftime \\
-r.keyid & --> & p.keyid \\
-\hline
-\end{tabular}
-\label{receive_packet_header}
-\caption{Receive Packet Header}
-\end{table}
+  \item[FXMIT] This indicates a client (mode 3) packet matching no
+    association (mode 0). If the destination address is not a broadcast
+    address, the server constructs a server (mode 4) packet and returns
+    it to the client without retaining state. The server packet header
+    is constructed. An example is described by the fast\_xmit() routine
+    in Appendix A.5.3. The packet header is assembled from the receive
+    packet and system variables as shown in Figure 21. If the
+    s.rootdelay and s.rootdisp system variables are stored in floating
+    double, they must be converted to NTP short format first.
 
-Note that, if authentication fails, the server returns a special
-message called a crypto-NAK. This message includes the normal NTP
-header data shown in Figure 8, but with a MAC consisting of four
-octets of zeros. The client MAY accept or reject the data in the
-message. After these actions, the peer process exits.
+    \begin{table}[htb]
+    \center
+    \begin{tabular}{c | c | c}
+    Packet Variable & --> & Variable \\
+    \hline
+    \hline
+    r.leap & --> & p.leap \\
+    r.mode & --> & p.mode \\
+    r.stratum & --> & p.stratum \\
+    r.poll & --> & p.ppoll \\
+    r.rootdelay & --> & p.rootdelay \\
+    r.rootdisp & --> & p.rootdisp \\
+    r.refid & --> & p.refid \\
+    r.reftime & --> & p.reftime \\
+    r.keyid & --> & p.keyid \\
+    \hline
+    \end{tabular}
+    \label{receive_packet_header}
+    \caption{Receive Packet Header}
+    \end{table}
 
-If the destination address is a multicast address, the sender is
-operating in manycast client mode. If the packet is valid and the
-server stratum is less than the client stratum, the server sends an
-ordinary server (mode 4) packet, but one which uses its unicast
-destination address. A crypto-NAK is not sent if authentication
-fails. After these actions, the peer process exits.
+    Note that, if authentication fails, the server returns a special
+    message called a crypto-NAK. This message includes the normal NTP
+    header data shown in Figure 8, but with a MAC consisting of four
+    octets of zeros. The client MAY accept or reject the data in the
+    message. After these actions, the peer process exits.
 
-MANY: This indicates a server (mode 4) packet matching no
-association. Ordinarily, this can happen only as the result of a
-manycast server reply to a previously sent multicast client packet.
+    If the destination address is a multicast address, the sender is
+    operating in manycast client mode. If the packet is valid and the
+    server stratum is less than the client stratum, the server sends an
+    ordinary server (mode 4) packet, but one which uses its unicast
+    destination address. A crypto-NAK is not sent if authentication
+    fails. After these actions, the peer process exits.
 
-If the packet is valid, an ordinary client (mode 3) association is
-mobilized and operation continues as if the association was mobilized
-by the configuration file.
+  \item[MANY] This indicates a server (mode 4) packet matching no
+    association. Ordinarily, this can happen only as the result of a
+    manycast server reply to a previously sent multicast client packet.
 
-NEWBC. This indicates a broadcast (mode 5) packet matching no
-association. The client mobilizes either a client (mode 3) or
-broadcast client (mode 6) association. Examples are shown in the
-mobilize() and clear() routines in Appendix A.2. Then, the packet is
-validated and the peer variables initialized. An example is provided
-by the packet() routine in Appendix A.5.1.1.
+    If the packet is valid, an ordinary client (mode 3) association is
+    mobilized and operation continues as if the association was mobilized
+    by the configuration file.
 
-If the implementation supports no additional security or calibration
-functions, the association mode is set to broadcast client (mode 6)
-and the peer process exits. Implementations supporting public key
-authentication MAY run the Autokey or equivalent security protocol.
-Implementations SHOULD set the association mode to 3 and run a short
-client/server exchange to determine the propagation delay. Following
-the exchange, the association mode is set to 6 and the peer process
-continues in listen-only mode. Note the distinction between a mode-6
-packet, which is reserved for the NTP monitor and control functions,
-and a mode-6 association.
+  \item[NEWBC] This indicates a broadcast (mode 5) packet matching no
+    association. The client mobilizes either a client (mode 3) or
+    broadcast client (mode 6) association. Examples are shown in the
+    mobilize() and clear() routines in Appendix A.2. Then, the packet is
+    validated and the peer variables initialized. An example is provided
+    by the packet() routine in Appendix A.5.1.1.
 
-NEWPS. This indicates a symmetric active (mode 1) packet matching no
-association. The client mobilizes a symmetric passive (mode 2)
-association. An example is shown in the mobilize() and clear()
-routines in Appendix A.2. Processing continues in the PROC section
-below.
+    If the implementation supports no additional security or calibration
+    functions, the association mode is set to broadcast client (mode 6)
+    and the peer process exits. Implementations supporting public key
+    authentication MAY run the Autokey or equivalent security protocol.
+    Implementations SHOULD set the association mode to 3 and run a short
+    client/server exchange to determine the propagation delay. Following
+    the exchange, the association mode is set to 6 and the peer process
+    continues in listen-only mode. Note the distinction between a mode-6
+    packet, which is reserved for the NTP monitor and control functions,
+    and a mode-6 association.
 
-PROC. This indicates a packet matching an existing association. The
-packet timestamps are carefully checked to avoid invalid, duplicate,
-or bogus packets. Additional checks are summarized in Figure 22.
-Note that all packets, including a crypto-NAK, are considered valid
-only if they survive these tests.
+  \item[NEWPS] This indicates a symmetric active (mode 1) packet matching no
+    association. The client mobilizes a symmetric passive (mode 2)
+    association. An example is shown in the mobilize() and clear()
+    routines in Appendix A.2. Processing continues in the PROC section
+    below.
 
-\begin{table}[htb]
-\center
-\begin{tabular}{c | c | c}
-Packet Type & Description \\
-\hline
-\hline
-1 duplicate packet & The packet is at best an old duplicate or at worst a replay by a hacker. This can happen in symmetric modes if the poll intervals are uneven. \\
-2 bogus packet & \\
-3 invalid & One or more timestamp fields are invalid. This normally happens in symmetric modes when one peer sends the first packet to the other and before the other has received its first reply. \\
-4 access denied & The access controls have blacklisted the source. \\
-5 authentication failure & The cryptographic message digest does not match the MAC. \\
-6 unsynchronized & The server is not synchronized to a valid source. \\
-7 bad header data & One or more header fields are invalid. \\
-\hline
-\end{tabular}
-\label{packet_error_checks}
-\caption{Packet Error Checks}
-\end{table}
+  \item[PROC] This indicates a packet matching an existing association. The
+    packet timestamps are carefully checked to avoid invalid, duplicate,
+    or bogus packets. Additional checks are summarized in Figure 22.
+    Note that all packets, including a crypto-NAK, are considered valid
+    only if they survive these tests.
+
+    \begin{table}[htb]
+    \center
+    \begin{tabular}{c | c | c}
+    Packet Type & Description \\
+    \hline
+    \hline
+    1 duplicate packet & The packet is at best an old duplicate or at worst a replay by a hacker. This can happen in symmetric modes if the poll intervals are uneven. \\
+    2 bogus packet & \\
+    3 invalid & One or more timestamp fields are invalid. This normally happens in symmetric modes when one peer sends the first packet to the other and before the other has received its first reply. \\
+    4 access denied & The access controls have blacklisted the source. \\
+    5 authentication failure & The cryptographic message digest does not match the MAC. \\
+    6 unsynchronized & The server is not synchronized to a valid source. \\
+    7 bad header data & One or more header fields are invalid. \\
+    \hline
+    \end{tabular}
+    \label{packet_error_checks}
+    \caption{Packet Error Checks}
+    \end{table}
+
+\end{description}
 
 Processing continues by copying the packet variables to the peer
 variables as shown in Figure 21. An example is described by the

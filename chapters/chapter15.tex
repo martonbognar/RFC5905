@@ -38,49 +38,57 @@ authenticate servers to clients.  Without specific further
 protection, an intruder can inject any or all of the following
 attacks:
 
-1.  An intruder can intercept and archive packets forever, as well as
-all the public values ever generated and transmitted over the
-net.
+\begin{enumerate}
 
-2.  An intruder can generate packets faster than the server, network
-or client can process them, especially if they require expensive
-cryptographic computations.
+  \item An intruder can intercept and archive packets forever, as well as
+    all the public values ever generated and transmitted over the
+    net.
 
-3.  In a wiretap attack, the intruder can intercept, modify, and
-replay a packet.  However, it cannot permanently prevent onward
-transmission of the original packet; that is, it cannot break the
-wire, only tell lies and congest it.  Generally, the modified
-packet cannot arrive at the victim before the original packet,
-nor does it have the server private keys or identity parameters.
+  \item An intruder can generate packets faster than the server, network
+    or client can process them, especially if they require expensive
+    cryptographic computations.
 
-4.  In a middleman or masquerade attack, the intruder is positioned
-between the server and client, so it can intercept, modify and
-replay a packet and prevent onward transmission of the original
-packet.  However, the middleman does not have the server private
-keys.
+  \item In a wiretap attack, the intruder can intercept, modify, and
+    replay a packet.  However, it cannot permanently prevent onward
+    transmission of the original packet; that is, it cannot break the
+    wire, only tell lies and congest it.  Generally, the modified
+    packet cannot arrive at the victim before the original packet,
+    nor does it have the server private keys or identity parameters.
+
+  \item In a middleman or masquerade attack, the intruder is positioned
+    between the server and client, so it can intercept, modify and
+    replay a packet and prevent onward transmission of the original
+    packet.  However, the middleman does not have the server private
+    keys.
+
+\end{enumerate}
 
 The NTP security model assumes the following possible limitations:
 
-1.  The running times for public key algorithms are relatively long
-and highly variable.  In general, the performance of the time
-synchronization function is badly degraded if these algorithms
-must be used for every NTP packet.
+\begin{enumerate}
 
-2.  In some modes of operation, it is not feasible for a server to
-retain state variables for every client.  It is however feasible
-to regenerated them for a client upon arrival of a packet from
-that client.
+  \item The running times for public key algorithms are relatively long
+    and highly variable.  In general, the performance of the time
+    synchronization function is badly degraded if these algorithms
+    must be used for every NTP packet.
 
-3.  The lifetime of cryptographic values must be enforced, which
-requires a reliable system clock.  However, the sources that
-synchronize the system clock must be trusted.  This circular
-interdependence of the timekeeping and authentication functions
-requires special handling.
+  \item In some modes of operation, it is not feasible for a server to
+    retain state variables for every client.  It is however feasible
+    to regenerated them for a client upon arrival of a packet from
+    that client.
 
-4.  Client security functions must involve only public values
-transmitted over the net.  Private values must never be disclosed
-beyond the machine on which they were created, except in the case
-of a special trusted agent (TA) assigned for this purpose.
+  \item The lifetime of cryptographic values must be enforced, which
+    requires a reliable system clock.  However, the sources that
+    synchronize the system clock must be trusted.  This circular
+    interdependence of the timekeeping and authentication functions
+    requires special handling.
+
+  \item Client security functions must involve only public values
+    transmitted over the net.  Private values must never be disclosed
+    beyond the machine on which they were created, except in the case
+    of a special trusted agent (TA) assigned for this purpose.
+
+\end{enumerate}
 
 Unlike the Secure Shell (SSH) security model, where the client must
 be securely authenticated to the server, in NTP the server must be

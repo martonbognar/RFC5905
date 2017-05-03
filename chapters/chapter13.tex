@@ -39,19 +39,23 @@ structure along with the peer process variables.  The following is a
 detailed description of the variables.  The parameters will be called
 out in the following text.
 
-hpoll: signed integer representing the poll exponent, in log2 seconds
+\begin{description}
 
-last: integer representing the seconds counter when the most recent
-packet was sent
+  \item[hpoll] signed integer representing the poll exponent, in log2 seconds
 
-next: integer representing the seconds counter when the next packet
-is to be sent
+  \item[last] integer representing the seconds counter when the most recent
+    packet was sent
 
-reach: 8-bit integer shift register shared by the peer and poll
-processes
+  \item[next] integer representing the seconds counter when the next packet
+    is to be sent
 
-unreach: integer representing the number of seconds the server has
-been unreachable
+  \item[reach] 8-bit integer shift register shared by the peer and poll
+    processes
+
+  \item[unreach] integer representing the number of seconds the server has
+    been unreachable
+
+\end{description}
 
 \section{Poll Process Operations}
 
