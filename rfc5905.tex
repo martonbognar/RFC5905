@@ -10,6 +10,15 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{geometry}
 
+\newcommand{\fullimage}[2]{
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{#2}
+    \caption{#1}
+    \label{#2}
+  \end{figure}
+}
+
 \begin{document}
   \frenchspacing
   \title{Network Time Protocol Version 4: Protocol and Algorithms Specification}

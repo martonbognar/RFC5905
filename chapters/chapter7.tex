@@ -141,12 +141,7 @@ extension fields and finally an optional message authentication code
 (MAC) consisting of the Key Identifier field and Message Digest
 field.
 
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{packet_header_format.png}
-\caption{Packet Header Format}
-\label{packet_header_format}
-\end{figure}
+\fullimage{Packet Header Format}{packet_header_format}
 
 The extension fields are used to add optional capabilities, for
 example, the Autokey security protocol \cite{RFC5906}. The extension
@@ -430,12 +425,7 @@ document makes no use of the field contents. An extension field
 contains a request or response message in the format shown in
 Figure~\ref{extension_field_format}.
 
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{extension_field_format.png}
-\caption{Extension Field Format}
-\label{extension_field_format}
-\end{figure}
+\fullimage{Extension Field Format}{extension_field_format}
 
 All extension fields are zero-padded to a word (four octets)
 boundary. The Field Type field is specific to the defined function
