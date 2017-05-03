@@ -415,18 +415,18 @@ predicate and actions otherwise, and finally some comments.
 State & $ \theta $ < $ STEP $        & $ \theta > STEP $      & Comments \\
 \hline
 \hline
-NSET & \makecell[l]{->FREQ \\ adjust time} & \makecell[l]{->FREQ \\ step time} & no frequency file \\
-FSET & \makecell[l]{->SYNC \\ adjust time} & \makecell[l]{->SYNC \\ step time} & frequency file \\
-SPIK & \makecell[l]{->SYNC \\ adjust freq \\ adjust time} & \makecell[l]{if < 900 s ->SPIK \\ else ->SYNC \\ step freq \\ step time} & outlier detected \\
-FREQ & \makecell[l]{if < 900 s ->FREQ \\ else ->SYNC \\ step freq \\ adjust time} & \makecell[l]{if < 900 s ->FREQ \\ else ->SYNC \\ step freq \\ adjust time} & initial frequency \\
-SYNC & \makecell[l]{->SYNC \\ adjust freq \\ adjust time} & \makecell[l]{if < 900 s ->SPIK \\ else ->SYNC \\ step freq \\ step time} & normal operation \\
+NSET & \makecell[l]{$ \rightarrow $ FREQ \\ adjust time} & \makecell[l]{$ \rightarrow $ FREQ \\ step time} & no frequency file \\
+FSET & \makecell[l]{$ \rightarrow $ SYNC \\ adjust time} & \makecell[l]{$ \rightarrow $ SYNC \\ step time} & frequency file \\
+SPIK & \makecell[l]{$ \rightarrow $ SYNC \\ adjust freq \\ adjust time} & \makecell[l]{if < 900 s $ \rightarrow $ SPIK \\ else $ \rightarrow $ SYNC \\ step freq \\ step time} & outlier detected \\
+FREQ & \makecell[l]{if < 900 s $ \rightarrow $ FREQ \\ else $ \rightarrow $ SYNC \\ step freq \\ adjust time} & \makecell[l]{if < 900 s $ \rightarrow $ FREQ \\ else $ \rightarrow $ SYNC \\ step freq \\ adjust time} & initial frequency \\
+SYNC & \makecell[l]{$ \rightarrow $ SYNC \\ adjust freq \\ adjust time} & \makecell[l]{if < 900 s $ \rightarrow $ SPIK \\ else $ \rightarrow $ SYNC \\ step freq \\ step time} & normal operation \\
 \hline
 \end{tabular}
 \caption{State Transition Function}
 \label{state_transition_function}
 \end{table}
 
-In the table entries, the next state is identified by the arrow ->
+In the table entries, the next state is identified by the arrow $ \rightarrow $
 with the actions listed below. Actions such as adjust time and
 adjust frequency are implemented by the PLL/FLL feedback loop in the
 local\_clock() routine. A step clock action is implemented by setting
