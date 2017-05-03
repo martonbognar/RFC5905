@@ -25,42 +25,29 @@ Section 5.
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+Packet Variable & <-- & Variable \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+x.leap      & <-- & s.leap      \\
+x.version   & <-- & r.version   \\
+x.mode      & <-- & 4           \\
+x.stratum   & <-- & s.stratum   \\
+x.poll      & <-- & r.poll      \\
+x.precision & <-- & s.precision \\
+x.rootdelay & <-- & s.rootdelay \\
+x.rootdisp  & <-- & s.rootdisp  \\
+x.refid     & <-- & s.refid     \\
+x.reftime   & <-- & s.reftime   \\
+x.org       & <-- & r.xmt       \\
+x.rec       & <-- & r.dst       \\
+x.xmt       & <-- & clock       \\
+x.keyid     & <-- & r.keyid     \\
+x.digest    & <-- & md5 digest  \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{fast_xmit_packet_header}
+\caption{fast\_xmit Packet Header}
 \end{table}
-
-                +-----------------------------------+
-                | Packet Variable <--   Variable    |
-                +-----------------------------------+
-                | x.leap        <--     s.leap      |
-                | x.version     <--     r.version   |
-                | x.mode        <--     4           |
-                | x.stratum     <--     s.stratum   |
-                | x.poll        <--     r.poll      |
-                | x.precision   <--     s.precision |
-                | x.rootdelay   <--     s.rootdelay |
-                | x.rootdisp    <--     s.rootdisp  |
-                | x.refid       <--     s.refid     |
-                | x.reftime     <--     s.reftime   |
-                | x.org         <--     r.xmt       |
-                | x.rec         <--     r.dst       |
-                | x.xmt         <--     clock       |
-                | x.keyid       <--     r.keyid     |
-                | x.digest      <--     md5 digest  |
-                +-----------------------------------+
-
-                Figure 31: fast\_xmit Packet Header
 
 An SNTP client implementing the on-wire protocol has a single server
 and no dependent clients.  It can operate with any subset of the NTP

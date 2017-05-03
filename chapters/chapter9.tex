@@ -28,122 +28,74 @@ noted otherwise, all peer variables have assumed prefix p.
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+Name & Formula & Description \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+srcaddr & srcaddr & source address \\
+srcport & srcport & source port \\
+dstaddr & dstaddr & destination address \\
+dstport & destport & destination port \\
+keyid & keyid & key identifier key ID \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{peer_process_configuration_variables}
+\caption{Peer Process Configuration Variables}
 \end{table}
-
-+---------+----------+-----------------------+
-| Name | Formula | Description |
-+---------+----------+-----------------------+
-| srcaddr | srcaddr | source address |
-| srcport | srcport | source port |
-| dstaddr | dstaddr | destination address |
-| dstport | destport | destination port |
-| keyid | keyid | key identifier key ID |
-+---------+----------+-----------------------+
-Figure 16: Peer Process Configuration Variables
 
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+Name & Formula & Description \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+leap & leap & leap indicator \\
+version & version & version number \\
+mode & mode & mode \\
+stratum & stratum & stratum \\
+ppoll & ppoll & peer poll exponent \\
+rootdelay & delta\_r & root delay \\
+rootdisp & epsilon\_r & root dispersion \\
+refid & refid & reference ID \\
+reftime & reftime & reference timestamp \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{peer_process_packet_variables}
+\caption{Peer Process Packet Variables}
 \end{table}
-
-+-----------+------------+---------------------+
-| Name | Formula | Description |
-+-----------+------------+---------------------+
-| leap | leap | leap indicator |
-| version | version | version number |
-| mode | mode | mode |
-| stratum | stratum | stratum |
-| ppoll | ppoll | peer poll exponent |
-| rootdelay | delta\_r | root delay |
-| rootdisp | epsilon\_r | root dispersion |
-| refid | refid | reference ID |
-| reftime | reftime | reference timestamp |
-+-----------+------------+---------------------+
-Figure 17: Peer Process Packet Variables
 
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+Name & Formula & Description \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+org & T1 & origin timestamp \\
+rec & T2 & receive timestamp \\
+xmt & T3 & transmit timestamp \\
+t & t & packet time \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{peer_process_timestamp_variables}
+\caption{Peer Process Timestamp Variables}
 \end{table}
-
-+------+---------+--------------------+
-| Name | Formula | Description |
-+------+---------+--------------------+
-| org | T1 | origin timestamp |
-| rec | T2 | receive timestamp |
-| xmt | T3 | transmit timestamp |
-| t | t | packet time |
-+------+---------+--------------------+
-Figure 18: Peer Process Timestamp Variables
 
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+Name & Formula & Description \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+offset & theta & clock offset \\
+delay & delta & round-trip delay\\
+disp & epsilon & dispersion \\
+jitter & psi & jitter \\
+filter & filter & clock filter \\
+tp & t\_p & filter time \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{peer_process_statistics_variables}
+\caption{Peer Process Statistics Variables}
 \end{table}
-
-+--------+---------+-----------------+
-| Name | Formula | Description |
-+--------+---------+-----------------+
-| offset | theta | clock offset |
-| delay | delta | round-trip delay|
-| disp | epsilon | dispersion |
-| jitter | psi | jitter |
-| filter | filter | clock filter |
-| tp | t\_p | filter time |
-+--------+---------+-----------------+
-Figure 19: Peer Process Statistics Variables
 
 The following configuration variables are normally initialized when
 the association is mobilized, either from a configuration file or
@@ -210,36 +162,23 @@ dispatches processing to one of the following steps.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\begin{tabular}{c | c | c | c | c | c}
+ & \multicolumn{5}{c}{Packet Mode} \\
+Association Mode & 1 & 2 & 3 & 4 & 5 \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+No Association 0 & NEWPS & DSCRD & FXMIT & MANY & NEWBC \\
+Symm. Active 1 & PROC & PROC & DSCRD & DSCRD & DSCRD \\
+Symm. Passive 2 & PROC & ERR & DSCRD & DSCRD & DSCRD \\
+Client 3 & DSCRD & DSCRD & DSCRD & PROC & DSCRD \\
+Server 4 & DSCRD & DSCRD & DSCRD & DSCRD & DSCRD \\
+Broadcast 5 & DSCRD & DSCRD & DSCRD & DSCRD & DSCRD \\
+Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{peer_dispatch_table}
+\caption{Peer Dispatch Table}
 \end{table}
-
-+------------------+---------------------------------------+
-| | Packet Mode |
-+------------------+-------+-------+-------+-------+-------+
-| Association Mode | 1 | 2 | 3 | 4 | 5 |
-+------------------+-------+-------+-------+-------+-------+
-| No Association 0 | NEWPS | DSCRD | FXMIT | MANY | NEWBC |
-| Symm. Active 1 | PROC | PROC | DSCRD | DSCRD | DSCRD |
-| Symm. Passive 2 | PROC | ERR | DSCRD | DSCRD | DSCRD |
-| Client 3 | DSCRD | DSCRD | DSCRD | PROC | DSCRD |
-| Server 4 | DSCRD | DSCRD | DSCRD | DSCRD | DSCRD |
-| Broadcast 5 | DSCRD | DSCRD | DSCRD | DSCRD | DSCRD |
-| Bcast Client 6 | DSCRD | DSCRD | DSCRD | DSCRD | PROC |
-+------------------+-------+-------+-------+-------+-------+
-Figure 20: Peer Dispatch Table
 
 DSCRD. This indicates a non-fatal violation of protocol as the
 result of a programming error, long-delayed packet, or replayed
@@ -263,35 +202,23 @@ double, they must be converted to NTP short format first.
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+Packet Variable & --> & Variable \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+r.leap & --> & p.leap \\
+r.mode & --> & p.mode \\
+r.stratum & --> & p.stratum \\
+r.poll & --> & p.ppoll \\
+r.rootdelay & --> & p.rootdelay \\
+r.rootdisp & --> & p.rootdisp \\
+r.refid & --> & p.refid \\
+r.reftime & --> & p.reftime \\
+r.keyid & --> & p.keyid \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{receive_packet_header}
+\caption{Receive Packet Header}
 \end{table}
-
-+-----------------------------------+
-| Packet Variable --> Variable |
-+-----------------------------------+
-| r.leap --> p.leap |
-| r.mode --> p.mode |
-| r.stratum --> p.stratum |
-| r.poll --> p.ppoll |
-| r.rootdelay --> p.rootdelay |
-| r.rootdisp --> p.rootdisp |
-| r.refid --> p.refid |
-| r.reftime --> p.reftime |
-| r.keyid --> p.keyid |
-+-----------------------------------+
-Figure 21: Receive Packet Header
 
 Note that, if authentication fails, the server returns a special
 message called a crypto-NAK. This message includes the normal NTP
@@ -347,44 +274,21 @@ only if they survive these tests.
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+Packet Type & Description \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+1 duplicate packet & The packet is at best an old duplicate or at worst a replay by a hacker. This can happen in symmetric modes if the poll intervals are uneven. \\
+2 bogus packet & \\
+3 invalid & One or more timestamp fields are invalid. This normally happens in symmetric modes when one peer sends the first packet to the other and before the other has received its first reply. \\
+4 access denied & The access controls have blacklisted the source. \\
+5 authentication failure & The cryptographic message digest does not match the MAC. \\
+6 unsynchronized & The server is not synchronized to a valid source. \\
+7 bad header data & One or more header fields are invalid. \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{packet_error_checks}
+\caption{Packet Error Checks}
 \end{table}
-
-+--------------------------+----------------------------------------+
-| Packet Type | Description |
-+--------------------------+----------------------------------------+
-| 1 duplicate packet | The packet is at best an old duplicate |
-| | or at worst a replay by a hacker. |
-| | This can happen in symmetric modes if |
-| | the poll intervals are uneven. |
-| 2 bogus packet | |
-| 3 invalid | One or more timestamp fields are |
-| | invalid. This normally happens in |
-| | symmetric modes when one peer sends |
-| | the first packet to the other and |
-| | before the other has received its |
-| | first reply. |
-| 4 access denied | The access controls have blacklisted |
-| | the source. |
-| 5 authentication failure | The cryptographic message digest does |
-| | not match the MAC. |
-| 6 unsynchronized | The server is not synchronized to a |
-| | valid source. |
-| 7 bad header data | One or more header fields are invalid. |
-+--------------------------+----------------------------------------+
-Figure 22: Packet Error Checks
 
 Processing continues by copying the packet variables to the peer
 variables as shown in Figure 21. An example is described by the

@@ -20,30 +20,17 @@ of the registry is:
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+ID   & Clock Source \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+GOES & Geosynchronous Orbit Environment Satellite \\
+GPS  & Global Position System                     \\
+...  & ...                                        \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{reference_identifier_codes}
+\caption{Reference Identifier Codes}
 \end{table}
-
-  +------+----------------------------------------------------------+
-  | ID   | Clock Source                                             |
-  +------+----------------------------------------------------------+
-  | GOES | Geosynchronous Orbit Environment Satellite               |
-  | GPS  | Global Position System                                   |
-  | ...  | ...                                                      |
-  +------+----------------------------------------------------------+
-
-                Figure 32: Reference Identifier Codes
 
 The IANA has created a new registry for NTP Kiss-o'-Death codes.
 This includes the current codes defined in Section 7.4, and may be
@@ -52,31 +39,17 @@ extended on a FCFS basis.  The format of the registry is:
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+Code & Meaning \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+ACST & The association belongs to a unicast server. \\
+AUTH & Server authentication failed. \\
+...  & ... \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{kiss_codes}
+\caption{Kiss Codes}
 \end{table}
-
-
-+------+------------------------------------------------------------+
-| Code |                           Meaning                          |
-+------+------------------------------------------------------------+
-| ACST | The association belongs to a unicast server.               |
-| AUTH | Server authentication failed.                              |
-| ...  | ...                                                        |
-+------+------------------------------------------------------------+
-
-                        Figure 33: Kiss Codes
 
 For both Reference Identifiers and Kiss-o'-Death codes, IANA is
 requested to never assign a code beginning with the character "X", as

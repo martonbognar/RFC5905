@@ -28,41 +28,28 @@ variables have assumed prefix s.
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+Name & Formula & Description \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+t         & t          & update time            \\
+p         & p          & system peer identifier \\
+leap      & leap       & leap indicator         \\
+stratum   & stratum    & stratum                \\
+precision & rho        & precision              \\
+offset    & THETA      & combined offset        \\
+jitter    & PSI        & combined jitter        \\
+rootdelay & DELTA      & root delay             \\
+rootdisp  & EPSILON    & root dispersion        \\
+v         & v          & survivor list          \\
+refid     & refid      & reference ID           \\
+reftime   & reftime    & reference time         \\
+NMIN      & 3          & minimum survivors      \\
+CMIN      & 1          & minimum candidates     \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{system_process_variables}
+\caption{System Process Variables}
 \end{table}
-
-            +-----------+------------+------------------------+
-            | Name      | Formula    | Description            |
-            +-----------+------------+------------------------+
-            | t         | t          | update time            |
-            | p         | p          | system peer identifier |
-            | leap      | leap       | leap indicator         |
-            | stratum   | stratum    | stratum                |
-            | precision | rho        | precision              |
-            | offset    | THETA      | combined offset        |
-            | jitter    | PSI        | combined jitter        |
-            | rootdelay | DELTA      | root delay             |
-            | rootdisp  | EPSILON    | root dispersion        |
-            | v         | v          | survivor list          |
-            | refid     | refid      | reference ID           |
-            | reftime   | reftime    | reference time         |
-            | NMIN      | 3          | minimum survivors      |
-            | CMIN      | 1          | minimum candidates     |
-            +-----------+------------+------------------------+
-
-                Figure 23: System Process Variables
 
 Except for the t, p, offset, and jitter variables and the NMIN and
 CMIN constants, the variables have the same format and interpretation
@@ -105,55 +92,10 @@ and its variables are inherited as the system variables.
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{implementation_model.png}
-\caption{Implementation Model}
-\label{implementation_model}
+\includegraphics[width=\textwidth]{clock_select_routine.png}
+\caption{Clock Select Routine}
+\label{clock_select_routine}
 \end{figure}
-
-
-                      +-----------------+
-                      | clock\_select()  |
-                      +-----------------+
-................................|...........
-.                               V          .
-.      yes +---------+ +-----------------+ .
-.       +--| accept? | | scan candidates | .
-.       |  +---------+ |                 | .
-.       V        no |  |                 | .
-.  +---------+      |  |                 | .
-.  | add peer|      |  |                 | .
-.  +----------      |  |                 | .
-.       |           V  |                 | .
-.       +---------->-->|                 | .
-.                      |                 | .
-. Selection Algorithm  +-----------------+ .
-.................................|..........
-                                V
-                    no +-------------------+
-        +-------------|     survivors?    |
-        |             +-------------------+
-        |                       | yes
-        |                       V
-        |             +-------------------+
-        |             | Cluster Algorithm |
-        |             +-------------------+
-        |                       |
-        |                       V
-        V         yes +-------------------+
-        |<------------|     n < CMIN?     |
-        |             +-------------------+
-        V                       |
-  +-----------------+            V no
-  |   s.p = NULL    |  +-------------------+
-  +-----------------+  |   s.p = v\_0.p     |
-        |             +-------------------+
-        V                       |
-  +-----------------+            V
-  | return (UNSYNC) |  +-------------------+
-  +-----------------+  |   return (SYNC)   |
-                      +-------------------+
-
-                  Figure 24: Clock Select Routine
 
 \section{Selection Algorithm}
 
@@ -316,38 +258,23 @@ variables as shown in Figure 25.
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+System Variable & <-- & System Peer Variable \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+s.leap      & <-- & p.leap                    \\
+s.stratum   & <-- & p.stratum + 1             \\
+s.offset    & <-- & THETA                     \\
+s.jitter    & <-- & PSI                       \\
+s.rootdelay & <-- & p.delta\_r + delta         \\
+s.rootdisp  & <-- & p.epsilon\_r + p.epsilon + p.psi + PHI * (s.t - p.t) + |THETA|  \\
+s.refid     & <-- & p.refid                   \\
+s.reftime   & <-- & p.reftime                 \\
+s.t         & <-- & p.t                       \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{system_variables_update}
+\caption{System Variables Update}
 \end{table}
-
-              +-------------------------------------------+
-              | System Variable <-- System Peer Variable  |        |
-              +-------------------------------------------+
-              | s.leap      <-- p.leap                    |
-              | s.stratum   <-- p.stratum + 1             |
-              | s.offset    <-- THETA                     |
-              | s.jitter    <-- PSI                       |
-              | s.rootdelay <-- p.delta\_r + delta         |
-              | s.rootdisp  <-- p.epsilon\_r + p.epsilon + |
-              |                 p.psi + PHI * (s.t - p.t) |
-              |                 + |THETA|                 |
-              | s.refid     <-- p.refid                   |
-              | s.reftime   <-- p.reftime                 |
-              | s.t         <-- p.t                       |
-              +-------------------------------------------+
-
-                Figure 25: System Variables Update
 
 There is an important detail not shown.  The dispersion increment
 (p.epsilon + p.psi + PHI * (s.t - p.t) + |THETA|) is bounded from
@@ -406,11 +333,10 @@ presented in the routines of Appendices A.5.5.6 and A.5.6.1.
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{implementation_model.png}
-\caption{Implementation Model}
-\label{implementation_model}
+\includegraphics[width=\textwidth]{clock_discipline_feedback_loop.png}
+\caption{Clock Discipline Feedback Loop}
+\label{clock_discipline_feedback_loop}
 \end{figure}
-              Figure 26: Clock Discipline Feedback Loop
 
 Ordinarily, the pseudo-linear feedback loop described above operates
 to discipline the system clock.  However, there are cases where a
@@ -434,44 +360,31 @@ below.
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+Name   | Formula    | Description              \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+t      & timer      & seconds counter          \\
+offset & theta      & combined offset          \\
+resid  & theta\_r   & residual offset          \\
+freq   & phi        & clock frequency          \\
+jitter & psi        & clock offset jitter      \\
+wander & omega      & clock frequency wander   \\
+tc     & tau        & time constant (log2)     \\
+state  & state      & state                    \\
+adj    & adj        & frequency adjustment     \\
+hyster & hyster     & hysteresis counter       \\
+STEPT  & 125        & step threshold (.125 s)  \\
+WATCH  & 900        & stepout thresh(s)        \\
+PANICT & 1000       & panic threshold (1000 s) \\
+LIMIT  & 30         & hysteresis limit         \\
+PGATE  & 4          & hysteresis gate          \\
+TC     & 16         & time constant scale      \\
+AVG    & 8          & averaging constant       \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
-\end{table}
-
-                +--------+------------+--------------------------+
-            | Name   | Formula    | Description              |
-            +--------+------------+--------------------------+
-            | t      | timer      | seconds counter          |
-            | offset | theta      | combined offset          |
-            | resid  | theta\_r    | residual offset          |
-            | freq   | phi        | clock frequency          |
-            | jitter | psi        | clock offset jitter      |
-            | wander | omega      | clock frequency wander   |
-            | tc     | tau        | time constant (log2)     |
-            | state  | state      | state                    |
-            | adj    | adj        | frequency adjustment     |
-            | hyster | hyster     | hysteresis counter       |
-            | STEPT  | 125        | step threshold (.125 s)  |
-            | WATCH  | 900        | stepout thresh(s)        |
-            | PANICT | 1000       | panic threshold (1000 s) |
-            | LIMIT  | 30         | hysteresis limit         |
-            | PGATE  | 4          | hysteresis gate          |
-            | TC     | 16         | time constant scale      |
-            | AVG    | 8          | averaging constant       |
-            +--------+------------+--------------------------+
-
-        Figure 27: Clock Discipline Variables and Parameters
+\label{clock_discipline_variables_and_parameters}
+\caption{Clock Discipline Variables and Parameters}
+\end{table} 
 
 The process terminates immediately if the offset is greater than the
 panic threshold PANICT (1000 s).  The state transition function is
@@ -483,48 +396,20 @@ predicate and actions otherwise, and finally some comments.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\begin{tabular}{c | c | c | c}
+State & theta < STEP        & theta > STEP      & Comments \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+NSET & \makecell{->FREQ \\ adjust time} & \makecell{->FREQ \\ step time} & no frequency file \\
+FSET & \makecell{->SYNC \\ adjust time} & \makecell{->SYNC \\ step time} & frequency file \\
+SPIK & \makecell{->SYNC \\ adjust freq \\ adjust time} & \makecell{if < 900 s ->SPIK \\ else ->SYNC \\ step freq \\ step time} & outlier detected \\
+FREQ & \makecell{if < 900 s ->FREQ \\ else ->SYNC \\ step freq \\ adjust time} & \makecell{if < 900 s ->FREQ \\ else ->SYNC \\ step freq \\ adjust time} & initial frequency \\
+SYNC & \makecell{->SYNC \\ adjust freq \\ adjust time} & \makecell{if < 900 s ->SPIK \\ else ->SYNC \\ step freq \\ step time} & normal operation \\       
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{state_transition_function}
+\caption{State Transition Function}
 \end{table}
-
-  +-------+---------------------+-------------------+--------------+
-  | State | theta < STEP        | theta > STEP      | Comments     |
-  +-------+---------------------+-------------------+--------------+
-  | NSET  | ->FREQ              | ->FREQ            | no frequency |
-  |       | adjust time         | step time         | file         |
-  +-------+---------------------+-------------------+--------------+
-  | FSET  | ->SYNC              | ->SYNC            | frequency    |
-  |       | adjust time         | step time         | file         |
-  +-------+---------------------+-------------------+--------------+
-  | SPIK  | ->SYNC              | if < 900 s ->SPIK | outlier      |
-  |       | adjust freq         | else ->SYNC       | detected     |
-  |       | adjust time         | step freq         |              |
-  |       |                     | step time         |              |
-  +-------+---------------------+-------------------+--------------+
-  | FREQ  | if < 900 s ->FREQ   | if < 900 s ->FREQ | initial      |
-  |       | else ->SYNC         | else ->SYNC       | frequency    |
-  |       | step freq           | step freq         |              |
-  |       | adjust time         | adjust time       |              |
-  +-------+---------------------+-------------------+--------------+
-  | SYNC  | ->SYNC              | if < 900 s ->SPIK | normal       |
-  |       | adjust freq         | else ->SYNC       | operation    |
-  |       | adjust time         | step freq         |              |
-  |       |                     | step time         |              |
-  +-------+---------------------+-------------------+--------------+
-
-                Figure 28: State Transition Function
 
 In the table entries, the next state is identified by the arrow ->
 with the actions listed below.  Actions such as adjust time and

@@ -16,36 +16,23 @@ prefix p.
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+Name    & Formula & Description        \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+hpoll   & hpoll   & host poll exponent \\
+last    & last    & last poll time     \\
+next    & next    & next poll time     \\
+reach   & reach   & reach register     \\
+unreach & unreach & unreach counter    \\
+UNREACH & 24      & unreach limit      \\
+BCOUNT  & 8       & burst count        \\
+BURST   & flag    & burst enable       \\
+IBURST  & flag    & iburst enable      \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{poll_process_variables_and_parameters}
+\caption{Poll Process Variables and Parameters}
 \end{table}
-
-                +---------+---------+--------------------+
-                | Name    | Formula | Description        |
-                +---------+---------+--------------------+
-                | hpoll   | hpoll   | host poll exponent |
-                | last    | last    | last poll time     |
-                | next    | next    | next poll time     |
-                | reach   | reach   | reach register     |
-                | unreach | unreach | unreach counter    |
-                | UNREACH | 24      | unreach limit      |
-                | BCOUNT  | 8       | burst count        |
-                | BURST   | flag    | burst enable       |
-                | IBURST  | flag    | iburst enable      |
-                +---------+---------+--------------------+
-
-          Figure 29: Poll Process Variables and Parameters
 
 The poll process variables are allocated in the association data
 structure along with the peer process variables.  The following is a
@@ -126,42 +113,29 @@ the system clock.
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c}
-Association Mode & Assoc. Mode Value & Packet Mode Value \\
+Packet Variable & <-- & Variable \\
 \hline
 \hline
-Symmetric Active & 1 & 1 or 2 \\
-Symmetric Passive & 2 & 1 \\
-Client & 3 & 4 \\
-Server & 4 & 3 \\
-Broadcast Server & 5 & 5 \\
-Broadcast Client & 6 & N/A \\
+x.leap      & <-- & s.leap      \\
+x.version   & <-- & s.version   \\
+x.mode      & <-- & s.mode      \\
+x.stratum   & <-- & s.stratum   \\
+x.poll      & <-- & s.poll      \\
+x.precision & <-- & s.precision \\
+x.rootdelay & <-- & s.rootdelay \\
+x.rootdisp  & <-- & s.rootdisp  \\
+x.refid     & <-- & s.refid     \\
+x.reftime   & <-- & s.reftime   \\
+x.org       & <-- & p.xmt       \\
+x.rec       & <-- & p.dst       \\
+x.xmt       & <-- & clock       \\
+x.keyid     & <-- & p.keyid     \\
+x.digest    & <-- & md5 digest  \\
 \hline
 \end{tabular}
-\label{association_and_packet_modes}
-\caption{Association and Packet Modes}
+\label{xmit_packet_packet_header}
+\caption{xmit\_packet Packet Header}
 \end{table}
-
-                +-----------------------------------+
-                | Packet Variable <--   Variable    |
-                +-----------------------------------+
-                | x.leap        <--     s.leap      |
-                | x.version     <--     s.version   |
-                | x.mode        <--     s.mode      |
-                | x.stratum     <--     s.stratum   |
-                | x.poll        <--     s.poll      |
-                | x.precision   <--     s.precision |
-                | x.rootdelay   <--     s.rootdelay |
-                | x.rootdisp    <--     s.rootdisp  |
-                | x.refid       <--     s.refid     |
-                | x.reftime     <--     s.reftime   |
-                | x.org         <--     p.xmt       |
-                | x.rec         <--     p.dst       |
-                | x.xmt         <--     clock       |
-                | x.keyid       <--     p.keyid     |
-                | x.digest      <--     md5 digest  |
-                +-----------------------------------+
-
-                Figure 30: xmit\_packet Packet Header
 
 The poll update routine is called when a valid packet is received and
 immediately after a poll message has been sent.  If in a burst, the
