@@ -28,79 +28,79 @@ increase readability of equations in this specification. Unless
 noted otherwise, all peer variables have assumed prefix p.
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | l | l |}
-\hline
-Name & Formula & Description \\
-\hline
-\hline
-srcaddr & srcaddr & source address \\
-srcport & srcport & source port \\
-dstaddr & dstaddr & destination address \\
-dstport & destport & destination port \\
-keyid & keyid & key identifier key ID \\
-\hline
-\end{tabular}
-\caption{Peer Process Configuration Variables}
-\label{peer_process_configuration_variables}
+  \center
+  \begin{tabular}{| l | l | l |}
+    \hline
+    Name & Formula & Description \\
+    \hline
+    \hline
+    srcaddr & srcaddr & source address \\
+    srcport & srcport & source port \\
+    dstaddr & dstaddr & destination address \\
+    dstport & destport & destination port \\
+    keyid & keyid & key identifier key ID \\
+    \hline
+  \end{tabular}
+  \caption{Peer Process Configuration Variables}
+  \label{peer_process_configuration_variables}
 \end{table}
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | l | l |}
-\hline
-Name & Formula & Description \\
-\hline
-\hline
-leap & leap & leap indicator \\
-version & version & version number \\
-mode & mode & mode \\
-stratum & stratum & stratum \\
-ppoll & ppoll & peer poll exponent \\
-rootdelay & $ \delta_r $ & root delay \\
-rootdisp & $ \epsilon_r $ & root dispersion \\
-refid & refid & reference ID \\
-reftime & reftime & reference timestamp \\
-\hline
-\end{tabular}
-\caption{Peer Process Packet Variables}
-\label{peer_process_packet_variables}
+  \center
+  \begin{tabular}{| l | l | l |}
+    \hline
+    Name & Formula & Description \\
+    \hline
+    \hline
+    leap & leap & leap indicator \\
+    version & version & version number \\
+    mode & mode & mode \\
+    stratum & stratum & stratum \\
+    ppoll & ppoll & peer poll exponent \\
+    rootdelay & $ \delta_r $ & root delay \\
+    rootdisp & $ \epsilon_r $ & root dispersion \\
+    refid & refid & reference ID \\
+    reftime & reftime & reference timestamp \\
+    \hline
+  \end{tabular}
+  \caption{Peer Process Packet Variables}
+  \label{peer_process_packet_variables}
 \end{table}
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | l | l |}
-\hline
-Name & Formula & Description \\
-\hline
-\hline
-org & T1 & origin timestamp \\
-rec & T2 & receive timestamp \\
-xmt & T3 & transmit timestamp \\
-t & t & packet time \\
-\hline
-\end{tabular}
-\caption{Peer Process Timestamp Variables}
-\label{peer_process_timestamp_variables}
+  \center
+  \begin{tabular}{| l | l | l |}
+    \hline
+    Name & Formula & Description \\
+    \hline
+    \hline
+    org & T1 & origin timestamp \\
+    rec & T2 & receive timestamp \\
+    xmt & T3 & transmit timestamp \\
+    t & t & packet time \\
+    \hline
+  \end{tabular}
+  \caption{Peer Process Timestamp Variables}
+  \label{peer_process_timestamp_variables}
 \end{table}
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | l | l |}
-\hline
-Name & Formula & Description \\
-\hline
-\hline
-offset & $ \theta $ & clock offset \\
-delay & $ \delta $ & round-trip delay\\
-disp & $ \epsilon $ & dispersion \\
-jitter & $ \psi $ & jitter \\
-filter & filter & clock filter \\
-tp & $ t_p $ & filter time \\
-\hline
-\end{tabular}
-\caption{Peer Process Statistics Variables}
-\label{peer_process_statistics_variables}
+  \center
+  \begin{tabular}{| l | l | l |}
+    \hline
+    Name & Formula & Description \\
+    \hline
+    \hline
+    offset & $ \theta $ & clock offset \\
+    delay & $ \delta $ & round-trip delay\\
+    disp & $ \epsilon $ & dispersion \\
+    jitter & $ \psi $ & jitter \\
+    filter & filter & clock filter \\
+    tp & $ t_p $ & filter time \\
+    \hline
+  \end{tabular}
+  \caption{Peer Process Statistics Variables}
+  \label{peer_process_statistics_variables}
 \end{table}
 
 The following configuration variables are normally initialized when
@@ -109,25 +109,25 @@ upon the arrival of the first packet for an unknown association.
 
 \begin{description}
   \item[srcaddr] IP address of the remote server or reference clock. This
-becomes the destination IP address in packets sent from this
-association.
+    becomes the destination IP address in packets sent from this
+    association.
 
   \item[srcport] UDP port number of the server or reference clock. This
-becomes the destination port number in packets sent from this
-association. When operating in symmetric modes (1 and 2), this field
-must contain the NTP port number PORT (123) assigned by the IANA. In
-other modes, it can contain any number consistent with local policy.
+    becomes the destination port number in packets sent from this
+    association. When operating in symmetric modes (1 and 2), this field
+    must contain the NTP port number PORT (123) assigned by the IANA. In
+    other modes, it can contain any number consistent with local policy.
 
   \item[dstaddr] IP address of the client. This becomes the source IP
-address in packets sent from this association.
+    address in packets sent from this association.
 
   \item[dstport] UDP port number of the client, ordinarily the NTP port
-number PORT (123) assigned by the IANA. This becomes the source port
-number in packets sent from this association.
+    number PORT (123) assigned by the IANA. This becomes the source port
+    number in packets sent from this association.
 
   \item[keyid] Symmetric key ID for the 128-bit MD5 key used to generate and
-verify the MAC. The client and server or peer can use different
-values, but they must map to the same key.
+    verify the MAC. The client and server or peer can use different
+    values, but they must map to the same key.
 \end{description}
 
 The variables defined in Table~\ref{peer_process_packet_variables} are updated from the packet header
@@ -170,25 +170,25 @@ mode. The intersection of the association and packet modes
 dispatches processing to one of the following steps.
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | c | c | c | c | c |}
-\hline
- & \multicolumn{5}{c |}{Packet Mode} \\
-\hline
-Association Mode & 1 & 2 & 3 & 4 & 5 \\
-\hline
-\hline
-No Association 0 & NEWPS & DSCRD & FXMIT & MANY & NEWBC \\
-Symm. Active 1 & PROC & PROC & DSCRD & DSCRD & DSCRD \\
-Symm. Passive 2 & PROC & ERR & DSCRD & DSCRD & DSCRD \\
-Client 3 & DSCRD & DSCRD & DSCRD & PROC & DSCRD \\
-Server 4 & DSCRD & DSCRD & DSCRD & DSCRD & DSCRD \\
-Broadcast 5 & DSCRD & DSCRD & DSCRD & DSCRD & DSCRD \\
-Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
-\hline
-\end{tabular}
-\caption{Peer Dispatch Table}
-\label{peer_dispatch_table}
+  \center
+  \begin{tabular}{| l | c | c | c | c | c |}
+    \hline
+     & \multicolumn{5}{c |}{Packet Mode} \\
+    \hline
+    Association Mode & 1 & 2 & 3 & 4 & 5 \\
+    \hline
+    \hline
+    No Association 0 & NEWPS & DSCRD & FXMIT & MANY & NEWBC \\
+    Symm. Active 1 & PROC & PROC & DSCRD & DSCRD & DSCRD \\
+    Symm. Passive 2 & PROC & ERR & DSCRD & DSCRD & DSCRD \\
+    Client 3 & DSCRD & DSCRD & DSCRD & PROC & DSCRD \\
+    Server 4 & DSCRD & DSCRD & DSCRD & DSCRD & DSCRD \\
+    Broadcast 5 & DSCRD & DSCRD & DSCRD & DSCRD & DSCRD \\
+    Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
+    \hline
+    \end{tabular}
+  \caption{Peer Dispatch Table}
+  \label{peer_dispatch_table}
 \end{table}
 
 \begin{description}
@@ -213,25 +213,25 @@ Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
     double, they must be converted to NTP short format first.
 
     \begin{table}[htb]
-    \center
-    \begin{tabular}{| l c l |}
-    \hline
-    Packet Variable & $ \rightarrow $ & Variable \\
-    \hline
-    \hline
-    r.leap & $ \rightarrow $ & p.leap \\
-    r.mode & $ \rightarrow $ & p.mode \\
-    r.stratum & $ \rightarrow $ & p.stratum \\
-    r.poll & $ \rightarrow $ & p.ppoll \\
-    r.rootdelay & $ \rightarrow $ & p.rootdelay \\
-    r.rootdisp & $ \rightarrow $ & p.rootdisp \\
-    r.refid & $ \rightarrow $ & p.refid \\
-    r.reftime & $ \rightarrow $ & p.reftime \\
-    r.keyid & $ \rightarrow $ & p.keyid \\
-    \hline
-    \end{tabular}
-    \caption{Receive Packet Header}
-    \label{receive_packet_header}
+      \center
+      \begin{tabular}{| l c l |}
+        \hline
+        Packet Variable & $ \rightarrow $ & Variable \\
+        \hline
+        \hline
+        r.leap & $ \rightarrow $ & p.leap \\
+        r.mode & $ \rightarrow $ & p.mode \\
+        r.stratum & $ \rightarrow $ & p.stratum \\
+        r.poll & $ \rightarrow $ & p.ppoll \\
+        r.rootdelay & $ \rightarrow $ & p.rootdelay \\
+        r.rootdisp & $ \rightarrow $ & p.rootdisp \\
+        r.refid & $ \rightarrow $ & p.refid \\
+        r.reftime & $ \rightarrow $ & p.reftime \\
+        r.keyid & $ \rightarrow $ & p.keyid \\
+        \hline
+      \end{tabular}
+      \caption{Receive Packet Header}
+      \label{receive_packet_header}
     \end{table}
 
     Note that, if authentication fails, the server returns a special
@@ -286,23 +286,23 @@ Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
     only if they survive these tests.
 
     \begin{table}[htb]
-    \center
-    \begin{tabular}{| l | l |}
-    \hline
-    Packet Type & Description \\
-    \hline
-    \hline
-    1 duplicate packet & \makecell[l]{The packet is at best an old duplicate \\ or at worst a replay by a hacker. \\ This can happen in symmetric modes if \\ the poll intervals are uneven.} \\
-    2 bogus packet & \\
-    3 invalid & \makecell[l]{One or more timestamp fields are \\ invalid. This normally happens in \\ symmetric modes when one peer sends \\ the first packet to the other and \\ before the other has received its \\ first reply.} \\
-    4 access denied & \makecell[l]{The access controls have blacklisted \\ the source.} \\
-    5 authentication failure & \makecell[l]{The cryptographic message digest does \\ not match the MAC.} \\
-    6 unsynchronized & \makecell[l]{The server is not synchronized to a \\ valid source.} \\
-    7 bad header data & One or more header fields are invalid. \\
-    \hline
-    \end{tabular}
-    \caption{Packet Error Checks}
-    \label{packet_error_checks}
+      \center
+      \begin{tabular}{| l | l |}
+        \hline
+        Packet Type & Description \\
+        \hline
+        \hline
+        1 duplicate packet & \makecell[l]{The packet is at best an old duplicate \\ or at worst a replay by a hacker. \\ This can happen in symmetric modes if \\ the poll intervals are uneven.} \\
+        2 bogus packet & \\
+        3 invalid & \makecell[l]{One or more timestamp fields are \\ invalid. This normally happens in \\ symmetric modes when one peer sends \\ the first packet to the other and \\ before the other has received its \\ first reply.} \\
+        4 access denied & \makecell[l]{The access controls have blacklisted \\ the source.} \\
+        5 authentication failure & \makecell[l]{The cryptographic message digest does \\ not match the MAC.} \\
+        6 unsynchronized & \makecell[l]{The server is not synchronized to a \\ valid source.} \\
+        7 bad header data & One or more header fields are invalid. \\
+        \hline
+      \end{tabular}
+      \caption{Packet Error Checks}
+      \label{packet_error_checks}
     \end{table}
 
 \end{description}

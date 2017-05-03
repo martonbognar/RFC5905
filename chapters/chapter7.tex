@@ -25,21 +25,21 @@ There is a set of peer variables for each association; there is only
 one set of system and clock variables.
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | l |}
-\hline
-Name & Description \\
-\hline
-\hline
-r. & receive packet header variable \\
-x. & transmit packet header variable \\
-p. & peer/poll variable \\
-s. & system variable \\
-c. & clock discipline variable \\
-\hline
-\end{tabular}
-\caption{Prefix Conventions}
-\label{prefix_conventions}
+  \center
+  \begin{tabular}{| l | l |}
+    \hline
+    Name & Description \\
+    \hline
+    \hline
+    r. & receive packet header variable \\
+    x. & transmit packet header variable \\
+    p. & peer/poll variable \\
+    s. & system variable \\
+    c. & clock discipline variable \\
+    \hline
+  \end{tabular}
+  \caption{Prefix Conventions}
+  \label{prefix_conventions}
 \end{table}
 
 \section{Global Parameters}
@@ -50,25 +50,25 @@ are defined in this document, including those shown with values in
 Table~\ref{global_parameters}.
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | l | l |}
-\hline
-Name & Value & Description \\
-\hline
-\hline
-PORT & 123 & NTP port number \\
-VERSION & 4 & NTP version number \\
-TOLERANCE & 15e-6 & frequency tolerance $ \Phi $ (s/s) \\
-MINPOLL & 4 & minimum poll exponent (16 s) \\
-MAXPOLL & 17 & maximum poll exponent (36 h) \\
-MAXDISP & 16 & maximum dispersion (16 s) \\
-MINDISP & .005 & minimum dispersion increment (s) \\
-MAXDIST & 1 & distance threshold (1 s) \\
-MAXSTRAT & 16 & maximum stratum number \\
-\hline
-\end{tabular}
-\caption{Global Parameters}
-\label{global_parameters}
+  \center
+  \begin{tabular}{| l | l | l |}
+    \hline
+    Name & Value & Description \\
+    \hline
+    \hline
+    PORT & 123 & NTP port number \\
+    VERSION & 4 & NTP version number \\
+    TOLERANCE & 15e-6 & frequency tolerance $ \Phi $ (s/s) \\
+    MINPOLL & 4 & minimum poll exponent (16 s) \\
+    MAXPOLL & 17 & maximum poll exponent (36 h) \\
+    MAXDISP & 16 & maximum dispersion (16 s) \\
+    MINDISP & .005 & minimum dispersion increment (s) \\
+    MAXDIST & 1 & distance threshold (1 s) \\
+    MAXSTRAT & 16 & maximum stratum number \\
+    \hline
+  \end{tabular}
+  \caption{Global Parameters}
+  \label{global_parameters}
 \end{table}
 
 While these are the only global parameters needed for
@@ -106,32 +106,32 @@ used by both Autokey and the symmetric key cryptographic algorithm
 described in this RFC.
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | l | l |}
-\hline
-Name & Formula & Description \\
-\hline
-\hline
-leap & leap & leap indicator (LI) \\
-version & version & version number (VN) \\
-mode & mode & mode \\
-stratum & stratum & stratum \\
-poll & poll & poll exponent \\
-precision & rho & precision exponent \\
-rootdelay & $ \delta_r $ & root delay \\
-rootdisp & $ \epsilon_r $ & root dispersion \\
-refid & refid & reference ID \\
-reftime & reftime & reference timestamp \\
-org & T1 & origin timestamp \\
-rec & T2 & receive timestamp \\
-xmt & T3 & transmit timestamp \\
-dst & T4 & destination timestamp \\
-keyid & keyid & key ID \\
-dgst & dgst & message digest \\
-\hline
-\end{tabular}
-\caption{Packet Header Variables}
-\label{packet_header_variables}
+  \center
+  \begin{tabular}{| l | l | l |}
+    \hline
+    Name & Formula & Description \\
+    \hline
+    \hline
+    leap & leap & leap indicator (LI) \\
+    version & version & version number (VN) \\
+    mode & mode & mode \\
+    stratum & stratum & stratum \\
+    poll & poll & poll exponent \\
+    precision & rho & precision exponent \\
+    rootdelay & $ \delta_r $ & root delay \\
+    rootdisp & $ \epsilon_r $ & root dispersion \\
+    refid & refid & reference ID \\
+    reftime & reftime & reference timestamp \\
+    org & T1 & origin timestamp \\
+    rec & T2 & receive timestamp \\
+    xmt & T3 & transmit timestamp \\
+    dst & T4 & destination timestamp \\
+    keyid & keyid & key ID \\
+    dgst & dgst & message digest \\
+    \hline
+  \end{tabular}
+  \caption{Packet Header Variables}
+  \label{packet_header_variables}
 \end{table}
 
 The NTP packet is a UDP datagram \cite{RFC0768}. Some fields use multiple
@@ -163,189 +163,189 @@ interpreted as follows:
 
 \begin{description}
 
-\item[LI Leap Indicator (leap)] 2-bit integer warning of an impending leap
-second to be inserted or deleted in the last minute of the current
-month with values defined in Table~\ref{leap_indicator}.
+  \item[LI Leap Indicator (leap)] 2-bit integer warning of an impending leap
+    second to be inserted or deleted in the last minute of the current
+    month with values defined in Table~\ref{leap_indicator}.
 
-\begin{table}[htb]
-\center
-\begin{tabular}{| l | l |}
-\hline
-Value & Meaning \\
-\hline
-\hline
-0 & no warning \\
-1 & last minute of the day has 61 seconds \\
-2 & last minute of the day has 59 seconds \\
-3 & unknown (clock unsynchronized) \\
-\hline
-\end{tabular}
-\caption{Leap Indicator}
-\label{leap_indicator}
-\end{table}
+    \begin{table}[htb]
+      \center
+      \begin{tabular}{| l | l |}
+        \hline
+        Value & Meaning \\
+        \hline
+        \hline
+        0 & no warning \\
+        1 & last minute of the day has 61 seconds \\
+        2 & last minute of the day has 59 seconds \\
+        3 & unknown (clock unsynchronized) \\
+        \hline
+      \end{tabular}
+      \caption{Leap Indicator}
+      \label{leap_indicator}
+    \end{table}
 
-\item[VN Version Number (version)] 3-bit integer representing the NTP
-version number, currently 4.
+  \item[VN Version Number (version)] 3-bit integer representing the NTP
+    version number, currently 4.
 
-\item[Mode (mode)] 3-bit integer representing the mode, with values defined
-in Table~\ref{association_modes}.
+  \item[Mode (mode)] 3-bit integer representing the mode, with values defined
+    in Table~\ref{association_modes}.
 
-\begin{table}[htb]
-\center
-\begin{tabular}{| l | l |}
-\hline
-Value & Meaning \\
-\hline
-\hline
-0 & reserved \\
-1 & symmetric active \\
-2 & symmetric passive \\
-3 & client \\
-4 & server \\
-5 & broadcast \\
-6 & NTP control message \\
-7 & reserved for private use \\
-\hline
-\end{tabular}
-\caption{Association Modes}
-\label{association_modes}
-\end{table}
+    \begin{table}[htb]
+      \center
+      \begin{tabular}{| l | l |}
+        \hline
+        Value & Meaning \\
+        \hline
+        \hline
+        0 & reserved \\
+        1 & symmetric active \\
+        2 & symmetric passive \\
+        3 & client \\
+        4 & server \\
+        5 & broadcast \\
+        6 & NTP control message \\
+        7 & reserved for private use \\
+        \hline
+      \end{tabular}
+      \caption{Association Modes}
+      \label{association_modes}
+    \end{table}
 
-\item[Stratum (stratum)] 8-bit integer representing the stratum, with
-values defined in Table~\ref{packet_stratum}.
+  \item[Stratum (stratum)] 8-bit integer representing the stratum, with
+    values defined in Table~\ref{packet_stratum}.
 
-\begin{table}[htb]
-\center
-\begin{tabular}{| l | l |}
-\hline
-Value & Meaning \\
-\hline
-\hline
-0 & unspecified or invalid \\
-1 & primary server (e.g., equipped with a GPS receiver) \\
-2-15 & secondary server (via NTP) \\
-16 & unsynchronized \\
-17-255 & reserved \\
-\hline
-\end{tabular}
-\caption{Packet Stratum}
-\label{packet_stratum}
-\end{table}
+    \begin{table}[htb]
+      \center
+      \begin{tabular}{| l | l |}
+        \hline
+        Value & Meaning \\
+        \hline
+        \hline
+        0 & unspecified or invalid \\
+        1 & primary server (e.g., equipped with a GPS receiver) \\
+        2-15 & secondary server (via NTP) \\
+        16 & unsynchronized \\
+        17-255 & reserved \\
+        \hline
+      \end{tabular}
+      \caption{Packet Stratum}
+      \label{packet_stratum}
+    \end{table}
 
-It is customary to map the stratum value 0 in received packets to
-MAXSTRAT (16) in the peer variable p.stratum and to map p.stratum
-values of MAXSTRAT or greater to 0 in transmitted packets. This
-allows reference clocks, which normally appear at stratum 0, to be
-conveniently mitigated using the same clock selection algorithms used
-for external sources (see Appendix A.5.5.1 for an example).
+    It is customary to map the stratum value 0 in received packets to
+    MAXSTRAT (16) in the peer variable p.stratum and to map p.stratum
+    values of MAXSTRAT or greater to 0 in transmitted packets. This
+    allows reference clocks, which normally appear at stratum 0, to be
+    conveniently mitigated using the same clock selection algorithms used
+    for external sources (see Appendix A.5.5.1 for an example).
 
-\item[Poll] 8-bit signed integer representing the maximum interval between
-successive messages, in $ \log_2 $ seconds. Suggested default limits for
-minimum and maximum poll intervals are 6 and 10, respectively.
+  \item[Poll] 8-bit signed integer representing the maximum interval between
+    successive messages, in $ \log_2 $ seconds. Suggested default limits for
+    minimum and maximum poll intervals are 6 and 10, respectively.
 
-\item[Precision] 8-bit signed integer representing the precision of the
-system clock, in $ \log_2 $ seconds. For instance, a value of -18
-corresponds to a precision of about one microsecond. The precision
-can be determined when the service first starts up as the minimum
-time of several iterations to read the system clock.
+  \item[Precision] 8-bit signed integer representing the precision of the
+    system clock, in $ \log_2 $ seconds. For instance, a value of -18
+    corresponds to a precision of about one microsecond. The precision
+    can be determined when the service first starts up as the minimum
+    time of several iterations to read the system clock.
 
-\item[Root Delay (rootdelay)] Total round-trip delay to the reference
-clock, in NTP short format.
+  \item[Root Delay (rootdelay)] Total round-trip delay to the reference
+    clock, in NTP short format.
 
-\item[Root Dispersion (rootdisp)] Total dispersion to the reference clock,
-in NTP short format.
+  \item[Root Dispersion (rootdisp)] Total dispersion to the reference clock,
+    in NTP short format.
 
-\item[Reference ID (refid)] 32-bit code identifying the particular server
-or reference clock. The interpretation depends on the value in the
-stratum field. For packet stratum 0 (unspecified or invalid), this
-is a four-character ASCII \cite{RFC1345} string, called the ``kiss code'',
-used for debugging and monitoring purposes. For stratum 1 (reference
-clock), this is a four-octet, left-justified, zero-padded ASCII
-string assigned to the reference clock. The authoritative list of
-Reference Identifiers is maintained by IANA; however, any string
-beginning with the ASCII character ``X'' is reserved for unregistered
-experimentation and development. The identifiers in Table~\ref{reference_identifiers} have
-been used as ASCII identifiers:
+  \item[Reference ID (refid)] 32-bit code identifying the particular server
+    or reference clock. The interpretation depends on the value in the
+    stratum field. For packet stratum 0 (unspecified or invalid), this
+    is a four-character ASCII \cite{RFC1345} string, called the ``kiss code'',
+    used for debugging and monitoring purposes. For stratum 1 (reference
+    clock), this is a four-octet, left-justified, zero-padded ASCII
+    string assigned to the reference clock. The authoritative list of
+    Reference Identifiers is maintained by IANA; however, any string
+    beginning with the ASCII character ``X'' is reserved for unregistered
+    experimentation and development. The identifiers in Table~\ref{reference_identifiers} have
+    been used as ASCII identifiers:
 
-\begin{table}[htb]
-\center
-\begin{tabular}{| l | l |}
-\hline
-ID & Clock Source \\
-\hline
-\hline
-GOES & Geosynchronous Orbit Environment Satellite \\
-GPS & Global Position System \\
-GAL & Galileo Positioning System \\
-PPS & Generic pulse-per-second \\
-IRIG & Inter-Range Instrumentation Group \\
-WWVB & LF Radio WWVB Ft. Collins, CO 60 kHz \\
-DCF & LF Radio DCF77 Mainflingen, DE 77.5 kHz \\
-HBG & LF Radio HBG Prangins, HB 75 kHz \\
-MSF & LF Radio MSF Anthorn, UK 60 kHz \\
-JJY & LF Radio JJY Fukushima, JP 40 kHz, Saga, JP 60 kHz \\
-LORC & MF Radio LORAN C station, 100 kHz \\
-TDF & MF Radio Allouis, FR 162 kHz \\
-CHU & HF Radio CHU Ottawa, Ontario \\
-WWV & HF Radio WWV Ft. Collins, CO \\
-WWVH & HF Radio WWVH Kauai, HI \\
-NIST & NIST telephone modem \\
-ACTS & NIST telephone modem \\
-USNO & USNO telephone modem \\
-PTB & European telephone modem \\
-\hline
-\end{tabular}
-\caption{Reference Identifiers}
-\label{reference_identifiers}
-\end{table}
+    \begin{table}[htb]
+      \center
+      \begin{tabular}{| l | l |}
+        \hline
+        ID & Clock Source \\
+        \hline
+        \hline
+        GOES & Geosynchronous Orbit Environment Satellite \\
+        GPS & Global Position System \\
+        GAL & Galileo Positioning System \\
+        PPS & Generic pulse-per-second \\
+        IRIG & Inter-Range Instrumentation Group \\
+        WWVB & LF Radio WWVB Ft. Collins, CO 60 kHz \\
+        DCF & LF Radio DCF77 Mainflingen, DE 77.5 kHz \\
+        HBG & LF Radio HBG Prangins, HB 75 kHz \\
+        MSF & LF Radio MSF Anthorn, UK 60 kHz \\
+        JJY & LF Radio JJY Fukushima, JP 40 kHz, Saga, JP 60 kHz \\
+        LORC & MF Radio LORAN C station, 100 kHz \\
+        TDF & MF Radio Allouis, FR 162 kHz \\
+        CHU & HF Radio CHU Ottawa, Ontario \\
+        WWV & HF Radio WWV Ft. Collins, CO \\
+        WWVH & HF Radio WWVH Kauai, HI \\
+        NIST & NIST telephone modem \\
+        ACTS & NIST telephone modem \\
+        USNO & USNO telephone modem \\
+        PTB & European telephone modem \\
+        \hline
+      \end{tabular}
+      \caption{Reference Identifiers}
+      \label{reference_identifiers}
+    \end{table}
 
-\item[Above stratum 1 (secondary servers and clients)] this is the
-reference identifier of the server and can be used to detect timing
-loops. If using the IPv4 address family, the identifier is the four-
-octet IPv4 address. If using the IPv6 address family, it is the
-first four octets of the MD5 hash of the IPv6 address. Note that,
-when using the IPv6 address family on an NTPv4 server with a NTPv3
-client, the Reference Identifier field appears to be a random value
-and a timing loop might not be detected.
+  \item[Above stratum 1 (secondary servers and clients)] this is the
+    reference identifier of the server and can be used to detect timing
+    loops. If using the IPv4 address family, the identifier is the four-
+    octet IPv4 address. If using the IPv6 address family, it is the
+    first four octets of the MD5 hash of the IPv6 address. Note that,
+    when using the IPv6 address family on an NTPv4 server with a NTPv3
+    client, the Reference Identifier field appears to be a random value
+    and a timing loop might not be detected.
 
-\item[Reference Timestamp] Time when the system clock was last set or
-corrected, in NTP timestamp format.
+  \item[Reference Timestamp] Time when the system clock was last set or
+    corrected, in NTP timestamp format.
 
-\item[Origin Timestamp (org)] Time at the client when the request departed
-for the server, in NTP timestamp format.
+  \item[Origin Timestamp (org)] Time at the client when the request departed
+    for the server, in NTP timestamp format.
 
-\item[Receive Timestamp (rec)] Time at the server when the request arrived
-from the client, in NTP timestamp format.
+  \item[Receive Timestamp (rec)] Time at the server when the request arrived
+    from the client, in NTP timestamp format.
 
-\item[Transmit Timestamp (xmt)] Time at the server when the response left
-for the client, in NTP timestamp format.
+  \item[Transmit Timestamp (xmt)] Time at the server when the response left
+    for the client, in NTP timestamp format.
 
-\item[Destination Timestamp (dst)] Time at the client when the reply
-arrived from the server, in NTP timestamp format.
+  \item[Destination Timestamp (dst)] Time at the client when the reply
+    arrived from the server, in NTP timestamp format.
 
-Note: The Destination Timestamp field is not included as a header
-field; it is determined upon arrival of the packet and made available
-in the packet buffer data structure.
+    Note: The Destination Timestamp field is not included as a header
+    field; it is determined upon arrival of the packet and made available
+    in the packet buffer data structure.
 
-If the NTP has access to the physical layer, then the timestamps are
-associated with the beginning of the symbol after the start of frame.
-Otherwise, implementations should attempt to associate the timestamp
-to the earliest accessible point in the frame.
+    If the NTP has access to the physical layer, then the timestamps are
+    associated with the beginning of the symbol after the start of frame.
+    Otherwise, implementations should attempt to associate the timestamp
+    to the earliest accessible point in the frame.
 
-The MAC consists of the Key Identifier followed by the Message
-Digest. The message digest, or cryptosum, is calculated as in
-\cite{RFC1321} over all NTP-header and optional extension fields, but not
-the MAC itself.
+    The MAC consists of the Key Identifier followed by the Message
+    Digest. The message digest, or cryptosum, is calculated as in
+    \cite{RFC1321} over all NTP-header and optional extension fields, but not
+    the MAC itself.
 
-\item[Extension Field n] See Section~\ref{section-7-5} for a description of the format of
-this field.
+  \item[Extension Field n] See Section~\ref{section-7-5} for a description of the format of
+    this field.
 
-\item[Key Identifier (keyid)] 32-bit unsigned integer used by the client
-and server to designate a secret 128-bit MD5 key.
+  \item[Key Identifier (keyid)] 32-bit unsigned integer used by the client
+    and server to designate a secret 128-bit MD5 key.
 
-\item[Message Digest (digest)] 128-bit MD5 hash computed over the key
-followed by the NTP packet header and extensions fields (but not the
-Key Identifier or Message Digest fields).
+  \item[Message Digest (digest)] 128-bit MD5 hash computed over the key
+    followed by the NTP packet header and extensions fields (but not the
+    Key Identifier or Message Digest fields).
 
 \end{description}
 
@@ -385,30 +385,30 @@ significance and are discarded after inspection.
 \end{enumerate}
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | l |}
-\hline
-Code & Meaning \\
-\hline
-\hline
-ACST & The association belongs to a unicast server. \\
-AUTH & Server authentication failed. \\
-AUTO & Autokey sequence failed. \\
-BCST & The association belongs to a broadcast server. \\
-CRYP & Cryptographic authentication or identification failed. \\
-DENY & Access denied by remote server. \\
-DROP & Lost peer in symmetric mode. \\
-RSTR & Access denied due to local policy. \\
-INIT & \makecell[l]{The association has not yet synchronized for the first \\ time.} \\
-MCST & The association belongs to a dynamically discovered server.\\
-NKEY & \makecell[l]{No key found. Either the key was never installed or is \\ not trusted.} \\
-RATE & \makecell[l]{Rate exceeded. The server has temporarily denied access \\ because the client exceeded the rate threshold.} \\
-RMOT & \makecell[l]{Alteration of association from a remote host running \\ ntpdc.} \\
-STEP & \makecell[l]{A step change in system time has occurred, but the \\ association has not yet resynchronized.} \\
-\hline
-\end{tabular}
-\caption{Kiss Codes}
-\label{kiss_codes}
+  \center
+  \begin{tabular}{| l | l |}
+    \hline
+    Code & Meaning \\
+    \hline
+    \hline
+    ACST & The association belongs to a unicast server. \\
+    AUTH & Server authentication failed. \\
+    AUTO & Autokey sequence failed. \\
+    BCST & The association belongs to a broadcast server. \\
+    CRYP & Cryptographic authentication or identification failed. \\
+    DENY & Access denied by remote server. \\
+    DROP & Lost peer in symmetric mode. \\
+    RSTR & Access denied due to local policy. \\
+    INIT & \makecell[l]{The association has not yet synchronized for the first \\ time.} \\
+    MCST & The association belongs to a dynamically discovered server.\\
+    NKEY & \makecell[l]{No key found. Either the key was never installed or is \\ not trusted.} \\
+    RATE & \makecell[l]{Rate exceeded. The server has temporarily denied access \\ because the client exceeded the rate threshold.} \\
+    RMOT & \makecell[l]{Alteration of association from a remote host running \\ ntpdc.} \\
+    STEP & \makecell[l]{A step change in system time has occurred, but the \\ association has not yet resynchronized.} \\
+    \hline
+  \end{tabular}
+  \caption{Kiss Codes}
+  \label{kiss_codes}
 \end{table}
 
 The Receive Timestamp and the Transmit Timestamp (set by the server)

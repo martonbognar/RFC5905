@@ -16,25 +16,25 @@ description of the poll process variables (lowercase) and parameters
 prefix p.
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | l | l |}
-\hline
-Name    & Formula & Description        \\
-\hline
-\hline
-hpoll   & hpoll   & host poll exponent \\
-last    & last    & last poll time     \\
-next    & next    & next poll time     \\
-reach   & reach   & reach register     \\
-unreach & unreach & unreach counter    \\
-UNREACH & 24      & unreach limit      \\
-BCOUNT  & 8       & burst count        \\
-BURST   & flag    & burst enable       \\
-IBURST  & flag    & iburst enable      \\
-\hline
-\end{tabular}
-\caption{Poll Process Variables and Parameters}
-\label{poll_process_variables_and_parameters}
+  \center
+  \begin{tabular}{| l | l | l |}
+    \hline
+    Name    & Formula & Description        \\
+    \hline
+    \hline
+    hpoll   & hpoll   & host poll exponent \\
+    last    & last    & last poll time     \\
+    next    & next    & next poll time     \\
+    reach   & reach   & reach register     \\
+    unreach & unreach & unreach counter    \\
+    UNREACH & 24      & unreach limit      \\
+    BCOUNT  & 8       & burst count        \\
+    BURST   & flag    & burst enable       \\
+    IBURST  & flag    & iburst enable      \\
+    \hline
+  \end{tabular}
+  \caption{Poll Process Variables and Parameters}
+  \label{poll_process_variables_and_parameters}
 \end{table}
 
 The poll process variables are allocated in the association data
@@ -120,31 +120,31 @@ intact from peer and system variables or struck as a timestamp from
 the system clock.
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l c l |}
-\hline
-Packet Variable & $ \leftarrow $ & Variable \\
-\hline
-\hline
-x.leap      & $ \leftarrow $ & s.leap      \\
-x.version   & $ \leftarrow $ & s.version   \\
-x.mode      & $ \leftarrow $ & s.mode      \\
-x.stratum   & $ \leftarrow $ & s.stratum   \\
-x.poll      & $ \leftarrow $ & s.poll      \\
-x.precision & $ \leftarrow $ & s.precision \\
-x.rootdelay & $ \leftarrow $ & s.rootdelay \\
-x.rootdisp  & $ \leftarrow $ & s.rootdisp  \\
-x.refid     & $ \leftarrow $ & s.refid     \\
-x.reftime   & $ \leftarrow $ & s.reftime   \\
-x.org       & $ \leftarrow $ & p.xmt       \\
-x.rec       & $ \leftarrow $ & p.dst       \\
-x.xmt       & $ \leftarrow $ & clock       \\
-x.keyid     & $ \leftarrow $ & p.keyid     \\
-x.digest    & $ \leftarrow $ & md5 digest  \\
-\hline
-\end{tabular}
-\caption{xmit\_packet Packet Header}
-\label{xmit_packet_packet_header}
+  \center
+  \begin{tabular}{| l c l |}
+    \hline
+    Packet Variable & $ \leftarrow $ & Variable \\
+    \hline
+    \hline
+    x.leap      & $ \leftarrow $ & s.leap      \\
+    x.version   & $ \leftarrow $ & s.version   \\
+    x.mode      & $ \leftarrow $ & s.mode      \\
+    x.stratum   & $ \leftarrow $ & s.stratum   \\
+    x.poll      & $ \leftarrow $ & s.poll      \\
+    x.precision & $ \leftarrow $ & s.precision \\
+    x.rootdelay & $ \leftarrow $ & s.rootdelay \\
+    x.rootdisp  & $ \leftarrow $ & s.rootdisp  \\
+    x.refid     & $ \leftarrow $ & s.refid     \\
+    x.reftime   & $ \leftarrow $ & s.reftime   \\
+    x.org       & $ \leftarrow $ & p.xmt       \\
+    x.rec       & $ \leftarrow $ & p.dst       \\
+    x.xmt       & $ \leftarrow $ & clock       \\
+    x.keyid     & $ \leftarrow $ & p.keyid     \\
+    x.digest    & $ \leftarrow $ & md5 digest  \\
+    \hline
+  \end{tabular}
+  \caption{xmit\_packet Packet Header}
+  \label{xmit_packet_packet_header}
 \end{table}
 
 The poll update routine is called when a valid packet is received and

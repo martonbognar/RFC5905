@@ -28,30 +28,30 @@ description of each system variable. Unless noted otherwise, all
 variables have assumed prefix s.
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | l | l |}
-\hline
-Name & Formula & Description \\
-\hline
-\hline
-t         & t          & update time            \\
-p         & p          & system peer identifier \\
-leap      & leap       & leap indicator         \\
-stratum   & stratum    & stratum                \\
-precision & rho        & precision              \\
-offset    & $ \Theta $      & combined offset        \\
-jitter    & $ \Psi $        & combined jitter        \\
-rootdelay & $ \Delta $      & root delay             \\
-rootdisp  & $ E $    & root dispersion        \\
-v         & v          & survivor list          \\
-refid     & refid      & reference ID           \\
-reftime   & reftime    & reference time         \\
-NMIN      & 3          & minimum survivors      \\
-CMIN      & 1          & minimum candidates     \\
-\hline
-\end{tabular}
-\caption{System Process Variables}
-\label{system_process_variables}
+  \center
+  \begin{tabular}{| l | l | l |}
+    \hline
+    Name & Formula & Description \\
+    \hline
+    \hline
+    t         & t          & update time            \\
+    p         & p          & system peer identifier \\
+    leap      & leap       & leap indicator         \\
+    stratum   & stratum    & stratum                \\
+    precision & rho        & precision              \\
+    offset    & $ \Theta $      & combined offset        \\
+    jitter    & $ \Psi $        & combined jitter        \\
+    rootdelay & $ \Delta $      & root delay             \\
+    rootdisp  & $ E $    & root dispersion        \\
+    v         & v          & survivor list          \\
+    refid     & refid      & reference ID           \\
+    reftime   & reftime    & reference time         \\
+    NMIN      & 3          & minimum survivors      \\
+    CMIN      & 1          & minimum candidates     \\
+    \hline
+  \end{tabular}
+  \caption{System Process Variables}
+  \label{system_process_variables}
 \end{table}
 
 Except for the t, p, offset, and jitter variables and the NMIN and
@@ -259,25 +259,25 @@ update. In this case, the system variables are updated from the peer
 variables as shown in Table~\ref{system_variables_update}.
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l c l |}
-\hline
-System Variable & $ \leftarrow $ & System Peer Variable \\
-\hline
-\hline
-s.leap      & $ \leftarrow $ & p.leap                    \\
-s.stratum   & $ \leftarrow $ & p.stratum + 1             \\
-s.offset    & $ \leftarrow $ & $ \Theta $                     \\
-s.jitter    & $ \leftarrow $ & $ \Psi $                       \\
-s.rootdelay & $ \leftarrow $ & $ p.\delta_r + \delta $         \\
-s.rootdisp  & $ \leftarrow $ & $ p.\epsilon_r + p.\epsilon + p.\psi + \Phi \cdot (s.t - p.t) + |\Theta| $ \\
-s.refid     & $ \leftarrow $ & p.refid                   \\
-s.reftime   & $ \leftarrow $ & p.reftime                 \\
-s.t         & $ \leftarrow $ & p.t                       \\
-\hline
-\end{tabular}
-\caption{System Variables Update}
-\label{system_variables_update}
+  \center
+  \begin{tabular}{| l c l |}
+    \hline
+    System Variable & $ \leftarrow $ & System Peer Variable \\
+    \hline
+    \hline
+    s.leap      & $ \leftarrow $ & p.leap                    \\
+    s.stratum   & $ \leftarrow $ & p.stratum + 1             \\
+    s.offset    & $ \leftarrow $ & $ \Theta $                     \\
+    s.jitter    & $ \leftarrow $ & $ \Psi $                       \\
+    s.rootdelay & $ \leftarrow $ & $ p.\delta_r + \delta $         \\
+    s.rootdisp  & $ \leftarrow $ & $ p.\epsilon_r + p.\epsilon + p.\psi + \Phi \cdot (s.t - p.t) + |\Theta| $ \\
+    s.refid     & $ \leftarrow $ & p.refid                   \\
+    s.reftime   & $ \leftarrow $ & p.reftime                 \\
+    s.t         & $ \leftarrow $ & p.t                       \\
+    \hline
+  \end{tabular}
+  \caption{System Variables Update}
+  \label{system_variables_update}
 \end{table}
 
 There is an important detail not shown. The dispersion increment
@@ -361,33 +361,33 @@ The function of each will be explained in the algorithm descriptions
 below.
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | l | l |}
-\hline
-Name   & Formula    & Description              \\
-\hline
-\hline
-t      & timer      & seconds counter          \\
-offset & $ \theta $      & combined offset          \\
-resid  & $ \theta_r $   & residual offset          \\
-freq   & $ \phi $        & clock frequency          \\
-jitter & $ \psi $        & clock offset jitter      \\
-wander & $ \omega $      & clock frequency wander   \\
-tc     & $ \tau $        & time constant ($ \log_2 $)     \\
-state  & state      & state                    \\
-adj    & adj        & frequency adjustment     \\
-hyster & hyster     & hysteresis counter       \\
-STEPT  & 125        & step threshold (.125 s)  \\
-WATCH  & 900        & stepout thresh(s)        \\
-PANICT & 1000       & panic threshold (1000 s) \\
-LIMIT  & 30         & hysteresis limit         \\
-PGATE  & 4          & hysteresis gate          \\
-TC     & 16         & time constant scale      \\
-AVG    & 8          & averaging constant       \\
-\hline
-\end{tabular}
-\caption{Clock Discipline Variables and Parameters}
-\label{clock_discipline_variables_and_parameters}
+  \center
+  \begin{tabular}{| l | l | l |}
+    \hline
+    Name   & Formula    & Description              \\
+    \hline
+    \hline
+    t      & timer      & seconds counter          \\
+    offset & $ \theta $      & combined offset          \\
+    resid  & $ \theta_r $   & residual offset          \\
+    freq   & $ \phi $        & clock frequency          \\
+    jitter & $ \psi $        & clock offset jitter      \\
+    wander & $ \omega $      & clock frequency wander   \\
+    tc     & $ \tau $        & time constant ($ \log_2 $)     \\
+    state  & state      & state                    \\
+    adj    & adj        & frequency adjustment     \\
+    hyster & hyster     & hysteresis counter       \\
+    STEPT  & 125        & step threshold (.125 s)  \\
+    WATCH  & 900        & stepout thresh(s)        \\
+    PANICT & 1000       & panic threshold (1000 s) \\
+    LIMIT  & 30         & hysteresis limit         \\
+    PGATE  & 4          & hysteresis gate          \\
+    TC     & 16         & time constant scale      \\
+    AVG    & 8          & averaging constant       \\
+    \hline
+  \end{tabular}
+  \caption{Clock Discipline Variables and Parameters}
+  \label{clock_discipline_variables_and_parameters}
 \end{table}
 
 The process terminates immediately if the offset is greater than the
@@ -399,21 +399,21 @@ action if the offset $ \theta $ is less than the step threshold, the
 predicate and actions otherwise, and finally some comments.
 
 \begin{table}[htb]
-\center
-\begin{tabular}{| l | l | l | l |}
-\hline
-State & $ \theta $ < $ STEP $        & $ \theta > STEP $      & Comments \\
-\hline
-\hline
-NSET & \makecell[l]{$ \rightarrow $ FREQ \\ adjust time} & \makecell[l]{$ \rightarrow $ FREQ \\ step time} & no frequency file \\
-FSET & \makecell[l]{$ \rightarrow $ SYNC \\ adjust time} & \makecell[l]{$ \rightarrow $ SYNC \\ step time} & frequency file \\
-SPIK & \makecell[l]{$ \rightarrow $ SYNC \\ adjust freq \\ adjust time} & \makecell[l]{if < 900 s $ \rightarrow $ SPIK \\ else $ \rightarrow $ SYNC \\ step freq \\ step time} & outlier detected \\
-FREQ & \makecell[l]{if < 900 s $ \rightarrow $ FREQ \\ else $ \rightarrow $ SYNC \\ step freq \\ adjust time} & \makecell[l]{if < 900 s $ \rightarrow $ FREQ \\ else $ \rightarrow $ SYNC \\ step freq \\ adjust time} & initial frequency \\
-SYNC & \makecell[l]{$ \rightarrow $ SYNC \\ adjust freq \\ adjust time} & \makecell[l]{if < 900 s $ \rightarrow $ SPIK \\ else $ \rightarrow $ SYNC \\ step freq \\ step time} & normal operation \\
-\hline
-\end{tabular}
-\caption{State Transition Function}
-\label{state_transition_function}
+  \center
+  \begin{tabular}{| l | l | l | l |}
+    \hline
+    State & $ \theta $ < $ STEP $        & $ \theta > STEP $      & Comments \\
+    \hline
+    \hline
+    NSET & \makecell[l]{$ \rightarrow $ FREQ \\ adjust time} & \makecell[l]{$ \rightarrow $ FREQ \\ step time} & no frequency file \\
+    FSET & \makecell[l]{$ \rightarrow $ SYNC \\ adjust time} & \makecell[l]{$ \rightarrow $ SYNC \\ step time} & frequency file \\
+    SPIK & \makecell[l]{$ \rightarrow $ SYNC \\ adjust freq \\ adjust time} & \makecell[l]{if < 900 s $ \rightarrow $ SPIK \\ else $ \rightarrow $ SYNC \\ step freq \\ step time} & outlier detected \\
+    FREQ & \makecell[l]{if < 900 s $ \rightarrow $ FREQ \\ else $ \rightarrow $ SYNC \\ step freq \\ adjust time} & \makecell[l]{if < 900 s $ \rightarrow $ FREQ \\ else $ \rightarrow $ SYNC \\ step freq \\ adjust time} & initial frequency \\
+    SYNC & \makecell[l]{$ \rightarrow $ SYNC \\ adjust freq \\ adjust time} & \makecell[l]{if < 900 s $ \rightarrow $ SPIK \\ else $ \rightarrow $ SYNC \\ step freq \\ step time} & normal operation \\
+    \hline
+  \end{tabular}
+  \caption{State Transition Function}
+  \label{state_transition_function}
 \end{table}
 
 In the table entries, the next state is identified by the arrow $ \rightarrow $
