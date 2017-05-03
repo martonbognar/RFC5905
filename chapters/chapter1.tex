@@ -59,7 +59,7 @@ based on a threaded, multi-process architecture, although other
 architectures could be used as well. The on-wire protocol described
 in Section 8 is based on a returnable-time design that depends only
 on measured clock offsets, but does not require reliable message
-delivery. Reliable message delivery such as TCP [RFC0793] can
+delivery. Reliable message delivery such as TCP \cite{RFC0793} can
 actually make the delivered NTP packet less reliable since retries
 would increase the delay value and other errors. The synchronization
 subnet is a self-organizing, hierarchical, master-slave network with
@@ -90,4 +90,4 @@ per million (ppm).
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in [RFC2119].
+document are to be interpreted as described in \cite{RFC2119}.

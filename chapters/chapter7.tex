@@ -127,7 +127,7 @@ dgst & dgst & message digest \\
 \caption{Packet Header Variables}
 \end{table}
 
-The NTP packet is a UDP datagram [RFC0768]. Some fields use multiple
+The NTP packet is a UDP datagram \cite{RFC0768}. Some fields use multiple
 words and others are packed in smaller fields within a word. The NTP
 packet header shown in Figure 8 has 12 words followed by optional
 extension fields and finally an optional message authentication code
@@ -328,7 +328,7 @@ to the earliest accessible point in the frame.
 
 The MAC consists of the Key Identifier followed by the Message
 Digest. The message digest, or cryptosum, is calculated as in
-[RFC1321] over all NTP-header and optional extension fields, but not
+\cite{RFC1321} over all NTP-header and optional extension fields, but not
 the MAC itself.
 
 \item[Extension Field n] See Section 7.5 for a description of the format of
