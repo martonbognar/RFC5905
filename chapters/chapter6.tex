@@ -105,7 +105,7 @@ are in adjacent eras.
 
 Some time values are represented in exponent format, including the
 precision, time constant, and poll interval. These are in 8-bit
-signed integer format in log2 (log base 2) seconds. The only
+signed integer format in $ \log_2 $ (log base 2) seconds. The only
 arithmetic operations permitted on them are increment and decrement.
 For the purpose of this document and to simplify the presentation, a
 reference to one of these variables by name means the exponentiated
@@ -131,7 +131,7 @@ $$
 Converting between NTP and system time can be a little messy, and is
 beyond the scope of this document. Note that the number of days in
 era 0 is one more than the number of days in most other eras, and
-this won’t happen again until the year 2400 in era 3.
+this won't happen again until the year 2400 in era 3.
 
 In the description of state variables to follow, explicit reference
 to integer type implies a 32-bit unsigned integer. This simplifies

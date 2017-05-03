@@ -22,9 +22,9 @@ multicast address 224.0.1.1 and the IPv6 multicast address ending
 allocated multicast address may also be used in addition to these
 allocated multicast addresses.
 
-The on-wire protocol uses four timestamps numbered t1 through t4 and
+The on-wire protocol uses four timestamps numbered $ t1 $ through $ t4 $ and
 three state variables org, rec, and xmt, as shown in Figure 15. This
-figure shows the most general case where each of two peers, A and B,
+figure shows the most general case where each of two peers, $ A $ and $ B $,
 independently measure the offset and delay relative to the other.
 For purposes of illustration, the packet timestamps are shown in
 lowercase, while the state variables are shown in uppercase. The
@@ -38,30 +38,30 @@ departure of a packet.
 \label{on_wire_protocol}
 \end{figure}
 
-In the figure, the first packet transmitted by A contains only the
-origin timestamp t1, which is then copied to T1. B receives the
-packet at t2 and copies t1 to T1 and the receive timestamp t2 to T2.
-At this time or some time later at t3, B sends a packet to A
-containing t1 and t2 and the transmit timestamp t3. All three
-timestamps are copied to the corresponding state variables. A
-receives the packet at t4 containing the three timestamps t1, t2, and
-t3 and the destination timestamp t4. These four timestamps are used
-to compute the offset and delay of B relative to A, as described
+In the figure, the first packet transmitted by $ A $ contains only the
+origin timestamp $ t1 $, which is then copied to $ T1 $. $ B $ receives the
+packet at $ t2 $ and copies $ t1 $ to $ T1 $ and the receive timestamp $ t2 $ to $ T2 $.
+At this time or some time later at $ t3 $, $ B $ sends a packet to $ A $
+containing $ t1 $ and $ t2 $ and the transmit timestamp $ t3 $. All three
+timestamps are copied to the corresponding state variables. $ A $
+receives the packet at $ t4 $ containing the three timestamps $ t1 $, $ t2 $, and
+$ t3 $ and the destination timestamp $ t4 $. These four timestamps are used
+to compute the offset and delay of $ B $ relative to $ A $, as described
 below.
 
 Before the xmt and org state variables are updated, two sanity checks
 are performed in order to protect against duplicate, bogus, or
 replayed packets. In the exchange above, a packet is duplicate or
-replay if the transmit timestamp t3 in the packet matches the org
-state variable T3. A packet is bogus if the origin timestamp t1 in
-the packet does not match the xmt state variable T1. In either of
+replay if the transmit timestamp $ t3 $ in the packet matches the org
+state variable $ T3 $. A packet is bogus if the origin timestamp $ t1 $ in
+the packet does not match the xmt state variable $ T1 $. In either of
 these cases, the state variables are updated, then the packet is
 discarded. To protect against replay of the last transmitted packet,
 the xmt state variable is set to zero immediately after a successful
 bogus check.
 
-The four most recent timestamps, T1 through T4, are used to compute
-the offset of B relative to A
+The four most recent timestamps, $ T1 $ through $ T4 $, are used to compute
+the offset of $ B $ relative to $ A $
 
 $$
 \theta = T(B) - T(A) = \frac{1}{2} \cdot ((T2 - T1) + (T3 - T4))
@@ -94,7 +94,7 @@ unambiguous range is restored from 34 years to 68 years.
 In some scenarios where the initial frequency offset of the client is
 relatively large and the actual propagation time small, it is
 possible for the delay computation to become negative. For instance,
-if the frequency difference is 100 ppm and the interval T4-T1 is 64
+if the frequency difference is 100 ppm and the interval $ T4 - T1 $ is 64
 s, the apparent delay is -6.4 ms. Since negative values are
 misleading in subsequent computations, the value of delta should be
 clamped not less than s.rho, where s.rho is the system precision
@@ -103,15 +103,15 @@ described in Section 11.1, expressed in seconds.
 The discussion above assumes the most general case where two
 symmetric peers independently measure the offsets and delays between
 them. In the case of a stateless server, the protocol can be
-simplified. A stateless server copies T3 and T4 from the client
-packet to T1 and T2 of the server packet and tacks on the transmit
-timestamp T3 before sending it to the client. Additional details for
+simplified. A stateless server copies $ T3 $ and $ T4 $ from the client
+packet to $ T1 $ and $ T2 $ of the server packet and tacks on the transmit
+timestamp $ T3 $ before sending it to the client. Additional details for
 filling in the remaining protocol fields are given in a Section 9 and
 following sections and in the appendix.
 
 Note that the on-wire protocol as described resists replay of a
 server response packet. However, it does not resist replay of the
 client request packet, which would result in a server reply packet
-with new values of T2 and T3 and result in incorrect offset and
+with new values of $ T2 $ and $ T3 $ and result in incorrect offset and
 delay. This vulnerability can be avoided by setting the xmt state
 variable to zero after computing the offset and delay.

@@ -2,10 +2,10 @@
 
 The actual clock-adjust process runs at one-second intervals to add
 the frequency correction and a fixed percentage of the residual
-offset theta\_r.  The theta\_r is, in effect, the exponential decay of
-the theta value produced by the loop filter at each update.  The TC
+offset $ \theta_r $.  The $ \theta_r $ is, in effect, the exponential decay of
+the $ \theta $ value produced by the loop filter at each update.  The TC
 parameter scales the time constant to match the poll interval for
-convenience.  Note that the dispersion EPSILON increases by PHI at
+convenience.  Note that the dispersion $ E $ increases by $ \Phi $ at
 each second.
 
 The clock-adjust process includes a timer interrupt facility driving

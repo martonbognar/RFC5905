@@ -53,8 +53,8 @@ version & version & version number \\
 mode & mode & mode \\
 stratum & stratum & stratum \\
 ppoll & ppoll & peer poll exponent \\
-rootdelay & delta\_r & root delay \\
-rootdisp & epsilon\_r & root dispersion \\
+rootdelay & $ \delta_r $ & root delay \\
+rootdisp & $ \epsilon_r $ & root dispersion \\
 refid & refid & reference ID \\
 reftime & reftime & reference timestamp \\
 \hline
@@ -85,12 +85,12 @@ t & t & packet time \\
 Name & Formula & Description \\
 \hline
 \hline
-offset & theta & clock offset \\
-delay & delta & round-trip delay\\
-disp & epsilon & dispersion \\
-jitter & psi & jitter \\
+offset & $ \theta $ & clock offset \\
+delay & $ \delta $ & round-trip delay\\
+disp & $ \epsilon $ & dispersion \\
+jitter & $ \psi $ & jitter \\
 filter & filter & clock filter \\
-tp & t\_p & filter time \\
+tp & $ t_p $ & filter time \\
 \hline
 \end{tabular}
 \label{peer_process_statistics_variables}
@@ -304,7 +304,7 @@ tests 6-7. If errors are found, the packet is discarded and the peer
 process exits.
 
 The on-wire protocol calculates the clock offset theta and round-trip
-delay delta from the four most recent timestamps as described in
+delay $ \delta $ from the four most recent timestamps as described in
 Section 8. While it is, in principle, possible to do all
 calculations except the first-order timestamp differences in fixed-
 point arithmetic, it is much easier to convert the first-order
@@ -323,7 +323,7 @@ have changed since the last packet, the host poll interval is
 reviewed. An example is provided by the poll\_update() routine in
 Appendix A.5.7.2.
 
-The dispersion statistic epsilon(t) represents the maximum error due
+The dispersion statistic $ \epsilon(t) $ represents the maximum error due
 to the frequency tolerance and time since the last packet was sent.
 It is initialized
 
@@ -331,16 +331,16 @@ $$
 \epsilon(t_0) = r.rho + s.rho + \Phi \cdot (T4 - T1)
 $$
 
-when the measurement is made at t\_0 according to the seconds counter.
+when the measurement is made at $ t_0 $ according to the seconds counter.
 Here, r.rho is the packet precision described in Section 7.3 and
 s.rho is the system precision described in Section 11.1, both
 expressed in seconds. These terms are necessary to account for the
 uncertainty in reading the system clock in both the server and the
 client.
 
-The dispersion then grows at constant rate PHI; in other words, at
-time t, epsilon(t) = epsilon(t\_0) + PHI * (t-t\_0). With the default
-value PHI = 15 ppm, this amounts to about 1.3 s per day. With this
-understanding, the argument t will be dropped and the dispersion
-represented simply as epsilon. The remaining statistics are computed
+The dispersion then grows at constant rate $ \Phi $; in other words, at
+time $ t $, $ \epsilon(t) = \epsilon(t_0) + \Phi \cdot (t - t_0) $. With the default
+value $ \Phi $ = 15 ppm, this amounts to about 1.3 s per day. With this
+understanding, the argument $ t $ will be dropped and the dispersion
+represented simply as $ \epsilon $. The remaining statistics are computed
 by the clock filter algorithm described in the next section.

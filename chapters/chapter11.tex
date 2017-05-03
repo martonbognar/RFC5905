@@ -1,6 +1,6 @@
 \chapter{System Process}
 
-As each new sample (theta, delta, epsilon, jitter, t) is produced by
+As each new sample ($ \theta $, $ \delta $, $ \epsilon $, jitter, $ t $) is produced by
 the clock filter algorithm, all peer processes are scanned by the
 mitigation algorithms consisting of the selection, cluster, combine,
 and clock discipline algorithms in the system process.  The selection
@@ -14,7 +14,7 @@ The final offset is passed to the clock discipline algorithm to steer
 the system clock to the correct time.
 
 The cluster algorithm selects one of the survivors as the system
-peer.  The associated statistics (theta, delta, epsilon, jitter, t)
+peer.  The associated statistics ($ \theta $, $ \delta $, $ \epsilon $, jitter, $ t $)
 are used to construct the system variables inherited by dependent
 servers and clients and made available to other applications running
 on the same machine.
@@ -36,10 +36,10 @@ p         & p          & system peer identifier \\
 leap      & leap       & leap indicator         \\
 stratum   & stratum    & stratum                \\
 precision & rho        & precision              \\
-offset    & THETA      & combined offset        \\
-jitter    & PSI        & combined jitter        \\
-rootdelay & DELTA      & root delay             \\
-rootdisp  & EPSILON    & root dispersion        \\
+offset    & $ \Theta $      & combined offset        \\
+jitter    & $ \Psi $        & combined jitter        \\
+rootdelay & $ \Delta $      & root delay             \\
+rootdisp  & $ E $    & root dispersion        \\
 v         & v          & survivor list          \\
 refid     & refid      & reference ID           \\
 reftime   & reftime    & reference time         \\
@@ -63,7 +63,7 @@ Appendix A.5.5.4.  The p variable is the system peer identifier
 determined by the cluster() routine in Section 11.2.2.  The precision
 variable has the same format as the packet variable of the same name.
 The precision is defined as the larger of the resolution and time to
-read the clock, in log2 units.  For instance, the precision of a
+read the clock, in $ \log_2 $ units.  For instance, the precision of a
 mains-frequency clock incrementing at 60 Hz is 16 ms, even when the
 system clock hardware representation is to the nanosecond.
 
@@ -112,10 +112,10 @@ protocol are detected and discarded as shown by the accept() routine
 in Appendix A.5.5.3.  Next, a set of tuples (p, type, edge) is
 generated for the remaining candidates.  Here, p is the association
 identifier and type identifies the upper (+1), middle (0), and lower
-(-1) endpoints of a correctness interval centered on theta for that
-candidate.  This results in three tuples, lowpoint (p, -1, theta -
-lambda), midpoint (p, 0, theta), and highpoint (p, +1, theta +
-lambda), where lambda is the root synchronization distance.  An
+(-1) endpoints of a correctness interval centered on $ \theta $ for that
+candidate.  This results in three tuples, lowpoint (p, -1, $ \theta $ -
+$ \lambda $), midpoint (p, 0, $ \theta $), and highpoint (p, +1, $ \theta $ +
+$ \lambda $), where $ \lambda $ is the root synchronization distance.  An
 example of this calculation is shown by the rootdist() routine in
 Appendix A.5.1.1.  The steps of the algorithm are:
 
@@ -156,7 +156,7 @@ Appendix A.5.1.1.  The steps of the algorithm are:
     falsetickers by one and tries again.  If a non-empty interval is
     found and the number of falsetickers is less than the number of
     truechimers, a majority clique has been found and the midpoint of
-    each truechimer (theta) represents the candidates available to the
+    each truechimer ($ \theta $) represents the candidates available to the
     cluster algorithm.
 
     If a majority clique is not found, or if the number of truechimers is
@@ -171,31 +171,31 @@ Appendix A.5.1.1.  The steps of the algorithm are:
 \section{Cluster Algorithm}
 
 The candidates of the majority clique are placed on the survivor list
-v in the form of tuples (p, theta\_p, psi\_p, lambda\_p), where p is an
-association identifier, theta\_p, psi\_p, and stratum\_p the current
+v in the form of tuples (p, $ \theta_p $, $ \psi_p $, $ \lambda_p $), where p is an
+association identifier, $ \theta_p $, $ \psi_p $, and stratum\_p the current
 offset, jitter and stratum of association p, respectively, and
-lambda\_p is a merit factor equal to stratum\_p * MAXDIST + lambda,
-where lambda is the root synchronization distance for association p.
+$ \lambda_p $ is a merit factor equal to $ stratum_p \cdot MAXDIST + \lambda $,
+where $ \lambda $ is the root synchronization distance for association p.
 The list is processed by the cluster algorithm below.  An example is
 shown by the second half of the clock\_select() algorithm in
 Appendix A.5.5.1.
 
 \begin{enumerate}
-  \item Let (p, theta\_p, psi\_p, lambda\_p) represent a survivor candidate.
+  \item Let (p, $ \theta_p $, $ \psi_p $, $ \lambda_p $) represent a survivor candidate.
 
-  \item Sort the candidates by increasing lambda\_p.  Let n be the number
+  \item Sort the candidates by increasing $ \lambda_p $.  Let n be the number
     of candidates and NMIN the minimum required number of survivors.
 
-  \item For each candidate, compute the selection jitter psi\_s:
+  \item For each candidate, compute the selection jitter $ \psi_s $:
 
     $$
     \psi_s = \left( \frac{1}{n - 1} \cdot \sum^{n - 1}_{j = 1} (\theta_s - \theta_j)^2 \right)^{\frac{1}{2}}
     $$
 
-  \item Select psi\_max as the candidate with maximum psi\_s.
-  \item Select psi\_min as the candidate with minimum psi\_p.
+  \item Select $ \psi_max $ as the candidate with maximum $ \psi_s $.
+  \item Select $ \psi_min $ as the candidate with minimum $ \psi_p $.
 
-  \item Is psi\_max < psi\_min or n <= NMIN?  If yes, follow step 6A;
+  \item Is $ \psi_max < \psi_min $ or n <= NMIN?  If yes, follow step 6A;
     otherwise, follow step 6B.
 
     \begin{enumerate}[6A.]
@@ -204,33 +204,33 @@ Appendix A.5.5.1.
       the system peer; its variables are used later to update the system
       variables.
 
-      \item Delete the outlier candidate with psi\_max; reduce n by one and go
+      \item Delete the outlier candidate with $ \psi_max $; reduce n by one and go
       back to step 3.
     \end{enumerate}
 \end{enumerate}
 
 The algorithm operates in a series of rounds where each round
-discards the statistical outlier with maximum selection jitter psi\_s.
-However, if psi\_s is less than the minimum peer jitter psi\_p, no
+discards the statistical outlier with maximum selection jitter $ \psi_s $.
+However, if $ \psi_s $ is less than the minimum peer jitter $ \psi_p $, no
 improvement is possible by discarding outliers.  This and the minimum
 number of survivors represent the terminating conditions of the
-algorithm.  Upon termination, the final value of psi\_max is saved as
-the system selection jitter PSI\_s for use later.
+algorithm.  Upon termination, the final value of $ \psi_max $ is saved as
+the system selection jitter $ \Psi_s $ for use later.
 
 \section{Combine Algorithm}
 
 The clock combine route processes the remaining survivors to produce
 the best and final data for the clock discipline algorithm.  The
 routine processes peer offset and jitter statistics to produce the
-combined system offset THETA and system peer jitter PSI\_p, where each
+combined system offset $ \Theta $ and system peer jitter $ \Psi_p $, where each
 server statistic is weighted by the reciprocal of the root
 synchronization distance and the result normalized.  An example is
 shown by the clock\_combine() routine in Appendix A.5.5.5
 
-The combined THETA is passed to the clock update routine.  The first
+The combined $ \Theta $ is passed to the clock update routine.  The first
 candidate on the survivor list is nominated as the system peer with
-identifier p.  The system peer jitter PSI\_p is a component of the
-system jitter PSI.  It is used along with the selection jitter PSI\_s
+identifier p.  The system peer jitter $ \Psi_p $ is a component of the
+system jitter $ \Psi $.  It is used along with the selection jitter $ \Psi_s $
 to produce the system jitter:
 
 $$
@@ -264,10 +264,10 @@ System Variable & <-- & System Peer Variable \\
 \hline
 s.leap      & <-- & p.leap                    \\
 s.stratum   & <-- & p.stratum + 1             \\
-s.offset    & <-- & THETA                     \\
-s.jitter    & <-- & PSI                       \\
-s.rootdelay & <-- & p.delta\_r + delta         \\
-s.rootdisp  & <-- & p.epsilon\_r + p.epsilon + p.psi + PHI * (s.t - p.t) + |THETA|  \\
+s.offset    & <-- & $ \Theta $                     \\
+s.jitter    & <-- & $ \Psi $                       \\
+s.rootdelay & <-- & $ p.\delta_r + \delta $         \\
+s.rootdisp  & <-- & $ p.\epsilon_r + p.\epsilon + p.\psi + \Phi \cdot (s.t - p.t) + |\Theta| $ \\
 s.refid     & <-- & p.refid                   \\
 s.reftime   & <-- & p.reftime                 \\
 s.t         & <-- & p.t                       \\
@@ -278,19 +278,19 @@ s.t         & <-- & p.t                       \\
 \end{table}
 
 There is an important detail not shown.  The dispersion increment
-(p.epsilon + p.psi + PHI * (s.t - p.t) + |THETA|) is bounded from
+($ p.\epsilon_r + p.\epsilon + p.\psi + \Phi \cdot (s.t - p.t) + |\Theta| $) is bounded from
 below by MINDISP.  In subnets with very fast processors and networks
 and very small delay and dispersion this forces a monotone-definite
-increase in s.rootdisp (EPSILON), which avoids loops between peers
+increase in s.rootdisp ($ E $), which avoids loops between peers
 operating at the same stratum.
 
 The system variables are available to dependent application programs
-as nominal performance statistics.  The system offset THETA is the
+as nominal performance statistics.  The system offset $ \Theta $ is the
 clock offset relative to the available synchronization sources.  The
-system jitter PSI is an estimate of the error in determining this
-value, elsewhere called the expected error.  The root delay DELTA is
+system jitter $ \Psi $ is an estimate of the error in determining this
+value, elsewhere called the expected error.  The root delay $ \Delta $ is
 the total round-trip delay relative to the primary server.  The root
-dispersion EPSILON is the dispersion accumulated over the network
+dispersion $ E $ is the dispersion accumulated over the network
 from the primary server.  Finally, the root synchronization distance
 is defined as:
 
@@ -321,17 +321,17 @@ the design principles is provided in \cite{ref7}, which also includes a
 performance analysis.
 
 The discipline is implemented as the feedback control system shown in
-Figure 26.  The variable theta\_r represents the combine algorithm
-offset (reference phase) and theta\_c the VFO offset (control phase).
-Each update produces a signal V\_d representing the instantaneous
-phase difference theta\_r - theta\_c.  The clock filter for each server
+Figure 26.  The variable $ \theta_r $ represents the combine algorithm
+offset (reference phase) and $ \theta_c $ the VFO offset (control phase).
+Each update produces a signal $ V_d $ representing the instantaneous
+phase difference $ \theta_r $ - $ \theta_c $.  The clock filter for each server
 functions as a tapped delay line, with the output taken at the tap
 selected by the clock filter algorithm.  The selection, cluster, and
 combine algorithms combine the data from multiple filters to produce
-the signal V\_s.  The loop filter, with impulse response F(t),
-produces the signal V\_c, which controls the VFO frequency omega\_c and
-thus the integral of the phase theta\_c which closes the loop.  The
-V\_c signal is generated by the clock-adjust process in Section 12.
+the signal $ V_s $.  The loop filter, with impulse response $ F(t) $,
+produces the signal $ V_c $, which controls the VFO frequency $ \omega_c $ and
+thus the integral of the phase $ \theta_c $ which closes the loop.  The
+$ V_c $ signal is generated by the clock-adjust process in Section 12.
 The detailed equations that implement these functions are best
 presented in the routines of Appendices A.5.5.6 and A.5.6.1.
 
@@ -368,12 +368,12 @@ Name   | Formula    | Description              \\
 \hline
 \hline
 t      & timer      & seconds counter          \\
-offset & theta      & combined offset          \\
-resid  & theta\_r   & residual offset          \\
+offset & $ \theta $      & combined offset          \\
+resid  & $ \theta_r $   & residual offset          \\
 freq   & phi        & clock frequency          \\
-jitter & psi        & clock offset jitter      \\
-wander & omega      & clock frequency wander   \\
-tc     & tau        & time constant (log2)     \\
+jitter & $ \psi $        & clock offset jitter      \\
+wander & $ \omega $      & clock frequency wander   \\
+tc     & $ \tau $        & time constant ($ \log_2 $)     \\
 state  & state      & state                    \\
 adj    & adj        & frequency adjustment     \\
 hyster & hyster     & hysteresis counter       \\
@@ -395,13 +395,13 @@ panic threshold PANICT (1000 s).  The state transition function is
 described by the rstclock() function in Appendix A.5.5.7.  Figure 28
 shows the state transition function used by this routine.  It has
 four columns showing, respectively, the state name, predicate and
-action if the offset theta is less than the step threshold, the
+action if the offset $ \theta $ is less than the step threshold, the
 predicate and actions otherwise, and finally some comments.
 
 \begin{table}[htb]
 \center
 \begin{tabular}{c | c | c | c}
-State & theta < STEP        & theta > STEP      & Comments \\
+State & $ \theta $ < $ STEP $        & $ \theta > STEP $      & Comments \\
 \hline
 \hline
 NSET & \makecell{->FREQ \\ adjust time} & \makecell{->FREQ \\ step time} & no frequency file \\
@@ -424,13 +424,13 @@ WATCH (900 s) when the offset is more than the step threshold STEPT
 (.125 s).  This resists clock steps under conditions of extreme
 network congestion.
 
-The jitter (psi) and wander (omega) statistics are computed using an
+The jitter ($ \psi $) and wander ($ \omega $) statistics are computed using an
 exponential average with weight factor AVG.  The time constant
-exponent (tau) is determined by comparing psi with the magnitude of
-the current offset theta.  If the offset is greater than PGATE (4)
+exponent ($ \tau $) is determined by comparing $ \psi $ with the magnitude of
+the current offset $ \theta $.  If the offset is greater than PGATE (4)
 times the clock jitter, the hysteresis counter hyster is reduced by
 two; otherwise, it is increased by one.  If hyster increases to the
-upper limit LIMIT (30), tau is increased by one; if it decreases to
-the lower limit -LIMIT (-30), tau is decreased by one.  Normally, tau
+upper limit LIMIT (30), $ \tau $ is increased by one; if it decreases to
+the lower limit -LIMIT (-30), $ \tau $ is decreased by one.  Normally, $ \tau $
 hovers near MAXPOLL, but quickly decreases if a temperature spike
 causes a frequency surge.
