@@ -74,7 +74,7 @@ Date & MJD & NTP Era & NTP Timestamp Era Offset & Epoch \\
 \end{table}
 
 Let p be the number of significant bits in the second fraction. The
-clock resolution is defined as $2^(-p)$, in seconds. In order to
+clock resolution is defined as $ 2^{-p} $, in seconds. In order to
 minimize bias and help make timestamps unpredictable to an intruder,
 the non-significant bits should be set to an unbiased random bit
 string. The clock precision is defined as the running time to read
@@ -118,14 +118,14 @@ the system time be determined. To determine the integer era and
 timestamp given s,
 
 $$
-era = s / 2^(32) and timestamp = s - era * 2^(32),
+era = \frac{s}{2^{32}} \text{ and } timestamp = s - era \cdot 2^{32},
 $$
 
 which works for positive and negative dates. To determine s given
 the era and timestamp,
 
 $$
-s = era * 2^(32) + timestamp.
+s = era * 2^{32} + timestamp.
 $$
 
 Converting between NTP and system time can be a little messy, and is

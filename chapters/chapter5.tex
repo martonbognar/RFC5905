@@ -50,11 +50,11 @@ RMS average of past frequency offset differences represents the
 oscillator frequency stability or frequency wander. These terms are
 given precise interpretation in Section 11.3.
 
-A client sends messages to each server with a poll interval of $2^tau$
+A client sends messages to each server with a poll interval of $ 2^\tau $
 seconds, as determined by the poll exponent tau. In NTPv4, tau
 ranges from 4 (16 s) to 17 (36 h). The value of tau is determined by
-the clock discipline algorithm to match the loop-time constant $T\_c =
-2^tau$. In client/server mode, the server responds immediately;
+the clock discipline algorithm to match the loop-time constant $ T_c = 2^\tau $.
+In client/server mode, the server responds immediately;
 however, in symmetric modes, each of two peers manages tau as a
 function of current system offset and system jitter, so they may not
 agree with the same value. It is important that the dynamic behavior

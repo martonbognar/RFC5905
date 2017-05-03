@@ -31,51 +31,12 @@ lowercase, while the state variables are shown in uppercase. The
 state variables are copied from the packet timestamps upon arrival or
 departure of a packet.
 
-t2 t3 t6 t7
-+---------+ +---------+ +---------+ +---------+
-| 0 | | t1 | | t3 | | t5 |
-+---------+ +---------+ +---------+ +---------+
-| 0 | | t2 | | t4 | | t6 | Packet
-+---------+ +---------+ +---------+ +---------+ Timestamps
-| t1 | |t3=clock | | t5 | |t7=clock |
-+---------+ +---------+ +---------+ +---------+
-|t2=clock | |t6=clock |
-+---------+ +---------+
-Peer B
-+---------+ +---------+ +---------+ +---------+
-org | T1 | | T1 | | t5<>T1? | | T5 |
-+---------+ +---------+ +---------+ +---------+ State
-rec | T2 | | T2 | | T6 | | T6 | Variables
-+---------+ +---------+ +---------+ +---------+
-xmt | 0 | | T3 | | t3=T3? | | T7 |
-+---------+ +---------+ +---------+ +---------+
-t2 t3 t6 t7
----------------------------------------------------------
-/\ \ /\ \
-/ \ / \
-/ \ / \
-/ \/ / \/
----------------------------------------------------------
-t1 t4 t5 t8
-t1 t4 t5 t8
-+---------+ +---------+ +---------+ +---------+
-| 0 | | t1 | | t3 | | t5 |
-+---------+ +---------+ +---------+ +---------+
-| 0 | | t2 | | t4 | | t6 | Packet
-+---------+ +---------+ +---------+ +---------+ Timestamps
-|t1=clock | | t3 | |t5=clock | | t7 |
-+---------+ +---------+ +---------+ +---------+
-|t4=clock | |t8=clock |
-+---------+ +---------+
-Peer A
-+---------+ +---------+ +---------+ +---------+
-org | 0 | | t3<>0? | | T3 | | t7<>T3? |
-+---------+ +---------+ +---------+ +---------+ State
-rec | 0 | | T4 | | T4 | | T8 | Variables
-+---------+ +---------+ +---------+ +---------+
-xmt | T1 | | t1=T1? | | T5 | | t5=T5? |
-+---------+ +---------+ +---------+ +---------+
-Figure 15: On-Wire Protocol
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{on_wire_protocol.png}
+\caption{On-Wire Protocol}
+\label{on_wire_protocol}
+\end{figure}
 
 In the figure, the first packet transmitted by A contains only the
 origin timestamp t1, which is then copied to T1. B receives the
@@ -102,11 +63,15 @@ bogus check.
 The four most recent timestamps, T1 through T4, are used to compute
 the offset of B relative to A
 
-theta = T(B) - T(A) = 1/2 * [(T2-T1) + (T3-T4)]
+$$
+\theta = T(B) - T(A) = \frac{1}{2} \cdot ((T2 - T1) + (T3 - T4))
+$$
 
 and the round-trip delay
 
-delta = T(ABA) = (T4-T1) - (T3-T2).
+$$
+\delta = T(ABA) = (T4 - T1) - (T3 - T2).
+$$
 
 Note that the quantities within parentheses are computed from 64-bit
 unsigned timestamps and result in signed values with 63 significant
