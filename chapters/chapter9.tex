@@ -29,7 +29,8 @@ noted otherwise, all peer variables have assumed prefix p.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l | l |}
+\hline
 Name & Formula & Description \\
 \hline
 \hline
@@ -40,13 +41,14 @@ dstport & destport & destination port \\
 keyid & keyid & key identifier key ID \\
 \hline
 \end{tabular}
-\label{peer_process_configuration_variables}
 \caption{Peer Process Configuration Variables}
+\label{peer_process_configuration_variables}
 \end{table}
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l | l |}
+\hline
 Name & Formula & Description \\
 \hline
 \hline
@@ -61,13 +63,14 @@ refid & refid & reference ID \\
 reftime & reftime & reference timestamp \\
 \hline
 \end{tabular}
-\label{peer_process_packet_variables}
 \caption{Peer Process Packet Variables}
+\label{peer_process_packet_variables}
 \end{table}
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l | l |}
+\hline
 Name & Formula & Description \\
 \hline
 \hline
@@ -77,13 +80,14 @@ xmt & T3 & transmit timestamp \\
 t & t & packet time \\
 \hline
 \end{tabular}
-\label{peer_process_timestamp_variables}
 \caption{Peer Process Timestamp Variables}
+\label{peer_process_timestamp_variables}
 \end{table}
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l | l |}
+\hline
 Name & Formula & Description \\
 \hline
 \hline
@@ -95,8 +99,8 @@ filter & filter & clock filter \\
 tp & $ t_p $ & filter time \\
 \hline
 \end{tabular}
-\label{peer_process_statistics_variables}
 \caption{Peer Process Statistics Variables}
+\label{peer_process_statistics_variables}
 \end{table}
 
 The following configuration variables are normally initialized when
@@ -167,8 +171,10 @@ dispatches processing to one of the following steps.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c | c | c | c}
- & \multicolumn{5}{c}{Packet Mode} \\
+\begin{tabular}{| l | c | c | c | c | c |}
+\hline
+ & \multicolumn{5}{c |}{Packet Mode} \\
+\hline
 Association Mode & 1 & 2 & 3 & 4 & 5 \\
 \hline
 \hline
@@ -181,8 +187,8 @@ Broadcast 5 & DSCRD & DSCRD & DSCRD & DSCRD & DSCRD \\
 Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
 \hline
 \end{tabular}
-\label{peer_dispatch_table}
 \caption{Peer Dispatch Table}
+\label{peer_dispatch_table}
 \end{table}
 
 \begin{description}
@@ -208,7 +214,8 @@ Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
 
     \begin{table}[htb]
     \center
-    \begin{tabular}{c | c | c}
+    \begin{tabular}{| l | c | l |}
+    \hline
     Packet Variable & --> & Variable \\
     \hline
     \hline
@@ -223,8 +230,8 @@ Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
     r.keyid & --> & p.keyid \\
     \hline
     \end{tabular}
-    \label{receive_packet_header}
     \caption{Receive Packet Header}
+    \label{receive_packet_header}
     \end{table}
 
     Note that, if authentication fails, the server returns a special
@@ -280,21 +287,22 @@ Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
 
     \begin{table}[htb]
     \center
-    \begin{tabular}{c | c | c}
+    \begin{tabular}{| l | l |}
+    \hline
     Packet Type & Description \\
     \hline
     \hline
-    1 duplicate packet & The packet is at best an old duplicate or at worst a replay by a hacker. This can happen in symmetric modes if the poll intervals are uneven. \\
+    1 duplicate packet & \makecell[l]{The packet is at best an old duplicate \\ or at worst a replay by a hacker. \\ This can happen in symmetric modes if \\ the poll intervals are uneven.} \\
     2 bogus packet & \\
-    3 invalid & One or more timestamp fields are invalid. This normally happens in symmetric modes when one peer sends the first packet to the other and before the other has received its first reply. \\
-    4 access denied & The access controls have blacklisted the source. \\
-    5 authentication failure & The cryptographic message digest does not match the MAC. \\
-    6 unsynchronized & The server is not synchronized to a valid source. \\
+    3 invalid & \makecell[l]{One or more timestamp fields are \\ invalid. This normally happens in \\ symmetric modes when one peer sends \\ the first packet to the other and \\ before the other has received its \\ first reply.} \\
+    4 access denied & \makecell[l]{The access controls have blacklisted \\ the source.} \\
+    5 authentication failure & \makecell[l]{The cryptographic message digest does \\ not match the MAC.} \\
+    6 unsynchronized & \makecell[l]{The server is not synchronized to a \\ valid source.} \\
     7 bad header data & One or more header fields are invalid. \\
     \hline
     \end{tabular}
-    \label{packet_error_checks}
     \caption{Packet Error Checks}
+    \label{packet_error_checks}
     \end{table}
 
 \end{description}

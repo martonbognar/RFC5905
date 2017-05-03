@@ -25,7 +25,8 @@ Section~\ref{section-5}.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | c | l |}
+\hline
 Packet Variable & <-- & Variable \\
 \hline
 \hline
@@ -46,8 +47,8 @@ x.keyid     & <-- & r.keyid     \\
 x.digest    & <-- & md5 digest  \\
 \hline
 \end{tabular}
-\label{fast_xmit_packet_header}
 \caption{fast\_xmit Packet Header}
+\label{fast_xmit_packet_header}
 \end{table}
 
 An SNTP client implementing the on-wire protocol has a single server

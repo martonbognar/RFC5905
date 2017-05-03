@@ -26,7 +26,8 @@ one set of system and clock variables.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l |}
+\hline
 Name & Description \\
 \hline
 \hline
@@ -37,8 +38,8 @@ s. & system variable \\
 c. & clock discipline variable \\
 \hline
 \end{tabular}
-\label{prefix_conventions}
 \caption{Prefix Conventions}
+\label{prefix_conventions}
 \end{table}
 
 \section{Global Parameters}
@@ -50,7 +51,8 @@ Table~\ref{global_parameters}.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l | l |}
+\hline
 Name & Value & Description \\
 \hline
 \hline
@@ -65,8 +67,8 @@ MAXDIST & 1 & distance threshold (1 s) \\
 MAXSTRAT & 16 & maximum stratum number \\
 \hline
 \end{tabular}
-\label{global_parameters}
 \caption{Global Parameters}
+\label{global_parameters}
 \end{table}
 
 While these are the only global parameters needed for
@@ -105,7 +107,8 @@ described in this RFC.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l | l |}
+\hline
 Name & Formula & Description \\
 \hline
 \hline
@@ -127,8 +130,8 @@ keyid & keyid & key ID \\
 dgst & dgst & message digest \\
 \hline
 \end{tabular}
-\label{packet_header_variables}
 \caption{Packet Header Variables}
+\label{packet_header_variables}
 \end{table}
 
 The NTP packet is a UDP datagram \cite{RFC0768}. Some fields use multiple
@@ -171,7 +174,8 @@ month with values defined in Table~\ref{leap_indicator}.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l |}
+\hline
 Value & Meaning \\
 \hline
 \hline
@@ -181,8 +185,8 @@ Value & Meaning \\
 3 & unknown (clock unsynchronized) \\
 \hline
 \end{tabular}
-\label{leap_indicator}
 \caption{Leap Indicator}
+\label{leap_indicator}
 \end{table}
 
 \item[VN Version Number (version)] 3-bit integer representing the NTP
@@ -193,7 +197,8 @@ in Table~\ref{association_modes}.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l |}
+\hline
 Value & Meaning \\
 \hline
 \hline
@@ -207,8 +212,8 @@ Value & Meaning \\
 7 & reserved for private use \\
 \hline
 \end{tabular}
-\label{association_modes}
 \caption{Association Modes}
+\label{association_modes}
 \end{table}
 
 \item[Stratum (stratum)] 8-bit integer representing the stratum, with
@@ -216,7 +221,8 @@ values defined in Table~\ref{packet_stratum}.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l |}
+\hline
 Value & Meaning \\
 \hline
 \hline
@@ -227,8 +233,8 @@ Value & Meaning \\
 17-255 & reserved \\
 \hline
 \end{tabular}
-\label{packet_stratum}
 \caption{Packet Stratum}
+\label{packet_stratum}
 \end{table}
 
 It is customary to map the stratum value 0 in received packets to
@@ -268,7 +274,8 @@ been used as ASCII identifiers:
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l |}
+\hline
 ID & Clock Source \\
 \hline
 \hline
@@ -293,8 +300,8 @@ USNO & USNO telephone modem \\
 PTB & European telephone modem \\
 \hline
 \end{tabular}
-\label{reference_identifiers}
 \caption{Reference Identifiers}
+\label{reference_identifiers}
 \end{table}
 
 \item[Above stratum 1 (secondary servers and clients)] this is the
@@ -384,7 +391,8 @@ significance and are discarded after inspection.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l |}
+\hline
 Code & Meaning \\
 \hline
 \hline
@@ -396,16 +404,16 @@ CRYP & Cryptographic authentication or identification failed. \\
 DENY & Access denied by remote server. \\
 DROP & Lost peer in symmetric mode. \\
 RSTR & Access denied due to local policy. \\
-INIT & The association has not yet synchronized for the first time. \\
+INIT & \makecell[l]{The association has not yet synchronized for the first \\ time.} \\
 MCST & The association belongs to a dynamically discovered server.\\
-NKEY & No key found. Either the key was never installed or is not trusted. \\
-RATE & Rate exceeded. The server has temporarily denied access because the client exceeded the rate threshold. \\
-RMOT & Alteration of association from a remote host running ntpdc. \\
-STEP & A step change in system time has occurred, but the association has not yet resynchronized. \\
+NKEY & \makecell[l]{No key found. Either the key was never installed or is \\ not trusted.} \\
+RATE & \makecell[l]{Rate exceeded. The server has temporarily denied access \\ because the client exceeded the rate threshold.} \\
+RMOT & \makecell[l]{Alteration of association from a remote host running \\ ntpdc.} \\
+STEP & \makecell[l]{A step change in system time has occurred, but the \\ association has not yet resynchronized.} \\
 \hline
 \end{tabular}
-\label{kiss_codes}
 \caption{Kiss Codes}
+\label{kiss_codes}
 \end{table}
 
 The Receive Timestamp and the Transmit Timestamp (set by the server)

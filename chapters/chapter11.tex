@@ -29,7 +29,8 @@ variables have assumed prefix s.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l | l |}
+\hline
 Name & Formula & Description \\
 \hline
 \hline
@@ -49,8 +50,8 @@ NMIN      & 3          & minimum survivors      \\
 CMIN      & 1          & minimum candidates     \\
 \hline
 \end{tabular}
-\label{system_process_variables}
 \caption{System Process Variables}
+\label{system_process_variables}
 \end{table}
 
 Except for the t, p, offset, and jitter variables and the NMIN and
@@ -264,7 +265,8 @@ variables as shown in Table~\ref{system_variables_update}.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | c | l |}
+\hline
 System Variable & <-- & System Peer Variable \\
 \hline
 \hline
@@ -279,8 +281,8 @@ s.reftime   & <-- & p.reftime                 \\
 s.t         & <-- & p.t                       \\
 \hline
 \end{tabular}
-\label{system_variables_update}
 \caption{System Variables Update}
+\label{system_variables_update}
 \end{table}
 
 There is an important detail not shown.  The dispersion increment
@@ -370,14 +372,15 @@ below.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
-Name   | Formula    | Description              \\
+\begin{tabular}{| l | l | l |}
+\hline
+Name   & Formula    & Description              \\
 \hline
 \hline
 t      & timer      & seconds counter          \\
 offset & $ \theta $      & combined offset          \\
 resid  & $ \theta_r $   & residual offset          \\
-freq   & phi        & clock frequency          \\
+freq   & $ \phi $        & clock frequency          \\
 jitter & $ \psi $        & clock offset jitter      \\
 wander & $ \omega $      & clock frequency wander   \\
 tc     & $ \tau $        & time constant ($ \log_2 $)     \\
@@ -393,8 +396,8 @@ TC     & 16         & time constant scale      \\
 AVG    & 8          & averaging constant       \\
 \hline
 \end{tabular}
-\label{clock_discipline_variables_and_parameters}
 \caption{Clock Discipline Variables and Parameters}
+\label{clock_discipline_variables_and_parameters}
 \end{table}
 
 The process terminates immediately if the offset is greater than the
@@ -407,19 +410,20 @@ predicate and actions otherwise, and finally some comments.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c | c}
+\begin{tabular}{| l | l | l | l |}
+\hline
 State & $ \theta $ < $ STEP $        & $ \theta > STEP $      & Comments \\
 \hline
 \hline
-NSET & \makecell{->FREQ \\ adjust time} & \makecell{->FREQ \\ step time} & no frequency file \\
-FSET & \makecell{->SYNC \\ adjust time} & \makecell{->SYNC \\ step time} & frequency file \\
-SPIK & \makecell{->SYNC \\ adjust freq \\ adjust time} & \makecell{if < 900 s ->SPIK \\ else ->SYNC \\ step freq \\ step time} & outlier detected \\
-FREQ & \makecell{if < 900 s ->FREQ \\ else ->SYNC \\ step freq \\ adjust time} & \makecell{if < 900 s ->FREQ \\ else ->SYNC \\ step freq \\ adjust time} & initial frequency \\
-SYNC & \makecell{->SYNC \\ adjust freq \\ adjust time} & \makecell{if < 900 s ->SPIK \\ else ->SYNC \\ step freq \\ step time} & normal operation \\
+NSET & \makecell[l]{->FREQ \\ adjust time} & \makecell[l]{->FREQ \\ step time} & no frequency file \\
+FSET & \makecell[l]{->SYNC \\ adjust time} & \makecell[l]{->SYNC \\ step time} & frequency file \\
+SPIK & \makecell[l]{->SYNC \\ adjust freq \\ adjust time} & \makecell[l]{if < 900 s ->SPIK \\ else ->SYNC \\ step freq \\ step time} & outlier detected \\
+FREQ & \makecell[l]{if < 900 s ->FREQ \\ else ->SYNC \\ step freq \\ adjust time} & \makecell[l]{if < 900 s ->FREQ \\ else ->SYNC \\ step freq \\ adjust time} & initial frequency \\
+SYNC & \makecell[l]{->SYNC \\ adjust freq \\ adjust time} & \makecell[l]{if < 900 s ->SPIK \\ else ->SYNC \\ step freq \\ step time} & normal operation \\
 \hline
 \end{tabular}
-\label{state_transition_function}
 \caption{State Transition Function}
+\label{state_transition_function}
 \end{table}
 
 In the table entries, the next state is identified by the arrow ->

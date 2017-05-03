@@ -17,7 +17,8 @@ prefix p.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | l | l |}
+\hline
 Name    & Formula & Description        \\
 \hline
 \hline
@@ -32,8 +33,8 @@ BURST   & flag    & burst enable       \\
 IBURST  & flag    & iburst enable      \\
 \hline
 \end{tabular}
-\label{poll_process_variables_and_parameters}
 \caption{Poll Process Variables and Parameters}
+\label{poll_process_variables_and_parameters}
 \end{table}
 
 The poll process variables are allocated in the association data
@@ -119,7 +120,8 @@ the system clock.
 
 \begin{table}[htb]
 \center
-\begin{tabular}{c | c | c}
+\begin{tabular}{| l | c | l |}
+\hline
 Packet Variable & <-- & Variable \\
 \hline
 \hline
@@ -140,8 +142,8 @@ x.keyid     & <-- & p.keyid     \\
 x.digest    & <-- & md5 digest  \\
 \hline
 \end{tabular}
-\label{xmit_packet_packet_header}
 \caption{xmit\_packet Packet Header}
+\label{xmit_packet_packet_header}
 \end{table}
 
 The poll update routine is called when a valid packet is received and
