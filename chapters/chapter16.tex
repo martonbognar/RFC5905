@@ -3,19 +3,19 @@
 
 UDP/TCP Port 123 was previously assigned by IANA for this protocol.
 The IANA has assigned the IPv4 multicast group address 224.0.1.1 and
-the IPv6 multicast address ending :101 for NTP.  This document
+the IPv6 multicast address ending :101 for NTP. This document
 introduces NTP extension fields allowing for the development of
 future extensions to the protocol, where a particular extension is to
 be identified by the Field Type sub-field within the extension field.
 IANA has established and will maintain a registry for Extension Field
 Types associated with this protocol, populating this registry with no
-initial entries.  As future needs arise, new Extension Field Types
-may be defined.  Following the policies outlined in \cite{RFC5226}, new
+initial entries. As future needs arise, new Extension Field Types
+may be defined. Following the policies outlined in \cite{RFC5226}, new
 values are to be defined by IETF Review.
 
 The IANA has created a new registry for NTP Reference Identifier
-codes.  This includes the current codes defined in Section~\ref{section-7-3}, and
-may be extended on a First-Come-First-Serve (FCFS) basis.  The format
+codes. This includes the current codes defined in Section~\ref{section-7-3}, and
+may be extended on a First-Come-First-Serve (FCFS) basis. The format
 of the registry is:
 
 \begin{table}[htb]
@@ -27,7 +27,7 @@ ID   & Clock Source \\
 \hline
 GOES & Geosynchronous Orbit Environment Satellite \\
 GPS  & Global Position System                     \\
-...  & ...                                        \\
+... & ...                                       \\
 \hline
 \end{tabular}
 \caption{Reference Identifier Codes}
@@ -36,7 +36,7 @@ GPS  & Global Position System                     \\
 
 The IANA has created a new registry for NTP Kiss-o'-Death codes.
 This includes the current codes defined in Section~\ref{section-7-4}, and may be
-extended on a FCFS basis.  The format of the registry is:
+extended on a FCFS basis. The format of the registry is:
 
 \begin{table}[htb]
 \center
@@ -47,7 +47,7 @@ Code & Meaning \\
 \hline
 ACST & The association belongs to a unicast server. \\
 AUTH & Server authentication failed. \\
-...  & ... \\
+... & ... \\
 \hline
 \end{tabular}
 \caption{Kiss Codes}

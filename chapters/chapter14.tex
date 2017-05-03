@@ -4,11 +4,11 @@
 Primary servers and clients complying with a subset of NTP, called
 the Simple Network Time Protocol (SNTPv4) \cite{RFC4330}, do not need to
 implement the mitigation algorithms described in Section~\ref{section-9} and
-following sections.  SNTP is intended for primary servers equipped
+following sections. SNTP is intended for primary servers equipped
 with a single reference clock, as well as for clients with a single
-upstream server and no dependent clients.  The fully developed NTPv4
+upstream server and no dependent clients. The fully developed NTPv4
 implementation is intended for secondary servers with multiple
-upstream servers and multiple downstream servers or clients.  Other
+upstream servers and multiple downstream servers or clients. Other
 than these considerations, NTP and SNTP servers and clients are
 completely interoperable and can be intermixed in NTP subnets.
 
@@ -19,7 +19,7 @@ has the mitigation algorithms and therefore capable of mitigating
 between multiple reference clocks.
 
 Upon receiving a client request, an SNTP primary server constructs
-and sends the reply packet as described in Table~\ref{fast_xmit_packet_header}.  Note that the
+and sends the reply packet as described in Table~\ref{fast_xmit_packet_header}. Note that the
 dispersion field in the packet header must be updated as described in
 Section~\ref{section-5}.
 
@@ -52,7 +52,7 @@ x.digest    & <-- & md5 digest  \\
 \end{table}
 
 An SNTP client implementing the on-wire protocol has a single server
-and no dependent clients.  It can operate with any subset of the NTP
+and no dependent clients. It can operate with any subset of the NTP
 on-wire protocol, the simplest approach using only the transmit
 timestamp of the server packet and ignoring all other fields.
 However, the additional complexity to implement the full on-wire
