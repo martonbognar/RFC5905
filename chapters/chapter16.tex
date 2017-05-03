@@ -17,6 +17,24 @@ codes.  This includes the current codes defined in Section 7.3, and
 may be extended on a First-Come-First-Serve (FCFS) basis.  The format
 of the registry is:
 
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
+
   +------+----------------------------------------------------------+
   | ID   | Clock Source                                             |
   +------+----------------------------------------------------------+
@@ -31,6 +49,23 @@ The IANA has created a new registry for NTP Kiss-o'-Death codes.
 This includes the current codes defined in Section 7.4, and may be
 extended on a FCFS basis.  The format of the registry is:
 
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
 
 +------+------------------------------------------------------------+

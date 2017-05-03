@@ -3,22 +3,28 @@
 There are three NTP protocol variants: symmetric, client/server, and
 broadcast. Each is associated with an association mode (a
 description of the relationship between two NTP speakers) as shown in
-Figure 1. In addition, persistent associations are mobilized upon
+Table \ref{association_and_packet_modes}. In addition, persistent associations are mobilized upon
 startup and are never demobilized. Ephemeral associations are
 mobilized upon the arrival of a packet and are demobilized upon error
 or timeout.
 
-+-------------------+-------------------+------------------+
-| Association Mode | Assoc. Mode Value | Packet Mode Value|
-+-------------------+-------------------+------------------+
-| Symmetric Active | 1 | 1 or 2 |
-| Symmetric Passive | 2 | 1 |
-| Client | 3 | 4 |
-| Server | 4 | 3 |
-| Broadcast Server | 5 | 5 |
-| Broadcast Client | 6 | N/A |
-+-------------------+-------------------+------------------+
-Figure 1: Association and Packet Modes
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
 In the client/server variant, a persistent client sends packet mode 4
 packets to a server, which returns packet mode 3 packets. Servers

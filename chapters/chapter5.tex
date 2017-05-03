@@ -1,13 +1,17 @@
 \chapter{Implementation Model}
 
-Figure 2 shows the architecture of a typical, multi-threaded
+Figure \ref{implementation_model} shows the architecture of a typical, multi-threaded
 implementation. It includes two processes dedicated to each server,
 a peer process to receive messages from the server or reference
 clock, and a poll process to transmit messages to the server or
 reference clock.
 
-
-Figure 2: Implementation Model
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{implementation_model.png}
+\caption{Implementation Model}
+\label{implementation_model}
+\end{figure}
 
 These processes operate on a common data structure, called an
 association, which contains the statistics described above along with

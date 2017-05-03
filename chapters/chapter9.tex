@@ -25,6 +25,24 @@ formula names are interchangeable; formula names are intended to
 increase readability of equations in this specification. Unless
 noted otherwise, all peer variables have assumed prefix p.
 
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
+
 +---------+----------+-----------------------+
 | Name | Formula | Description |
 +---------+----------+-----------------------+
@@ -35,6 +53,24 @@ noted otherwise, all peer variables have assumed prefix p.
 | keyid | keyid | key identifier key ID |
 +---------+----------+-----------------------+
 Figure 16: Peer Process Configuration Variables
+
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
 +-----------+------------+---------------------+
 | Name | Formula | Description |
@@ -51,6 +87,24 @@ Figure 16: Peer Process Configuration Variables
 +-----------+------------+---------------------+
 Figure 17: Peer Process Packet Variables
 
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
+
 +------+---------+--------------------+
 | Name | Formula | Description |
 +------+---------+--------------------+
@@ -60,6 +114,24 @@ Figure 17: Peer Process Packet Variables
 | t | t | packet time |
 +------+---------+--------------------+
 Figure 18: Peer Process Timestamp Variables
+
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
 +--------+---------+-----------------+
 | Name | Formula | Description |
@@ -136,6 +208,24 @@ correspond to the packet mode and rows correspond to the association
 mode. The intersection of the association and packet modes
 dispatches processing to one of the following steps.
 
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
+
 +------------------+---------------------------------------+
 | | Packet Mode |
 +------------------+-------+-------+-------+-------+-------+
@@ -169,6 +259,24 @@ in Appendix A.5.3. The packet header is assembled from the receive
 packet and system variables as shown in Figure 21. If the
 s.rootdelay and s.rootdisp system variables are stored in floating
 double, they must be converted to NTP short format first.
+
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
 +-----------------------------------+
 | Packet Variable --> Variable |
@@ -235,6 +343,24 @@ packet timestamps are carefully checked to avoid invalid, duplicate,
 or bogus packets. Additional checks are summarized in Figure 22.
 Note that all packets, including a crypto-NAK, are considered valid
 only if they survive these tests.
+
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
 +--------------------------+----------------------------------------+
 | Packet Type | Description |

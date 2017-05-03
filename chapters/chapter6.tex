@@ -15,33 +15,12 @@ directly, nor is there need to do so. When necessary, they can be
 derived from external means, such as the filesystem or dedicated
 hardware.
 
-0 1 2 3
-0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Seconds | Fraction |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-NTP Short Format
-0 1 2 3
-0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Seconds |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Fraction |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-NTP Timestamp Format
-0 1 2 3
-0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Era Number |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Era Offset |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| |
-| Fraction |
-| |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-NTP Date Format
-Figure 3: NTP Time Formats
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{ntp_time_formats.png}
+\caption{NTP Time Formats}
+\label{ntp_time_formats}
+\end{figure}
 
 The 64-bit timestamp format is used in packet headers and other
 places with limited word size. It includes a 32-bit unsigned seconds
@@ -70,29 +49,29 @@ unsynchronized time. Figure 4 shows a number of historic NTP dates
 together with their corresponding Modified Julian Day (MJD), NTP era,
 and NTP timestamp.
 
-+-------------+------------+-----+---------------+------------------+
-| Date | MJD | NTP | NTP Timestamp | Epoch |
-| | | Era | Era Offset | |
-+-------------+------------+-----+---------------+------------------+
-| 1 Jan -4712 | -2,400,001 | -49 | 1,795,583,104 | 1st day Julian |
-| 1 Jan -1 | -679,306 | -14 | 139,775,744 | 2 BCE |
-| 1 Jan 0 | -678,491 | -14 | 171,311,744 | 1 BCE |
-| 1 Jan 1 | -678,575 | -14 | 202,939,144 | 1 CE |
-| 4 Oct 1582 | -100,851 | -3 | 2,873,647,488 | Last day Julian |
-| 15 Oct 1582 | -100,840 | -3 | 2,874,597,888 | First day |
-| | | | | Gregorian |
-| 31 Dec 1899 | 15019 | -1 | 4,294,880,896 | Last day NTP Era |
-| | | | | -1 |
-| 1 Jan 1900 | 15020 | 0 | 0 | First day NTP |
-| | | | | Era 0 |
-| 1 Jan 1970 | 40,587 | 0 | 2,208,988,800 | First day UNIX |
-| 1 Jan 1972 | 41,317 | 0 | 2,272,060,800 | First day UTC |
-| 31 Dec 1999 | 51,543 | 0 | 3,155,587,200 | Last day 20th |
-| | | | | Century |
-| 8 Feb 2036 | 64,731 | 1 | 63,104 | First day NTP |
-| | | | | Era 1 |
-+-------------+------------+-----+---------------+------------------+
-Figure 4: Interesting Historic NTP Dates
+\begin{table}[htb]
+\center
+\begin{tabular}{l | l | l | l | l}
+Date & MJD & NTP Era & NTP Timestamp Era Offset & Epoch \\
+\hline
+\hline
+1 Jan -4712 & -2,400,001 & -49 & 1,795,583,104 & 1st day Julian \\
+1 Jan -1 & -679,306 & -14 & 139,775,744 & 2 BCE \\
+1 Jan 0 & -678,491 & -14 & 171,311,744 & 1 BCE \\
+1 Jan 1 & -678,575 & -14 & 202,939,144 & 1 CE \\
+4 Oct 1582 & -100,851 & -3 & 2,873,647,488 & Last day Julian \\
+15 Oct 1582 & -100,840 & -3 & 2,874,597,888 & First day Gregorian \\
+31 Dec 1899 & 15019 & -1 & 4,294,880,896 & Last day NTP Era -1 \\
+1 Jan 1900 & 15020 & 0 & 0 & First day NTP Era 0 \\
+1 Jan 1970 & 40,587 & 0 & 2,208,988,800 & First day UNIX \\
+1 Jan 1972 & 41,317 & 0 & 2,272,060,800 & First day UTC \\
+31 Dec 1999 & 51,543 & 0 & 3,155,587,200 & Last day 20th Century \\
+8 Feb 2036 & 64,731 & 1 & 63,104 & First day NTP Era 1 \\
+\hline
+\end{tabular}
+\label{interesting_historic_ntp_dates}
+\caption{Interesting Historic NTP Dates}
+\end{table}
 
 Let p be the number of significant bits in the second fraction. The
 clock resolution is defined as $2^(-p)$, in seconds. In order to

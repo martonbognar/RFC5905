@@ -22,6 +22,24 @@ s.v is a system variable, and c.v is a clock discipline variable.
 There is a set of peer variables for each association; there is only
 one set of system and clock variables.
 
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
+
 +------+---------------------------------+
 | Name | Description |
 +------+---------------------------------+
@@ -38,6 +56,24 @@ Figure 5: Prefix Conventions
 In addition to the variable classes, a number of global parameters
 are defined in this document, including those shown with values in
 Figure 6.
+
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
 +-----------+-------+----------------------------------+
 | Name | Value | Description |
@@ -86,6 +122,24 @@ The optional extension fields are used by the Autokey public key
 cryptographic algorithms described in [RFC5906]. The optional MAC is
 used by both Autokey and the symmetric key cryptographic algorithm
 described in this RFC.
+
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
 +-----------+------------+-----------------------+
 | Name | Formula | Description |
@@ -185,6 +239,24 @@ LI Leap Indicator (leap): 2-bit integer warning of an impending leap
 second to be inserted or deleted in the last minute of the current
 month with values defined in Figure 9.
 
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
+
 +-------+----------------------------------------+
 | Value | Meaning |
 +-------+----------------------------------------+
@@ -200,6 +272,24 @@ version number, currently 4.
 
 Mode (mode): 3-bit integer representing the mode, with values defined
 in Figure 10.
+
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
 +-------+--------------------------+
 | Value | Meaning |
@@ -217,6 +307,24 @@ Figure 10: Association Modes
 
 Stratum (stratum): 8-bit integer representing the stratum, with
 values defined in Figure 11.
+
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
 +--------+-----------------------------------------------------+
 | Value | Meaning |
@@ -263,6 +371,24 @@ Reference Identifiers is maintained by IANA; however, any string
 beginning with the ASCII character "X" is reserved for unregistered
 experimentation and development. The identifiers in Figure 12 have
 been used as ASCII identifiers:
+
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
 +------+----------------------------------------------------------+
 | ID | Clock Source |
@@ -371,6 +497,24 @@ if not recognized.
 
 d. Other than the above conditions, KoD packets have no protocol
 significance and are discarded after inspection.
+
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
 +------+------------------------------------------------------------+
 | Code | Meaning |

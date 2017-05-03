@@ -13,6 +13,24 @@ description of the poll process variables (lowercase) and parameters
 (uppercase).  Unless noted otherwise, all variables have assumed
 prefix p.
 
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
+
                 +---------+---------+--------------------+
                 | Name    | Formula | Description        |
                 +---------+---------+--------------------+
@@ -104,6 +122,24 @@ double data types for root delay and root dispersion, these must be
 converted to NTP short format.  All other fields are either copied
 intact from peer and system variables or struck as a timestamp from
 the system clock.
+
+\begin{table}[htb]
+\center
+\begin{tabular}{c | c | c}
+Association Mode & Assoc. Mode Value & Packet Mode Value \\
+\hline
+\hline
+Symmetric Active & 1 & 1 or 2 \\
+Symmetric Passive & 2 & 1 \\
+Client & 3 & 4 \\
+Server & 4 & 3 \\
+Broadcast Server & 5 & 5 \\
+Broadcast Client & 6 & N/A \\
+\hline
+\end{tabular}
+\label{association_and_packet_modes}
+\caption{Association and Packet Modes}
+\end{table}
 
                 +-----------------------------------+
                 | Packet Variable <--   Variable    |
