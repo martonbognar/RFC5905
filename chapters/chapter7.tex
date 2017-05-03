@@ -253,12 +253,12 @@ in NTP short format.
 \item[Reference ID (refid)] 32-bit code identifying the particular server
 or reference clock. The interpretation depends on the value in the
 stratum field. For packet stratum 0 (unspecified or invalid), this
-is a four-character ASCII \ref{RFC1345} string, called the "kiss code",
+is a four-character ASCII \ref{RFC1345} string, called the ``kiss code'',
 used for debugging and monitoring purposes. For stratum 1 (reference
 clock), this is a four-octet, left-justified, zero-padded ASCII
 string assigned to the reference clock. The authoritative list of
 Reference Identifiers is maintained by IANA; however, any string
-beginning with the ASCII character "X" is reserved for unregistered
+beginning with the ASCII character ``X'' is reserved for unregistered
 experimentation and development. The identifiers in Figure 12 have
 been used as ASCII identifiers:
 
@@ -370,7 +370,7 @@ server;
   \item For kiss code RATE, the client MUST immediately reduce its
 polling interval to that server and continue to reduce it each
 time it receives a RATE kiss code.
-  \item Kiss codes beginning with the ASCII character "X" are for
+  \item Kiss codes beginning with the ASCII character ``X'' are for
 unregistered experimentation and development and MUST be ignored
 if not recognized.
   \item Other than the above conditions, KoD packets have no protocol
