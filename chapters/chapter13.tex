@@ -1,4 +1,5 @@
 \chapter{Poll Process}
+\label{section-13}
 
 Each association supports a poll process that runs at regular
 intervals to construct and send packets in symmetric, client, and
@@ -7,8 +8,9 @@ servers are reachable in order to manage the clock filter and reach
 register.
 
 \section{Poll Process Variables}
+\label{section-13-1}
 
-Figure 29 summarizes the common names, formula names, and a short
+Table~\ref{poll_process_variables_and_parameters} summarizes the common names, formula names, and a short
 description of the poll process variables (lowercase) and parameters
 (uppercase).  Unless noted otherwise, all variables have assumed
 prefix p.
@@ -58,6 +60,7 @@ out in the following text.
 \end{description}
 
 \section{Poll Process Operations}
+\label{section-13-2}
 
 As described previously, once each second the clock-adjust process is
 called.  This routine calls the poll routine for each association in
@@ -107,7 +110,7 @@ normally.
 
 A packet is sent by the transmit process.  Some header values are
 copied from the peer variables left by a previous packet and others
-from the system variables.  Figure 30 shows which values are copied
+from the system variables.  Table~\ref{xmit_packet_packet_header} shows which values are copied
 to each header field.  In those implementations, using floating
 double data types for root delay and root dispersion, these must be
 converted to NTP short format.  All other fields are either copied

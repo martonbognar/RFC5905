@@ -1,9 +1,10 @@
 \chapter{Clock Filter Algorithm}
+\label{section-10}
 
 The clock filter algorithm is part of the peer process.  It grooms
 the stream of on-wire data to select the samples most likely to
 represent accurate time.  The algorithm produces the variables shown
-in Figure 19, including the offset ($ \theta $), delay ($ \delta $), dispersion
+in Table~\ref{peer_process_statistics_variables}, including the offset ($ \theta $), delay ($ \delta $), dispersion
 ($ \epsilon $), jitter ($ \psi $), and time of arrival ($ t $).  These data are
 used by the mitigation algorithms to determine the best and final
 offset used to discipline the system clock.  They are also used to

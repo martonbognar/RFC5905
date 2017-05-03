@@ -1,10 +1,11 @@
 \chapter{Data Types}
+\label{section-6}
 
 All NTP time values are represented in twos-complement format, with
 bits numbered in big-endian (as described in Appendix A of \cite{RFC0791})
 fashion from zero starting at the left, or high-order, position.
 There are three NTP time formats, a 128-bit date format, a 64-bit
-timestamp format, and a 32-bit short format, as shown in Figure 3.
+timestamp format, and a 32-bit short format, as shown in Figure~\ref{ntp_time_formats}.
 The 128-bit date format is used where sufficient storage and word
 size are available. It includes a 64-bit signed seconds field
 spanning 584 billion years and a 64-bit fraction field resolving .05
@@ -45,7 +46,7 @@ result in the same or adjacent eras. Era 0 includes dates from the
 prime epoch to some time in 2036, when the timestamp field wraps
 around and the base date for era 1 is established. In either format,
 a value of zero is a special case representing unknown or
-unsynchronized time. Figure 4 shows a number of historic NTP dates
+unsynchronized time. Table~\ref{interesting_historic_ntp_dates} shows a number of historic NTP dates
 together with their corresponding Modified Julian Day (MJD), NTP era,
 and NTP timestamp.
 

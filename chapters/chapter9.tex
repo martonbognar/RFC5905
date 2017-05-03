@@ -1,4 +1,5 @@
 \chapter{Peer Process}
+\label{section-9}
 
 The process descriptions to follow include a listing of the important
 state variables followed by an overview of the process operations
@@ -18,6 +19,7 @@ packets. There is a peer process, poll process, and association
 process for each server.
 
 \section{Peer Process Variables}
+\label{section-9-1}
 
 Figures 16, 17, 18, and 19 summarize the common names, formula names,
 and a short description of the peer variables. The common names and
@@ -124,22 +126,23 @@ verify the MAC. The client and server or peer can use different
 values, but they must map to the same key.
 \end{description}
 
-The variables defined in Figure 17 are updated from the packet header
+The variables defined in Table~\ref{peer_process_packet_variables} are updated from the packet header
 as each packet arrives. They are interpreted in the same way as the
 packet variables of the same names. It is convenient for later
 processing to convert the NTP short format packet values r.rootdelay
 and r.rootdisp to floating doubles as peer variables.
 
-The variables defined in Figure 18 include the timestamps exchanged
-by the on-wire protocol in Section 8. The t variable is the seconds
+The variables defined in Table~\ref{peer_process_timestamp_variables} include the timestamps exchanged
+by the on-wire protocol in Section~\ref{section-8}. The t variable is the seconds
 counter c.t associated with these values. The c.t variable is
-maintained by the clock-adjust process described in Section 12. It
+maintained by the clock-adjust process described in Section~\ref{section-12}. It
 counts the seconds since the service was started. The variables
-defined in Figure 19 include the statistics computed by the
-clock\_filter() routine described in Section 10. The tp variable is
+defined in Table~\ref{peer_process_statistics_variables} include the statistics computed by the
+clock\_filter() routine described in Section~\ref{section-10}. The tp variable is
 the seconds counter associated with these values.
 
 \section{Peer Process Operations}
+\label{section-9-2}
 
 The receive routine defines the process flow upon the arrival of a
 packet. An example is described by the receive() routine in
@@ -157,7 +160,7 @@ described in \cite{RFC1321} must be supported.
 
 Next, the association table is searched for matching source address
 and source port, for example, using the find\_assoc() routine in
-Appendix A.5.1. Figure 20 is a dispatch table where the columns
+Appendix A.5.1. Table~\ref{peer_dispatch_table} is a dispatch table where the columns
 correspond to the packet mode and rows correspond to the association
 mode. The intersection of the association and packet modes
 dispatches processing to one of the following steps.
@@ -199,7 +202,7 @@ Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
     it to the client without retaining state. The server packet header
     is constructed. An example is described by the fast\_xmit() routine
     in Appendix A.5.3. The packet header is assembled from the receive
-    packet and system variables as shown in Figure 21. If the
+    packet and system variables as shown in Table~\ref{receive_packet_header}. If the
     s.rootdelay and s.rootdisp system variables are stored in floating
     double, they must be converted to NTP short format first.
 
@@ -226,7 +229,7 @@ Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
 
     Note that, if authentication fails, the server returns a special
     message called a crypto-NAK. This message includes the normal NTP
-    header data shown in Figure 8, but with a MAC consisting of four
+    header data shown in Figure~\ref{packet_header_format}, but with a MAC consisting of four
     octets of zeros. The client MAY accept or reject the data in the
     message. After these actions, the peer process exits.
 
@@ -271,7 +274,7 @@ Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
 
   \item[PROC] This indicates a packet matching an existing association. The
     packet timestamps are carefully checked to avoid invalid, duplicate,
-    or bogus packets. Additional checks are summarized in Figure 22.
+    or bogus packets. Additional checks are summarized in Table~\ref{packet_error_checks}.
     Note that all packets, including a crypto-NAK, are considered valid
     only if they survive these tests.
 
@@ -297,15 +300,15 @@ Bcast Client 6 & DSCRD & DSCRD & DSCRD & DSCRD & PROC \\
 \end{description}
 
 Processing continues by copying the packet variables to the peer
-variables as shown in Figure 21. An example is described by the
+variables as shown in Table~\ref{receive_packet_header}. An example is described by the
 packet() routine in Appendix A.5.1.1. The receive() routine
-implements tests 1-5 in Figure 22; the packet() routine implements
+implements tests 1-5 in Table~\ref{packet_error_checks}; the packet() routine implements
 tests 6-7. If errors are found, the packet is discarded and the peer
 process exits.
 
 The on-wire protocol calculates the clock offset theta and round-trip
 delay $ \delta $ from the four most recent timestamps as described in
-Section 8. While it is, in principle, possible to do all
+Section~\ref{section-8}. While it is, in principle, possible to do all
 calculations except the first-order timestamp differences in fixed-
 point arithmetic, it is much easier to convert the first-order
 differences to floating doubles and do the remaining calculations in
@@ -313,7 +316,7 @@ that arithmetic, and this will be assumed in the following
 description.
 
 Next, the 8-bit p.reach shift register in the poll process described
-in Section 13 is used to determine whether the server is reachable
+in Section~\ref{section-13} is used to determine whether the server is reachable
 and the data are fresh. The register is shifted left by one bit when
 a packet is sent and the rightmost bit is set to zero. As valid
 packets arrive, the rightmost bit is set to one. If the register
@@ -332,8 +335,8 @@ $$
 $$
 
 when the measurement is made at $ t_0 $ according to the seconds counter.
-Here, r.rho is the packet precision described in Section 7.3 and
-s.rho is the system precision described in Section 11.1, both
+Here, r.rho is the packet precision described in Section~\ref{section-7-3} and
+s.rho is the system precision described in Section~\ref{section-11-1}, both
 expressed in seconds. These terms are necessary to account for the
 uncertainty in reading the system clock in both the server and the
 client.

@@ -1,9 +1,10 @@
 \chapter{Protocol Modes}
+\label{section-3}
 
 There are three NTP protocol variants: symmetric, client/server, and
 broadcast. Each is associated with an association mode (a
 description of the relationship between two NTP speakers) as shown in
-Table \ref{association_and_packet_modes}. In addition, persistent associations are mobilized upon
+Table~\ref{association_and_packet_modes}. In addition, persistent associations are mobilized upon
 startup and are never demobilized. Ephemeral associations are
 mobilized upon the arrival of a packet and are demobilized upon error
 or timeout.
@@ -77,6 +78,7 @@ subnet, so as to produce the most accurate and reliable time, even
 when there are failures in the timing network.
 
 \section{Dynamic Server Discovery}
+\label{section-3-1}
 
 There are two special associations, manycast client and manycast
 server, which provide a dynamic server discovery function. There are
@@ -106,7 +108,7 @@ needs.
 
 The ephemeral associations compete among themselves. As new
 ephemeral associations are mobilized, the client runs the mitigation
-algorithms described in Sections 10 and 11.2 for the best candidates
+algorithms described in Sections~\ref{section-10}~and~\ref{section-11-2} for the best candidates
 out of the population, the remaining ephemeral associations are timed
 out and demobilized. In this way, the population includes only the
 best candidates that have most recently responded with an NTP packet

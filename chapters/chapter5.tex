@@ -1,6 +1,7 @@
 \chapter{Implementation Model}
+\label{section-5}
 
-Figure \ref{implementation_model} shows the architecture of a typical, multi-threaded
+Figure~\ref{implementation_model} shows the architecture of a typical, multi-threaded
 implementation. It includes two processes dedicated to each server,
 a peer process to receive messages from the server or reference
 clock, and a poll process to transmit messages to the server or
@@ -15,7 +16,7 @@ reference clock.
 
 These processes operate on a common data structure, called an
 association, which contains the statistics described above along with
-various other data described in Section 9. A client sends packets to
+various other data described in Section~\ref{section-9}. A client sends packets to
 one or more servers and then processes returned packets when they are
 received. The server interchanges source and destination addresses
 and ports, overwrites certain fields in the packet and returns it
@@ -48,7 +49,7 @@ and maintain constant frequency. The RMS average of past time offset
 differences represents the nominal error or system clock jitter. The
 RMS average of past frequency offset differences represents the
 oscillator frequency stability or frequency wander. These terms are
-given precise interpretation in Section 11.3.
+given precise interpretation in Section~\ref{section-11-3}.
 
 A client sends messages to each server with a poll interval of $ 2^\tau $
 seconds, as determined by the poll exponent $ \tau $. In NTPv4, $ \tau $
@@ -76,4 +77,4 @@ clock discipline process uses the adjtime() function if the
 adjustment is less than a designated threshold, and the
 settimeofday() function if above the threshold. The manner in which
 this is done and the value of the threshold as described in
-Section 10.
+Section~\ref{section-10}.

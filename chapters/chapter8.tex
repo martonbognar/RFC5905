@@ -1,4 +1,5 @@
 \chapter{On-Wire Protocol}
+\label{section-8}
 
 The heart of the NTP on-wire protocol is the core mechanism that
 exchanges time values between servers, peers, and clients. It is
@@ -23,7 +24,7 @@ allocated multicast address may also be used in addition to these
 allocated multicast addresses.
 
 The on-wire protocol uses four timestamps numbered $ t1 $ through $ t4 $ and
-three state variables org, rec, and xmt, as shown in Figure 15. This
+three state variables org, rec, and xmt, as shown in Figure~\ref{on_wire_protocol}. This
 figure shows the most general case where each of two peers, $ A $ and $ B $,
 independently measure the offset and delay relative to the other.
 For purposes of illustration, the packet timestamps are shown in
@@ -98,7 +99,7 @@ if the frequency difference is 100 ppm and the interval $ T4 - T1 $ is 64
 s, the apparent delay is -6.4 ms. Since negative values are
 misleading in subsequent computations, the value of delta should be
 clamped not less than s.rho, where s.rho is the system precision
-described in Section 11.1, expressed in seconds.
+described in Section~\ref{section-11-1}, expressed in seconds.
 
 The discussion above assumes the most general case where two
 symmetric peers independently measure the offsets and delays between
@@ -106,7 +107,7 @@ them. In the case of a stateless server, the protocol can be
 simplified. A stateless server copies $ T3 $ and $ T4 $ from the client
 packet to $ T1 $ and $ T2 $ of the server packet and tacks on the transmit
 timestamp $ T3 $ before sending it to the client. Additional details for
-filling in the remaining protocol fields are given in a Section 9 and
+filling in the remaining protocol fields are given in a Section~\ref{section-9} and
 following sections and in the appendix.
 
 Note that the on-wire protocol as described resists replay of a

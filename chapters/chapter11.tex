@@ -1,4 +1,5 @@
 \chapter{System Process}
+\label{section-11}
 
 As each new sample ($ \theta $, $ \delta $, $ \epsilon $, jitter, $ t $) is produced by
 the clock filter algorithm, all peer processes are scanned by the
@@ -20,8 +21,9 @@ servers and clients and made available to other applications running
 on the same machine.
 
 \section{System Process Variables}
+\label{section-11-1}
 
-Figure 23 summarizes the common names, formula names, and a short
+Table~\ref{system_process_variables} summarizes the common names, formula names, and a short
 description of each system variable.  Unless noted otherwise, all
 variables have assumed prefix s.
 
@@ -60,7 +62,7 @@ next section.
 The t variable is the seconds counter at the time of the last update.
 An example is shown by the clock\_update() routine in
 Appendix A.5.5.4.  The p variable is the system peer identifier
-determined by the cluster() routine in Section 11.2.2.  The precision
+determined by the cluster() routine in Section~\ref{section-11-2-2}.  The precision
 variable has the same format as the packet variable of the same name.
 The precision is defined as the larger of the resolution and time to
 read the clock, in $ \log_2 $ units.  For instance, the precision of a
@@ -68,21 +70,22 @@ mains-frequency clock incrementing at 60 Hz is 16 ms, even when the
 system clock hardware representation is to the nanosecond.
 
 The offset and jitter variables are determined by the combine
-algorithm in Section 11.2.3.  These values represent the best and
+algorithm in Section~\ref{section-11-2-3}.  These values represent the best and
 final offset and jitter used to discipline the system clock.
 Initially, all variables are cleared to zero, then the leap is set to
 3 (unsynchronized) and stratum is set to MAXSTRAT (16).  Remember
 that MAXSTRAT is mapped to zero in the transmitted packet.
 
 \section{System Process Operations}
+\label{section-11-2}
 
-Figure 24 summarizes the system process operations performed by the
+Figure~\ref{clock_select_routine} summarizes the system process operations performed by the
 clock select routine.  The selection algorithm described in
-Section 11.2.1 produces a majority clique of presumed correct
+Section~\ref{section-11-2-1} produces a majority clique of presumed correct
 candidates (truechimers) based on agreement principles.  The cluster
-algorithm described in Section 11.2.2 discards outliers to produce
+algorithm described in Section~\ref{section-11-2-2} discards outliers to produce
 the most accurate survivors.  The combine algorithm described in
-Section 11.2.3 provides the best and final offset for the clock
+Section~\ref{section-11-2-3} provides the best and final offset for the clock
 discipline algorithm.  An example is described in Appendix A.5.5.6.
 If the selection algorithm cannot produce a majority clique, or if it
 cannot produce at least CMIN survivors, the system process exits
@@ -97,7 +100,8 @@ and its variables are inherited as the system variables.
 \label{clock_select_routine}
 \end{figure}
 
-\section{Selection Algorithm}
+\subsection{Selection Algorithm}
+\label{section-11-2-1}
 
 Note that the selection and cluster algorithms are described
 separately, but combined in the code skeleton.  The selection
@@ -168,7 +172,8 @@ Appendix A.5.1.1.  The steps of the algorithm are:
     default value for CMIN is one.
 \end{enumerate}
 
-\section{Cluster Algorithm}
+\subsection{Cluster Algorithm}
+\label{section-11-2-2}
 
 The candidates of the majority clique are placed on the survivor list
 v in the form of tuples (p, $ \theta_p $, $ \psi_p $, $ \lambda_p $), where p is an
@@ -217,7 +222,8 @@ number of survivors represent the terminating conditions of the
 algorithm.  Upon termination, the final value of $ \psi_max $ is saved as
 the system selection jitter $ \Psi_s $ for use later.
 
-\section{Combine Algorithm}
+\subsection{Combine Algorithm}
+\label{section-11-2-3}
 
 The clock combine route processes the remaining survivors to produce
 the best and final data for the clock discipline algorithm.  The
@@ -254,7 +260,7 @@ the client begins as at initial start.
 
 ADJ means the offset is less than the step threshold and thus a valid
 update.  In this case, the system variables are updated from the peer
-variables as shown in Figure 25.
+variables as shown in Table~\ref{system_variables_update}.
 
 \begin{table}[htb]
 \center
@@ -305,6 +311,7 @@ An example of the clock update routine is provided in
 Appendix A.5.5.4.
 
 \section{Clock Discipline Algorithm}
+\label{section-11-3}
 
 The NTPv4 clock discipline algorithm, shortened to discipline in the
 following, functions as a combination of two quite philosophically
@@ -321,7 +328,7 @@ the design principles is provided in \cite{ref7}, which also includes a
 performance analysis.
 
 The discipline is implemented as the feedback control system shown in
-Figure 26.  The variable $ \theta_r $ represents the combine algorithm
+Figure~\ref{clock_discipline_feedback_loop}.  The variable $ \theta_r $ represents the combine algorithm
 offset (reference phase) and $ \theta_c $ the VFO offset (control phase).
 Each update produces a signal $ V_d $ representing the instantaneous
 phase difference $ \theta_r $ - $ \theta_c $.  The clock filter for each server
@@ -331,7 +338,7 @@ combine algorithms combine the data from multiple filters to produce
 the signal $ V_s $.  The loop filter, with impulse response $ F(t) $,
 produces the signal $ V_c $, which controls the VFO frequency $ \omega_c $ and
 thus the integral of the phase $ \theta_c $ which closes the loop.  The
-$ V_c $ signal is generated by the clock-adjust process in Section 12.
+$ V_c $ signal is generated by the clock-adjust process in Section~\ref{section-12}.
 The detailed equations that implement these functions are best
 presented in the routines of Appendices A.5.5.6 and A.5.6.1.
 
@@ -353,7 +360,7 @@ in 15 minutes.  Another case is when occasional bursts of large
 jitter are present due to congested network links.  The state machine
 described below resists error bursts lasting less than 15 minutes.
 
-Figure 27 contains a summary of the variables and parameters
+Table~\ref{clock_discipline_variables_and_parameters} contains a summary of the variables and parameters
 including the variable (lowercase) or parameter (uppercase) name,
 formula name, and short description.  Unless noted otherwise, all
 variables have assumed prefix c.  The variables t, tc, state, hyster,
@@ -392,7 +399,7 @@ AVG    & 8          & averaging constant       \\
 
 The process terminates immediately if the offset is greater than the
 panic threshold PANICT (1000 s).  The state transition function is
-described by the rstclock() function in Appendix A.5.5.7.  Figure 28
+described by the rstclock() function in Appendix A.5.5.7.  Table~\ref{state_transition_function}
 shows the state transition function used by this routine.  It has
 four columns showing, respectively, the state name, predicate and
 action if the offset $ \theta $ is less than the step threshold, the
